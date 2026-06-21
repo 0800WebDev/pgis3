@@ -13,12 +13,7 @@ window.launchGame = function (game) {
   }
 
 if (mode === "same") {
-  document.body.innerHTML = `
-    <iframe
-      src="games/${game}.html"
-      style="width:100%;height:100vh;border:none;"
-    ></iframe>
-  `;
+  loadGame(game);
   return;
 }
 
