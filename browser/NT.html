@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <base href="/browser/">
-  
+  <base href="/browser/"></base>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zinc | New Tab</title>
+  <title>New Tab</title>
   
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
@@ -30,8 +30,8 @@
     .glass-panel {
   width: 90%;
   max-width: 700px;
-  background:rgba(255,255,255,0.06);
-  border:1px solid #444;
+  background: rgba(80, 80, 80, 0.35);
+    border:1px solid #444;
   border-radius:8px;
   backdrop-filter:blur(8px);
   padding:30px;
@@ -68,7 +68,7 @@
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-size:300% auto;
-  animation:chrome 20s ease-in-out infinite alternate;
+  animation:chrome 42s ease-in-out infinite alternate;
 }
 
 @keyframes chrome{
@@ -138,6 +138,9 @@
     .shortcut:hover { transform: translateY(-5px); }
 
     .shortcut-icon {
+      
+        color: #FAFAFA;
+      
         width: 50px;
         height: 50px;
         border: 2px solid #1a1a1a;
@@ -145,14 +148,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.1rem;
+        font-size: 1.3rem;
         background: rgba(255,255,255,0.3);
     }
 
     .shortcut-icon img { width: 24px; height: 24px; border-radius: 4px; }
-    .shortcut-label { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; text-align: center; }
+    .shortcut-label {color: #FAFAFA; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; text-align: center; }
 
-    .quote { margin-top: 30px; font-size: 0.9rem; font-style: italic; opacity: 0.7; }
+    .quote {color: white; margin-top: 30px; font-size: 0.9rem; font-style: italic; opacity: 0.7; }
 
     .loader {
         position: fixed;
@@ -173,6 +176,7 @@
         animation: spin 1s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+     .date { color: white;}
   </style>
 </head>
 
@@ -206,7 +210,7 @@
         <span class="shortcut-label">YouTube</span>
       </a>
       <a class="shortcut" data-url="https://open.spotify.com/">
-        <div class="shortcut-icon"><img src="https://open.spotify.com/favicon.ico"></div>
+        <div class="shortcut-icon"><img src="https://favicon.run/favicon?domain=open.spotify.com&sz=256"></div>
         <span class="shortcut-label">Spotify</span>
       </a>
       <a class="shortcut" data-url="https://pluto.tv/">
@@ -324,7 +328,7 @@
       });
     }
 
-    const quotes = ["Gaming Paradise", "Made by 0800", "Bro just do your work", "Best Browser awarded by me"];
+    const quotes = ["Gaming Paradise", "Made by 0800", "Bro just do your work", "Best Browser awarded by me", "better than nexus", "check out PGIS", "like nexus but better"];
     $('#quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
     renderCustom();
   </script>
