@@ -279,28 +279,15 @@ async function getGames() {
     games = await fetch("games.json").then(r => r.json());
   }
 
+  return games;
+}
 
 
-
-
-
-  
-  
 async function getApps() {
   return await fetch("apps.json").then(r => r.json());
 }
 
 
-
-
-
-
-  
-
-  
-  
-  return games;
-}
 
 if (currentGame) {
   (async () => {
