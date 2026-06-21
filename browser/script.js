@@ -815,6 +815,28 @@ async function checkHashParameters() {
 // MAIN INITIALIZATION
 // =====================================================
 document.addEventListener('DOMContentLoaded', async function () {
+
+
+
+
+    
+
+navigator.serviceWorker.addEventListener("message", async (event) => {
+    if (event.data?.type === "critical-error") {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        for (const reg of regs) {
+            await reg.unregister();
+        }
+        location.reload();
+    }
+});
+
+
+
+
+
+    
+    
     try {
         // Proactively find the best server before initializing
         await initializeWithBestServer();
