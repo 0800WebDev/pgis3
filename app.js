@@ -274,12 +274,8 @@ let games = [];
 const params = new URLSearchParams(location.search);
 const currentGame = params.get("lesson");
 
-async function getGames() {
-  if (!games.length) {
-    games = await fetch("games.json").then(r => r.json());
-  }
-
-  return games;
+async function getGames(type = "games") {
+  return await fetch(`${type}.json`).then(r => r.json());
 }
 
 
@@ -555,6 +551,7 @@ window.loadGames = async function (type = "games") {
       ${items.map(item => `
         <div class="gamediv">
           <b>${item}</b>
+          <img src="games/${item}.png">
           <button onclick="launchGame('${item}')">
             play
           </button>
