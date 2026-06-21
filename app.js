@@ -1,3 +1,52 @@
+const LAUNCH_MODE_KEY = "launchMode";
+
+function getLaunchMode() {
+  return localStorage.getItem(LAUNCH_MODE_KEY) || "default";
+}
+
+window.launchGame = function (game) {
+  const mode = getLaunchMode();
+
+  if (mode === "default") {
+    location.href = `?lesson=${encodeURIComponent(game)}`;
+    return;
+  }
+
+  if (mode === "same") {
+    history.pushState(
+      {},
+      "",
+      `?lesson=${encodeURIComponent(game)}`
+    );
+
+    location.reload();
+    return;
+  }
+
+  if (mode === "aboutblank") {
+    const win = window.open("about:blank");
+
+    if (!win) return;
+
+    const iframe = win.document.createElement("iframe");
+
+    iframe.src =
+      `${location.origin}${location.pathname}?lesson=${encodeURIComponent(game)}`;
+
+    iframe.style.width = "100%";
+    iframe.style.height = "100vh";
+    iframe.style.border = "none";
+
+    win.document.body.style.margin = "0";
+    win.document.body.appendChild(iframe);
+  }
+};
+
+
+
+
+
+
 const gamesEl = document.getElementById("games");
 
 let games = [];
@@ -280,9 +329,9 @@ window.loadGames = async function () {
         <div class="gamediv">
           <b>${game}</b>
           <img src="games/${game}.png" width="100" height="100">
-          <a href="?lesson=${encodeURIComponent(game)}">
-            <button>play</button>
-          </a>
+          <button onclick="launchGame('${game}')">
+  play
+</button>
         </div>
       `).join("")}
     </div>
@@ -348,6 +397,17 @@ window.settings = async function () {
     <h2>Theme</h2>
     <button id="themeToggle">Light Mode (beta)</button> <button id="particlesToggle">Particles</button>
     </div>
+
+<div class="settings">
+  <h2>Game Launch Mode</h2>
+
+  <select id="launchMode">
+    <option value="default">Default (?lesson=)</option>
+    <option value="same">Same URL</option>
+    <option value="aboutblank">About:blank</option>
+  </select>
+</div>
+    
     </div>
 <br><br>
 <details>
@@ -378,6 +438,12 @@ window.settings = async function () {
   
   updateToggleButton();
 
+const launchMode = document.getElementById("launchMode");
+
+if (launchMode) {
+  launchMode.value = getLaunchMode();
+}
+  
 };
 
 
@@ -834,5 +900,15 @@ document.addEventListener("click", (e) => {
   } catch (err) {
     alert("Error:\n" + err);
     console.error(err);
+  }
+});
+
+
+
+
+
+document.addEventListener("change", (e) => {
+  if (e.target?.id === "launchMode") {
+    localStorage.setItem(LAUNCH_MODE_KEY, e.target.value);
   }
 });
