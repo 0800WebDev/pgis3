@@ -279,6 +279,26 @@ async function getGames() {
     games = await fetch("games.json").then(r => r.json());
   }
 
+
+
+
+
+
+  
+  
+async function getApps() {
+  return await fetch("apps.json").then(r => r.json());
+}
+
+
+
+
+
+
+  
+
+  
+  
   return games;
 }
 
@@ -537,21 +557,20 @@ initBattery();
   })();
 }
 
-window.loadGames = async function () {
-  const games = await getGames();
+window.loadGames = async function (type = "games") {
+  const items = await getGames(type);
 
   const container = document.getElementById("games");
   if (!container) return;
 
   container.innerHTML = `
     <div id="cards2">
-      ${games.map(game => `
+      ${items.map(item => `
         <div class="gamediv">
-          <b>${game}</b>
-          <img src="games/${game}.png" width="100" height="100">
-          <button onclick="launchGame('${game}')">
-  play
-</button>
+          <b>${item}</b>
+          <button onclick="launchGame('${item}')">
+            play
+          </button>
         </div>
       `).join("")}
     </div>
