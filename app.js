@@ -13,7 +13,7 @@ window.launchGame = function (game) {
   }
 
 if (mode === "same") {
-  loadGame(game);
+  showGame(game);
   return;
 }
 
@@ -37,10 +37,12 @@ if (mode === "same") {
 };
 
 
+if (currentGame) {
+  showGame(currentGame);
+}
 
 
-
-
+async function showGame(game) {
 const gamesEl = document.getElementById("games");
 
 let games = [];
@@ -56,7 +58,6 @@ async function getGames() {
   return games;
 }
 
-if (currentGame) {
   (async () => {
     const games = await getGames();
 
