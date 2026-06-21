@@ -551,7 +551,7 @@ window.loadGames = async function (type = "games") {
       ${items.map(item => `
         <div class="gamediv">
           <b>${item}</b>
-          <img src="games/${item}.png">
+          <img src="games/${item}.png" width="100" height="100">
           <button onclick="launchGame('${item}')">
             play
           </button>
