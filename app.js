@@ -13,7 +13,21 @@ window.launchGame = function (game) {
   }
 
 if (mode === "same") {
-  showGame(game);
+  document.body.innerHTML = `
+
+<div style="text-align: left; margin: 0; padding: 20px; background: black; color: whitesmoke; font-family: Arial;">
+      <a href="/" style="color: white;">← Back to Homepage</a>
+      <a href="games/${game}.html" download style="margin-left: 12px;">Download game</a>
+      <h3 style="text-align: center;">PGIS</h3>
+    </div>
+  
+    <iframe
+      id="frame"
+      src="games/${game}.html"
+      style="height: 638px; width: 100%; max-width: 1500px; border: none; display: block; margin: 20px auto;"
+      title="game">
+    </iframe>
+  `;
   return;
 }
 
@@ -37,12 +51,10 @@ if (mode === "same") {
 };
 
 
-if (currentGame) {
-  showGame(currentGame);
-}
 
 
-async function showGame(game) {
+
+
 const gamesEl = document.getElementById("games");
 
 let games = [];
@@ -58,6 +70,7 @@ async function getGames() {
   return games;
 }
 
+if (currentGame) {
   (async () => {
     const games = await getGames();
 
@@ -907,3 +920,4 @@ document.addEventListener("change", (e) => {
     localStorage.setItem(LAUNCH_MODE_KEY, e.target.value);
   }
 });
+
