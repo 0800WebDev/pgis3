@@ -684,7 +684,11 @@ window.info = async function () {
       `;
 };
 
-
+window.movies = async function () {
+    document.getElementById("games").innerHTML = `
+      <iframe src="/movies.html"></iframe>
+      `;
+};
 
 
 window.test = async function () {
