@@ -27,7 +27,159 @@ if (mode === "same") {
       style="height: 638px; width: 100%; max-width: 1500px; border: none; display: block; margin: 20px auto;"
       title="game">
     </iframe>
+
+     <button
+      id="fullscreenBtn"
+      style="position: fixed; top: 20px; left: 330px; z-index: 999999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
+      Fullscreen
+    </button>
+
+    <button
+      id="aboutBlankBtn"
+      style="position: fixed; top: 20px; left: 410px; z-index: 999999; background: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px; border: medium; cursor: pointer;">
+      Open in about:blank
+    </button>
+
+    <button
+      id="cloakBtn"
+      style="position: fixed; top: 20px; left: 548px; z-index: 99999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
+      Cloak tab
+    </button>
   `;
+
+window.openFullscreen = function () {
+      const iframe = document.getElementById("frame");
+
+      if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+      } else if (iframe.webkitRequestFullscreen) {
+        iframe.webkitRequestFullscreen();
+      } else if (iframe.msRequestFullscreen) {
+        iframe.msRequestFullscreen();
+      }
+    };
+
+    document
+      .getElementById("fullscreenBtn")
+      .addEventListener("click", openFullscreen);
+
+    window.loadUrl = function () {
+      const win = window.open("about:blank");
+
+      if (!win) return;
+
+      win.document.open();
+      win.document.write(document.documentElement.outerHTML);
+      win.document.close();
+    };
+
+    document
+      .getElementById("aboutBlankBtn")
+      .addEventListener("click", loadUrl);
+
+    function cloakTab() {
+      const btn = document.getElementById("cloakBtn");
+
+      let toggled = false;
+
+      const originalTitle = document.title;
+
+      function setFavicon(url) {
+        let link =
+          document.querySelector("link[rel~='icon']") ||
+          document.createElement("link");
+
+        link.type = "image/x-icon";
+        link.rel = "icon";
+        link.href = url;
+
+        document.head.appendChild(link);
+      }
+
+      const originalFavicon =
+        document.querySelector("link[rel~='icon']")?.href || "";
+
+      btn.onclick = function () {
+        toggled = !toggled;
+
+        if (toggled) {
+          document.title = "Google Classroom";
+
+          setFavicon(
+            "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://staticin.pages.dev/settings&size=16"
+          );
+        } else {
+          document.title = originalTitle;
+          setFavicon(originalFavicon);
+        }
+      };
+    }
+
+    cloakTab();
+
+
+
+
+
+    
+
+//widgets start//
+
+//fps//
+(() => {
+    const fpsCounter = document.getElementById("fps-counter");
+
+    let frames = 0;
+    let lastTime = performance.now();
+
+    function loop(now) {
+        frames++;
+
+        if (now >= lastTime + 1000) {
+            const fps = Math.round((frames * 1000) / (now - lastTime));
+            fpsCounter.textContent = "FPS: " + fps;
+            frames = 0;
+            lastTime = now;
+        }
+
+        requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+})();
+
+//battery//
+
+
+async function initBattery() {
+  if (!navigator.getBattery) {
+    document.getElementById("batteryText").textContent = "N/A";
+    return;
+  }
+
+  const battery = await navigator.getBattery();
+
+  function update() {
+    const level = Math.round(battery.level * 100);
+
+    document.getElementById("batteryText").textContent = level + "%";
+
+    const fill = document.getElementById("batteryLevel");
+    fill.setAttribute("width", (level / 100) * 16.5);
+  }
+
+  update();
+
+  battery.addEventListener("levelchange", update);
+  battery.addEventListener("chargingchange", update);
+}
+
+initBattery();
+
+
+//widgets end//
+
+  
   return;
 }
 
