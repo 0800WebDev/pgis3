@@ -553,7 +553,7 @@ window.loadGames = async function (type = "games") {
           <b>${item}</b>
           <img src="games/${item}.png" width="100" height="100">
           <button onclick="launchGame('${item}')">
-            play
+            open
           </button>
         </div>
       `).join("")}
