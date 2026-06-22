@@ -254,13 +254,11 @@ position:relative;
 
 .game-item {
   opacity: 0;
-  transform: translateY(10px);
 }
 
 .game-item.show {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity 200ms ease;
 }
 
 
@@ -448,21 +446,14 @@ const observer = new MutationObserver((mutations) => {
     for (const node of mutation.addedNodes) {
       if (node.nodeType !== 1) continue;
 
-      // If full container wrapper is inserted, handle children too
       const targets = node.querySelectorAll
-        ? [node, ...node.querySelectorAll("*")]
+        ? [node, ...node.querySelectorAll(".gamediv")]
         : [node];
 
       for (const el of targets) {
-        if (!el.classList) continue;
-
-        // only target game items
-        if (!el.classList.contains("gamediv")) continue;
+        if (!el.classList || !el.classList.contains("gamediv")) continue;
 
         el.classList.add("game-item");
-
-        // force browser to register initial state
-        void el.offsetHeight;
 
         requestAnimationFrame(() => {
           el.classList.add("show");
@@ -472,7 +463,7 @@ const observer = new MutationObserver((mutations) => {
   }
 });
 
-observer.observe(games, {
+observer.observe(document.getElementById("games"), {
   childList: true,
   subtree: true
 });
