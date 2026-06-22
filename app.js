@@ -290,7 +290,7 @@ if (currentGame) {
     const games = await getGames();
 
     if (!games.includes(currentGame)) {
-      document.body.innerHTML = "Game not found";
+      document.body.innerHTML = "Game/App not found";
       throw new Error("Lesson not found");
     }
 
