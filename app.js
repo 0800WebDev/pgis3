@@ -1,3 +1,4 @@
+const currentGameType = params.get("type");
 const LAUNCH_MODE_KEY = "launchMode";
 
 function getLaunchMode() {
