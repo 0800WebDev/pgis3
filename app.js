@@ -1,4 +1,3 @@
-const currentGameType = params.get("type");
 const LAUNCH_MODE_KEY = "launchMode";
 
 function getLaunchMode() {
@@ -284,6 +283,7 @@ async function getApps() {
   return await fetch("apps.json").then(r => r.json());
 }
 
+const currentGameType = params.get("type");
 
 
 if (currentGame) {
