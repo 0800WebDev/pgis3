@@ -287,12 +287,28 @@ async function getApps() {
 
 if (currentGame) {
   (async () => {
-    const games = await getGames();
+    const [games, apps] = await Promise.all([
+      getGames(),
+      getApps()
+    ]);
 
-    if (!games.includes(currentGame)) {
-      document.body.innerHTML = "Game not found";
-      throw new Error("Lesson not found");
+    const allItems = [...games, ...apps];
+
+    if (!allItems.includes(currentGame)) {
+      document.body.innerHTML = "Not found";
+      throw new Error("Not found");
     }
+
+
+
+//if (currentGame) {
+//  (async () => {
+//    const games = await getGames();
+//
+//    if (!games.includes(currentGame)) {
+//      document.body.innerHTML = "Game not found";
+//      throw new Error("Lesson not found");
+//    }
 
     document.body.innerHTML = `
 <!--widgets-->
