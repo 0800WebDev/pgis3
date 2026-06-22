@@ -246,6 +246,36 @@ position:relative;
     margin: 20px;
     
   }
+
+
+
+
+
+
+
+.game-item {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.game-item.animate {
+  animation: fadeIn 180ms ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+
+
+  
 </style>
 </head>
 
@@ -287,31 +317,6 @@ position:relative;
   height: 24px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  .game-item {
-  opacity: 0;
-  transform: translateY(8px);
-  animation: popIn 180ms ease forwards;
-}
-
-@keyframes popIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 </style>
 
 <script>
@@ -451,14 +456,17 @@ const observer = new MutationObserver((mutations) => {
       if (node.nodeType !== 1) continue;
 
       node.classList.add("game-item");
+
+      requestAnimationFrame(() => {
+        node.classList.add("animate");
+      });
     }
   }
 });
 
-observer.observe(games, {
-  childList: true
-});
+observer.observe(games, { childList: true });
 
+  
 </script>
 
 
