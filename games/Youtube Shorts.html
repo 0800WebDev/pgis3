@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>YouTube Shorts</title>
+<style>
+  body {
+    margin: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  #player {
+    width: 360px;
+    height: 640px;
+  }
+  button {
+    position: fixed;
+    bottom: 20px;
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div id="player"></div>
+<button onclick="nextVideo()">Next</button>
+(might not work as expected, use the browser for the best experience.)
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+let player;
+let shorts = [];
+let played = new Set(); // keep track of videos already played
+let nextPageToken = null;
+
+// ===== CONFIG =====
+const API_KEY = "AIzaSyAGVdK3kXEJMbRfBvT6TwoL893CCkbi4HU"; 
+const SEARCH_QUERY = "fun shorts";      
+const MAX_RESULTS = 10;
+
+async function fetchShorts() {
+  try {
+    const url = new URL("https://www.googleapis.com/youtube/v3/search");
+    url.searchParams.set("part", "snippet");
+    url.searchParams.set("type", "video");
+    url.searchParams.set("q", SEARCH_QUERY);
+    url.searchParams.set("maxResults", MAX_RESULTS);
+    url.searchParams.set("videoDuration", "short"); 
+    if(nextPageToken) url.searchParams.set("pageToken", nextPageToken);
+    url.searchParams.set("key", API_KEY);
+
+    const res = await fetch(url);
+    const data = await res.json();
+    nextPageToken = data.nextPageToken;
+
+    // add new video IDs, filter out ones already played
+    const newShorts = data.items.map(item => item.id.videoId)
+                                .filter(id => !played.has(id));
+    shorts.push(...newShorts);
+
+    if(!player && shorts.length) loadPlayer();
+  } catch(err) {
+    console.error("Failed to fetch shorts:", err);
+    if(shorts.length === 0) shorts = ["dQw4w9WgXcQ","9bZkp7q19f0","3JZ_D3ELwOQ"];
+    if(!player) loadPlayer();
+  }
+}
+
+function loadPlayer() {
+  const nextId = getNextVideoId();
+  player = new YT.Player("player", {
+    videoId: nextId,
+    playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0, playsinline: 1 },
+    events: { onStateChange: onPlayerStateChange }
+  });
+}
+
+function getNextVideoId() {
+  // if all have been played, reset
+  if(played.size >= shorts.length) played.clear();
+
+  // pick the next video that hasn't played yet
+  const remaining = shorts.filter(id => !played.has(id));
+  const nextId = remaining[Math.floor(Math.random() * remaining.length)];
+  played.add(nextId);
+  return nextId;
+}
+
+function nextVideo() {
+  const nextId = getNextVideoId();
+
+  // pre-fetch more videos if close to end
+  if(shorts.length - played.size <= 2) fetchShorts();
+
+  player.loadVideoById(nextId);
+}
+
+function onPlayerStateChange(event) {
+  if(event.data === YT.PlayerState.ENDED) nextVideo();
+}
+
+function onYouTubeIframeAPIReady() {
+  fetchShorts();
+}
+
+</script>
+
+</body>
+</html>
+
