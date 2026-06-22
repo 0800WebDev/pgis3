@@ -14,232 +14,11 @@ window.launchGame = function (game) {
 
 if (mode === "same") {
   document.body.innerHTML = `
-
-<!--widgets-->
-  
-<div id="batteryWidget">
-  <svg viewBox="0 0 24 24" class="battery-icon">
-    <rect x="2" y="7" width="18" height="10" rx="2" ry="2"
-      fill="none" stroke="currentColor" stroke-width="2"/>
-    <rect id="batteryLevel" x="2.5" y="7" width="0" height="10"
-      fill="currentColor"/>
-    <rect x="20" y="10" width="2" height="4"
-      fill="currentColor"/>
-  </svg>
-
-  <span id="batteryText">--%</span>
-</div>
-
-<style>
-
-
-#batteryWidget {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: white;
-  font-family: sans-serif;
-  font-size: 14px;
-  z-index: 9999;
-}
-
-.battery-icon {
-  width: 24px;
-  height: 24px;
-}
-</style>
-
-<script>
-
-</script>
-  
-<div id="fps-counter">FPS: N/A</div>
-
-<style>
-#fps-counter{
-    position: fixed;
-  top: 35px;
-  right: 15px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: white;
-  font-family: sans-serif;
-  font-size: 14px;
-  z-index: 9999;
-}
-</style>
-
-
-
-<div style="text-align: left; margin: 0; padding: 20px; background: black; color: whitesmoke; font-family: Arial;">
-      <a href="/" style="color: white;">← Back to Homepage</a>
-      <a href="games/${game}.html" download style="margin-left: 12px;">Download game</a>
-      <h3 style="text-align: center;">PGIS</h3>
-    </div>
-  
     <iframe
-      id="frame"
       src="games/${game}.html"
-      style="height: 638px; width: 100%; max-width: 1500px; border: none; display: block; margin: 20px auto;"
-      title="game">
-    </iframe>
-
-     <button
-      id="fullscreenBtn"
-      style="position: fixed; top: 20px; left: 330px; z-index: 999999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
-      Fullscreen
-    </button>
-
-    <button
-      id="aboutBlankBtn"
-      style="position: fixed; top: 20px; left: 410px; z-index: 999999; background: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px; border: medium; cursor: pointer;">
-      Open in about:blank
-    </button>
-
-    <button
-      id="cloakBtn"
-      style="position: fixed; top: 20px; left: 548px; z-index: 99999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
-      Cloak tab
-    </button>
+      style="width:100%;height:100vh;border:none;"
+    ></iframe>
   `;
-
-window.openFullscreen = function () {
-      const iframe = document.getElementById("frame");
-
-      if (iframe.requestFullscreen) {
-        iframe.requestFullscreen();
-      } else if (iframe.webkitRequestFullscreen) {
-        iframe.webkitRequestFullscreen();
-      } else if (iframe.msRequestFullscreen) {
-        iframe.msRequestFullscreen();
-      }
-    };
-
-    document
-      .getElementById("fullscreenBtn")
-      .addEventListener("click", openFullscreen);
-
-    window.loadUrl = function () {
-      const win = window.open("about:blank");
-
-      if (!win) return;
-
-      win.document.open();
-      win.document.write(document.documentElement.outerHTML);
-      win.document.close();
-    };
-
-    document
-      .getElementById("aboutBlankBtn")
-      .addEventListener("click", loadUrl);
-
-    function cloakTab() {
-      const btn = document.getElementById("cloakBtn");
-
-      let toggled = false;
-
-      const originalTitle = document.title;
-
-      function setFavicon(url) {
-        let link =
-          document.querySelector("link[rel~='icon']") ||
-          document.createElement("link");
-
-        link.type = "image/x-icon";
-        link.rel = "icon";
-        link.href = url;
-
-        document.head.appendChild(link);
-      }
-
-      const originalFavicon =
-        document.querySelector("link[rel~='icon']")?.href || "";
-
-      btn.onclick = function () {
-        toggled = !toggled;
-
-        if (toggled) {
-          document.title = "Google Classroom";
-
-          setFavicon(
-            "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://staticin.pages.dev/settings&size=16"
-          );
-        } else {
-          document.title = originalTitle;
-          setFavicon(originalFavicon);
-        }
-      };
-    }
-
-    cloakTab();
-
-
-
-
-
-    
-
-//widgets start//
-
-//fps//
-(() => {
-    const fpsCounter = document.getElementById("fps-counter");
-
-    let frames = 0;
-    let lastTime = performance.now();
-
-    function loop(now) {
-        frames++;
-
-        if (now >= lastTime + 1000) {
-            const fps = Math.round((frames * 1000) / (now - lastTime));
-            fpsCounter.textContent = "FPS: " + fps;
-            frames = 0;
-            lastTime = now;
-        }
-
-        requestAnimationFrame(loop);
-    }
-
-    requestAnimationFrame(loop);
-})();
-
-//battery//
-
-
-async function initBattery() {
-  if (!navigator.getBattery) {
-    document.getElementById("batteryText").textContent = "N/A";
-    return;
-  }
-
-  const battery = await navigator.getBattery();
-
-  function update() {
-    const level = Math.round(battery.level * 100);
-
-    document.getElementById("batteryText").textContent = level + "%";
-
-    const fill = document.getElementById("batteryLevel");
-    fill.setAttribute("width", (level / 100) * 16.5);
-  }
-
-  update();
-
-  battery.addEventListener("levelchange", update);
-  battery.addEventListener("chargingchange", update);
-}
-
-initBattery();
-
-
-//widgets end//
-
-  
   return;
 }
 
@@ -274,27 +53,22 @@ let games = [];
 const params = new URLSearchParams(location.search);
 const currentGame = params.get("lesson");
 
-async function getGames(type = "games") {
-  return await fetch(`${type}.json`).then(r => r.json());
+async function getGames() {
+  if (!games.length) {
+    games = await fetch("games.json").then(r => r.json());
+  }
+
+  return games;
 }
 
+if (currentGame) {
+  (async () => {
+    const games = await getGames();
 
-async function getApps() {
-  return await fetch("apps.json").then(r => r.json());
-}
-
-//const currentGameType = params.get("type");
-
-
-//if (currentGame) {
-//  (async () => {
-//const type = currentGameType || "games";
-//const items = await getGames(type);
-//
-//if (!items.includes(currentGame)) {
-//      document.body.innerHTML = "Game/App not found";
-//      throw new Error("Lesson not found");
-//    }
+    if (!games.includes(currentGame)) {
+      document.body.innerHTML = "Game not found";
+      throw new Error("Lesson not found");
+    }
 
     document.body.innerHTML = `
 <!--widgets-->
@@ -542,21 +316,21 @@ initBattery();
   })();
 }
 
-window.loadGames = async function (type = "games") {
-  const items = await getGames(type);
+window.loadGames = async function () {
+  const games = await getGames();
 
   const container = document.getElementById("games");
   if (!container) return;
 
   container.innerHTML = `
     <div id="cards2">
-      ${items.map(item => `
+      ${games.map(game => `
         <div class="gamediv">
-          <b>${item}</b>
-          <img src="games/${item}.png" width="100" height="100">
-          <button onclick="launchGame('${item}')">
-            open
-          </button>
+          <b>${game}</b>
+          <img src="games/${game}.png" width="100" height="100">
+          <button onclick="launchGame('${game}')">
+  play
+</button>
         </div>
       `).join("")}
     </div>
@@ -585,7 +359,7 @@ window.Home = async function () {
 
 window.proxy = async function () {
     document.getElementById("games").innerHTML = `
-      <iframe id="browser" src="/browser/index.html"></iframe>
+      <iframe id="browser" style="width: 100%; height: 100vh;" src="https://homework--spmspy0800.replit.app"></iframe>
     `;
 };
 
@@ -686,11 +460,7 @@ window.info = async function () {
       `;
 };
 
-window.movies = async function () {
-    document.getElementById("games").innerHTML = `
-      <iframe src="/movies.html"></iframe>
-      `;
-};
+
 
 
 window.test = async function () {
