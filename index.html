@@ -286,6 +286,32 @@ position:relative;
   width: 24px;
   height: 24px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .game-item {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: popIn 180ms ease forwards;
+}
+
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>
 
 <script>
@@ -405,6 +431,51 @@ img.src=placeholder
 </script>
 
 
+
+
+
+
+
+
+
+  
+
+
+<script>
+  
+const games = document.getElementById("games");
+
+const observer = new MutationObserver((mutations) => {
+  for (const mutation of mutations) {
+    for (const node of mutation.addedNodes) {
+      if (node.nodeType !== 1) continue;
+
+      node.classList.add("game-item");
+    }
+  }
+});
+
+observer.observe(games, {
+  childList: true
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 
 <script type="module" src="app.js"></script>
