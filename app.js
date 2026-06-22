@@ -287,9 +287,10 @@ async function getApps() {
 
 if (currentGame) {
   (async () => {
-    const games = await getGames();
+const type = currentGameType || "games";
+const items = await getGames(type);
 
-    if (!games.includes(currentGame)) {
+if (!items.includes(currentGame)) {
       document.body.innerHTML = "Game/App not found";
       throw new Error("Lesson not found");
     }
