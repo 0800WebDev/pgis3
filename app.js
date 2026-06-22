@@ -283,18 +283,18 @@ async function getApps() {
   return await fetch("apps.json").then(r => r.json());
 }
 
-const currentGameType = params.get("type");
+//const currentGameType = params.get("type");
 
 
-if (currentGame) {
-  (async () => {
-const type = currentGameType || "games";
-const items = await getGames(type);
-
-if (!items.includes(currentGame)) {
-      document.body.innerHTML = "Game/App not found";
-      throw new Error("Lesson not found");
-    }
+//if (currentGame) {
+//  (async () => {
+//const type = currentGameType || "games";
+//const items = await getGames(type);
+//
+//if (!items.includes(currentGame)) {
+//      document.body.innerHTML = "Game/App not found";
+//      throw new Error("Lesson not found");
+//    }
 
     document.body.innerHTML = `
 <!--widgets-->
