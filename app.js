@@ -583,7 +583,7 @@ window.Home = async function () {
 
 window.proxy = async function () {
     document.getElementById("games").innerHTML = `
-      <iframe id="browser" style="width: 100%; height: 100vh;" src="/browser/index.html"></iframe>
+      <iframe id="browser" src="/browser/index.html"></iframe>
     `;
 };
 
