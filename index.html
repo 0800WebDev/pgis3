@@ -390,7 +390,31 @@ initBattery();
 <p id="splash"></p>
 </div>
 
-  
+<script>
+async function loadSplash() {
+    const splashEl = document.getElementById("splash");
+    const time = new Date().getHours();
+
+    const randomSentences = await fetch("splash.json")
+        .then(r => r.json());
+
+    let splash = "";
+
+    if (Math.random() < 0.5) {
+        const randomIndex = Math.floor(Math.random() * randomSentences.length);
+        splash = randomSentences[randomIndex];
+    } else {
+        if (time < 6) splash = "A bit late?";
+        else if (time < 12) splash = "Good morning!";
+        else if (time < 18) splash = "Ready to play?";
+        else splash = "Still playing?";
+    }
+
+    splashEl.textContent = splash;
+}
+
+loadSplash();
+</script>
   
 <div id="menu"><button onclick="Home()" id="home"><img src="/assets/home.png" class="icon"></button> <button onclick="loadGames('games')"><img src="/assets/games.png" class="icon"></button> <button onclick="proxy()"><img src="/assets/proxy.png" class="icon"></button> <button onclick="chat()"><img src="/assets/chat.png" class="icon"></button> <button onclick="loadGames('apps')"><img src="/assets/apps.png" class="icon"></button> <button onclick="movies()" id="home"><img src="/assets/movies.png" class="icon"></button> <button onclick="settings()"><img src="/assets/settings.png" class="icon"></button> <button onclick="info()"><img src="/assets/info.png" class="icon"></button></div>
 <div id="bottom"></div>
