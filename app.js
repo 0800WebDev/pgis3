@@ -593,7 +593,7 @@ window.Home = async function () {
   document.getElementById("games").innerHTML =
     doc.getElementById("games").innerHTML;
 
-
+loadSplash();
  
 };
 
