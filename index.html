@@ -268,7 +268,18 @@ position:relative;
   cursor: pointer;
 }
 
+.mainBtn {
+  display:flex;
+  margin:25px auto 0;
+  padding:12px 35px;
+  background:#444;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:16px;
 
+}
   
 </style>
 </head>
@@ -392,6 +403,7 @@ initBattery();
 <div id="games">
 <h1 Id="main-text">PGIS <b>3</b></h1>
 <p id="splash" onclick="loadSplash()">Loading splash...</p>
+  <button class="mainBtn" onclick="loadGames('games')">Play</button> 
 </div>
 
 <script>
