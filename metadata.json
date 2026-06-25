@@ -1,0 +1,18 @@
+{
+  "Slope": {
+    "genre": "Arcade",
+    "popularScore": 12
+  },
+  "Geometry Dash": {
+    "genre": "Platformer",
+    "popularScore": 45
+  },
+  "Drive Mad": {
+    "genre": "Puzzle",
+    "popularScore": 10
+  },
+   "Brotato": {
+    "genre": "Action",
+    "popularScore": 8
+  }
+}
