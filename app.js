@@ -192,24 +192,17 @@ const counter = document.getElementById("fps-counter");
 let frames = 0;
 let last = performance.now();
 
-// decide target window ONCE
-let targetWindow = null;
-
-function resolveWindow() {
+function getRAFWindow() {
     try {
         if (iframe && iframe.contentWindow) {
-            // test access (cross-origin will throw)
             void iframe.contentWindow.location.href;
             return iframe.contentWindow;
         }
     } catch {
-        return null;
+        return window;
     }
-
     return window;
 }
-
-targetWindow = resolveWindow();
 
 function loop(now) {
     frames++;
@@ -224,19 +217,17 @@ function loop(now) {
         last = now;
     }
 
-    targetWindow.requestAnimationFrame(loop);
+    getRAFWindow().requestAnimationFrame(loop);
 }
 
 if (iframe?.addEventListener) {
     iframe.addEventListener("load", () => {
-        // re-evaluate after load (important for reliability)
-        targetWindow = resolveWindow();
-        last = performance.now();
         frames = 0;
+        last = performance.now();
     });
 }
 
-targetWindow.requestAnimationFrame(loop);
+getRAFWindow().requestAnimationFrame(loop);
   
 //battery//
 
@@ -522,31 +513,23 @@ if (currentGame) {
 
 //fps//
 const iframe = document.getElementById("frame");
-const counter = document.getElementById("fps-counter");
 const iframe = document.getElementById("frame");
 const counter = document.getElementById("fps-counter");
 
 let frames = 0;
 let last = performance.now();
 
-// decide target window ONCE
-let targetWindow = null;
-
-function resolveWindow() {
+function getRAFWindow() {
     try {
         if (iframe && iframe.contentWindow) {
-            // test access (cross-origin will throw)
             void iframe.contentWindow.location.href;
             return iframe.contentWindow;
         }
     } catch {
-        return null;
+        return window;
     }
-
     return window;
 }
-
-targetWindow = resolveWindow();
 
 function loop(now) {
     frames++;
@@ -561,20 +544,17 @@ function loop(now) {
         last = now;
     }
 
-    targetWindow.requestAnimationFrame(loop);
+    getRAFWindow().requestAnimationFrame(loop);
 }
 
 if (iframe?.addEventListener) {
     iframe.addEventListener("load", () => {
-        // re-evaluate after load (important for reliability)
-        targetWindow = resolveWindow();
-        last = performance.now();
         frames = 0;
+        last = performance.now();
     });
 }
 
-targetWindow.requestAnimationFrame(loop);
-
+getRAFWindow().requestAnimationFrame(loop);
 //battery//
 
 
