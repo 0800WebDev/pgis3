@@ -189,45 +189,44 @@ window.openFullscreen = function () {
 const iframe = document.getElementById("frame");
 const counter = document.getElementById("fps-counter");
 
-let frames = 0;
 let last = performance.now();
-
-function getRAFWindow() {
-    try {
-        if (iframe && iframe.contentWindow) {
-            void iframe.contentWindow.location.href;
-            return iframe.contentWindow;
-        }
-    } catch {
-        return window;
-    }
-    return window;
-}
+let frames = 0;
 
 function loop(now) {
-    frames++;
+    let win;
 
-    const delta = now - last;
-
-    if (delta >= 500) {
-        const fps = Math.round((frames * 1000) / delta);
-        counter.textContent = "FPS: " + fps;
-
-        frames = 0;
-        last = now;
+    try {
+        win = iframe?.contentWindow;
+        void win?.location?.href;
+    } catch {
+        win = null;
     }
 
-    getRAFWindow().requestAnimationFrame(loop);
+    const activeWin = win || window;
+
+    if (document.hasFocus()) {
+        frames++;
+
+        const delta = now - last;
+
+        if (delta >= 500) {
+            const fps = Math.round((frames * 1000) / delta);
+            counter.textContent = "FPS: " + fps;
+
+            frames = 0;
+            last = now;
+        }
+    }
+
+    activeWin.requestAnimationFrame(loop);
 }
 
-if (iframe?.addEventListener) {
-    iframe.addEventListener("load", () => {
-        frames = 0;
-        last = performance.now();
-    });
-}
+iframe.addEventListener("load", () => {
+    last = performance.now();
+    frames = 0;
+});
 
-getRAFWindow().requestAnimationFrame(loop);
+requestAnimationFrame(loop);
   
 //battery//
 
@@ -513,48 +512,47 @@ if (currentGame) {
 
 //fps//
 const iframe = document.getElementById("frame");
-const iframe = document.getElementById("frame");
 const counter = document.getElementById("fps-counter");
 
-let frames = 0;
 let last = performance.now();
-
-function getRAFWindow() {
-    try {
-        if (iframe && iframe.contentWindow) {
-            void iframe.contentWindow.location.href;
-            return iframe.contentWindow;
-        }
-    } catch {
-        return window;
-    }
-    return window;
-}
+let frames = 0;
 
 function loop(now) {
-    frames++;
+    let win;
 
-    const delta = now - last;
-
-    if (delta >= 500) {
-        const fps = Math.round((frames * 1000) / delta);
-        counter.textContent = "FPS: " + fps;
-
-        frames = 0;
-        last = now;
+    try {
+        win = iframe?.contentWindow;
+        void win?.location?.href;
+    } catch {
+        win = null;
     }
 
-    getRAFWindow().requestAnimationFrame(loop);
+    const activeWin = win || window;
+
+    if (document.hasFocus()) {
+        frames++;
+
+        const delta = now - last;
+
+        if (delta >= 500) {
+            const fps = Math.round((frames * 1000) / delta);
+            counter.textContent = "FPS: " + fps;
+
+            frames = 0;
+            last = now;
+        }
+    }
+
+    activeWin.requestAnimationFrame(loop);
 }
 
-if (iframe?.addEventListener) {
-    iframe.addEventListener("load", () => {
-        frames = 0;
-        last = performance.now();
-    });
-}
+iframe.addEventListener("load", () => {
+    last = performance.now();
+    frames = 0;
+});
 
-getRAFWindow().requestAnimationFrame(loop);
+requestAnimationFrame(loop);
+    
 //battery//
 
 
