@@ -188,24 +188,37 @@ window.openFullscreen = function () {
 //fps//
 (() => {
     const fpsCounter = document.getElementById("fps-counter");
+    const iframe = document.querySelector("iframe");
 
-    let frames = 0;
-    let lastTime = performance.now();
+    if (!iframe) return;
 
-    function loop(now) {
-        frames++;
+    function start() {
+        const win = iframe.contentWindow;
 
-        if (now >= lastTime + 1000) {
-            const fps = Math.round((frames * 1000) / (now - lastTime));
-            fpsCounter.textContent = "FPS: " + fps;
-            frames = 0;
-            lastTime = now;
+        let frames = 0;
+        let lastTime = win.performance.now();
+
+        function loop(now) {
+            frames++;
+
+            const elapsed = now - lastTime;
+            if (elapsed >= 500) {
+                fpsCounter.textContent = "FPS: " + Math.round(frames * 1000 / elapsed);
+                frames = 0;
+                lastTime = now;
+            }
+
+            win.requestAnimationFrame(loop);
         }
 
-        requestAnimationFrame(loop);
+        win.requestAnimationFrame(loop);
     }
 
-    requestAnimationFrame(loop);
+    if (iframe.contentDocument?.readyState === "complete") {
+        start();
+    } else {
+        iframe.addEventListener("load", start, { once: true });
+    }
 })();
 
 //battery//
@@ -493,24 +506,37 @@ if (currentGame) {
 //fps//
 (() => {
     const fpsCounter = document.getElementById("fps-counter");
+    const iframe = document.querySelector("iframe");
 
-    let frames = 0;
-    let lastTime = performance.now();
+    if (!iframe) return;
 
-    function loop(now) {
-        frames++;
+    function start() {
+        const win = iframe.contentWindow;
 
-        if (now >= lastTime + 1000) {
-            const fps = Math.round((frames * 1000) / (now - lastTime));
-            fpsCounter.textContent = "FPS: " + fps;
-            frames = 0;
-            lastTime = now;
+        let frames = 0;
+        let lastTime = win.performance.now();
+
+        function loop(now) {
+            frames++;
+
+            const elapsed = now - lastTime;
+            if (elapsed >= 500) {
+                fpsCounter.textContent = "FPS: " + Math.round(frames * 1000 / elapsed);
+                frames = 0;
+                lastTime = now;
+            }
+
+            win.requestAnimationFrame(loop);
         }
 
-        requestAnimationFrame(loop);
+        win.requestAnimationFrame(loop);
     }
 
-    requestAnimationFrame(loop);
+    if (iframe.contentDocument?.readyState === "complete") {
+        start();
+    } else {
+        iframe.addEventListener("load", start, { once: true });
+    }
 })();
 
 //battery//
