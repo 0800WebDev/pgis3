@@ -186,13 +186,15 @@ window.openFullscreen = function () {
 //widgets start//
 
 //fps//
-const iframe = document.getElementById("frame");
-const iframe = document.getElementById("frame");
+function startFPS() {
+    const iframe = document.getElementById("frame");
+    const fpsCounter = document.getElementById("fps-counter");
 
-iframe.addEventListener("load", () => {
-    iframe.contentWindow.eval(`
-        if (!window.__fpsCounter) {
-            window.__fpsCounter = { fps: 0 };
+    const win = iframe.contentWindow;
+
+    win.eval(`
+        if (!window.__fpsActive) {
+            window.__fpsActive = true;
 
             let frames = 0;
             let last = performance.now();
@@ -201,7 +203,7 @@ iframe.addEventListener("load", () => {
                 frames++;
 
                 if (now - last >= 500) {
-                    window.__fpsCounter.fps = Math.round(frames * 1000 / (now - last));
+                    window.__fpsValue = Math.round(frames * 1000 / (now - last));
                     frames = 0;
                     last = now;
                 }
@@ -213,12 +215,18 @@ iframe.addEventListener("load", () => {
         }
     `);
 
-    const fpsCounter = document.getElementById("fps-counter");
-
     setInterval(() => {
-        fpsCounter.textContent = "FPS: " + iframe.contentWindow.__fpsCounter.fps;
+        fpsCounter.textContent = "FPS: " + (win.__fpsValue ?? "N/A");
     }, 100);
-});
+}
+
+const iframe = document.getElementById("frame");
+
+if (iframe.contentDocument?.readyState === "complete") {
+    startFPS();
+} else {
+    iframe.addEventListener("load", startFPS, { once: true });
+}
   
 //battery//
 
@@ -503,12 +511,15 @@ if (currentGame) {
 //widgets start//
 
 //fps//
-const iframe = document.getElementById("frame");
+function startFPS() {
+    const iframe = document.getElementById("frame");
+    const fpsCounter = document.getElementById("fps-counter");
 
-iframe.addEventListener("load", () => {
-    iframe.contentWindow.eval(`
-        if (!window.__fpsCounter) {
-            window.__fpsCounter = { fps: 0 };
+    const win = iframe.contentWindow;
+
+    win.eval(`
+        if (!window.__fpsActive) {
+            window.__fpsActive = true;
 
             let frames = 0;
             let last = performance.now();
@@ -517,7 +528,7 @@ iframe.addEventListener("load", () => {
                 frames++;
 
                 if (now - last >= 500) {
-                    window.__fpsCounter.fps = Math.round(frames * 1000 / (now - last));
+                    window.__fpsValue = Math.round(frames * 1000 / (now - last));
                     frames = 0;
                     last = now;
                 }
@@ -529,12 +540,18 @@ iframe.addEventListener("load", () => {
         }
     `);
 
-    const fpsCounter = document.getElementById("fps-counter");
-
     setInterval(() => {
-        fpsCounter.textContent = "FPS: " + iframe.contentWindow.__fpsCounter.fps;
+        fpsCounter.textContent = "FPS: " + (win.__fpsValue ?? "N/A");
     }, 100);
-});
+}
+
+const iframe = document.getElementById("frame");
+
+if (iframe.contentDocument?.readyState === "complete") {
+    startFPS();
+} else {
+    iframe.addEventListener("load", startFPS, { once: true });
+}
 
 //battery//
 
