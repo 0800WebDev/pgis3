@@ -193,18 +193,10 @@ let last = performance.now();
 let frames = 0;
 
 function loop(now) {
-    let win;
+    const win = iframe.contentWindow;
 
-    try {
-        win = iframe?.contentWindow;
-        void win?.location?.href;
-    } catch {
-        win = null;
-    }
-
-    const activeWin = win || window;
-
-    if (document.hasFocus()) {
+    // Only count when iframe is active and accessible
+    if (win && document.hasFocus()) {
         frames++;
 
         const delta = now - last;
@@ -218,7 +210,7 @@ function loop(now) {
         }
     }
 
-    activeWin.requestAnimationFrame(loop);
+    requestAnimationFrame(loop);
 }
 
 iframe.addEventListener("load", () => {
@@ -518,18 +510,10 @@ let last = performance.now();
 let frames = 0;
 
 function loop(now) {
-    let win;
+    const win = iframe.contentWindow;
 
-    try {
-        win = iframe?.contentWindow;
-        void win?.location?.href;
-    } catch {
-        win = null;
-    }
-
-    const activeWin = win || window;
-
-    if (document.hasFocus()) {
+    // Only count when iframe is active and accessible
+    if (win && document.hasFocus()) {
         frames++;
 
         const delta = now - last;
@@ -543,7 +527,7 @@ function loop(now) {
         }
     }
 
-    activeWin.requestAnimationFrame(loop);
+    requestAnimationFrame(loop);
 }
 
 iframe.addEventListener("load", () => {
