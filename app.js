@@ -187,35 +187,39 @@ window.openFullscreen = function () {
 
 //fps//
 const iframe = document.getElementById("frame");
+const iframe = document.getElementById("frame");
 
-iframe.contentWindow.eval(`
-    if (!window.__fpsCounter) {
-        window.__fpsCounter = { fps: 0 };
+iframe.addEventListener("load", () => {
+    iframe.contentWindow.eval(`
+        if (!window.__fpsCounter) {
+            window.__fpsCounter = { fps: 0 };
 
-        let frames = 0;
-        let last = performance.now();
+            let frames = 0;
+            let last = performance.now();
 
-        function loop(now) {
-            frames++;
+            function loop(now) {
+                frames++;
 
-            if (now - last >= 500) {
-                window.__fpsCounter.fps = Math.round(frames * 1000 / (now - last));
-                frames = 0;
-                last = now;
+                if (now - last >= 500) {
+                    window.__fpsCounter.fps = Math.round(frames * 1000 / (now - last));
+                    frames = 0;
+                    last = now;
+                }
+
+                requestAnimationFrame(loop);
             }
 
             requestAnimationFrame(loop);
         }
+    `);
 
-        requestAnimationFrame(loop);
-    }
-`);
+    const fpsCounter = document.getElementById("fps-counter");
 
-const fpsCounter = document.getElementById("fps-counter");
-
-setInterval(() => {
-    fpsCounter.textContent = "FPS: " + iframe.contentWindow.__fpsCounter.fps;
-}, 100);
+    setInterval(() => {
+        fpsCounter.textContent = "FPS: " + iframe.contentWindow.__fpsCounter.fps;
+    }, 100);
+});
+  
 //battery//
 
 
@@ -499,37 +503,38 @@ if (currentGame) {
 //widgets start//
 
 //fps//
-(() => {
 const iframe = document.getElementById("frame");
 
-iframe.contentWindow.eval(`
-    if (!window.__fpsCounter) {
-        window.__fpsCounter = { fps: 0 };
+iframe.addEventListener("load", () => {
+    iframe.contentWindow.eval(`
+        if (!window.__fpsCounter) {
+            window.__fpsCounter = { fps: 0 };
 
-        let frames = 0;
-        let last = performance.now();
+            let frames = 0;
+            let last = performance.now();
 
-        function loop(now) {
-            frames++;
+            function loop(now) {
+                frames++;
 
-            if (now - last >= 500) {
-                window.__fpsCounter.fps = Math.round(frames * 1000 / (now - last));
-                frames = 0;
-                last = now;
+                if (now - last >= 500) {
+                    window.__fpsCounter.fps = Math.round(frames * 1000 / (now - last));
+                    frames = 0;
+                    last = now;
+                }
+
+                requestAnimationFrame(loop);
             }
 
             requestAnimationFrame(loop);
         }
+    `);
 
-        requestAnimationFrame(loop);
-    }
-`);
+    const fpsCounter = document.getElementById("fps-counter");
 
-const fpsCounter = document.getElementById("fps-counter");
-
-setInterval(() => {
-    fpsCounter.textContent = "FPS: " + iframe.contentWindow.__fpsCounter.fps;
-}, 100);
+    setInterval(() => {
+        fpsCounter.textContent = "FPS: " + iframe.contentWindow.__fpsCounter.fps;
+    }, 100);
+});
 
 //battery//
 
