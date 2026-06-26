@@ -188,20 +188,11 @@ window.openFullscreen = function () {
 //fps//
 const FPS = (() => {
     let iframe = null;
-    let fpsCounter = null;
+    let counter = null;
     let started = false;
 
-    function init(targetIframe, counterEl) {
-        iframe = targetIframe;
-        fpsCounter = counterEl;
-
-        start();
-    }
-
     function start() {
-        if (started) return;
-        if (!iframe?.contentWindow) return;
-
+        if (started || !iframe?.contentWindow) return;
         started = true;
 
         const win = iframe.contentWindow;
@@ -230,23 +221,25 @@ const FPS = (() => {
         `);
 
         setInterval(() => {
-            if (!fpsCounter) return;
-            fpsCounter.textContent = "FPS: " + (win.__fpsValue ?? "N/A");
+            counter.textContent = "FPS: " + (win.__fpsValue ?? "N/A");
         }, 100);
     }
 
     function attach(iframeEl, counterEl) {
-        if (iframeEl.contentDocument?.readyState === "complete") {
-            init(iframeEl, counterEl);
+        iframe = iframeEl;
+        counter = counterEl;
+
+        const tryStart = () => start();
+
+        if (iframe.contentDocument?.readyState === "complete") {
+            tryStart();
         } else {
-            iframeEl.addEventListener("load", () => init(iframeEl, counterEl), { once: true });
+            iframe.addEventListener("load", tryStart, { once: true });
         }
     }
 
     return { attach };
 })();
-
-export default FPS;
   
 //battery//
 
@@ -533,20 +526,11 @@ if (currentGame) {
 //fps//
 const FPS = (() => {
     let iframe = null;
-    let fpsCounter = null;
+    let counter = null;
     let started = false;
 
-    function init(targetIframe, counterEl) {
-        iframe = targetIframe;
-        fpsCounter = counterEl;
-
-        start();
-    }
-
     function start() {
-        if (started) return;
-        if (!iframe?.contentWindow) return;
-
+        if (started || !iframe?.contentWindow) return;
         started = true;
 
         const win = iframe.contentWindow;
@@ -575,23 +559,25 @@ const FPS = (() => {
         `);
 
         setInterval(() => {
-            if (!fpsCounter) return;
-            fpsCounter.textContent = "FPS: " + (win.__fpsValue ?? "N/A");
+            counter.textContent = "FPS: " + (win.__fpsValue ?? "N/A");
         }, 100);
     }
 
     function attach(iframeEl, counterEl) {
-        if (iframeEl.contentDocument?.readyState === "complete") {
-            init(iframeEl, counterEl);
+        iframe = iframeEl;
+        counter = counterEl;
+
+        const tryStart = () => start();
+
+        if (iframe.contentDocument?.readyState === "complete") {
+            tryStart();
         } else {
-            iframeEl.addEventListener("load", () => init(iframeEl, counterEl), { once: true });
+            iframe.addEventListener("load", tryStart, { once: true });
         }
     }
 
     return { attach };
 })();
-
-export default FPS;
 
 //battery//
 
