@@ -192,46 +192,51 @@ const counter = document.getElementById("fps-counter");
 let frames = 0;
 let last = performance.now();
 
-function updateLabel(fps) {
-    counter.textContent = "FPS: " + fps;
-}
+// decide target window ONCE
+let targetWindow = null;
 
-function getTargetWindow() {
+function resolveWindow() {
     try {
-        if (iframe?.contentWindow) return iframe.contentWindow;
+        if (iframe && iframe.contentWindow) {
+            // test access (cross-origin will throw)
+            void iframe.contentWindow.location.href;
+            return iframe.contentWindow;
+        }
     } catch {
         return null;
     }
-    return null;
+
+    return window;
 }
+
+targetWindow = resolveWindow();
 
 function loop(now) {
     frames++;
-
-    const win = getTargetWindow();
-
-    // fallback: if iframe is not usable, measure current page instead
-    const activeWindow = win || window;
 
     const delta = now - last;
 
     if (delta >= 500) {
         const fps = Math.round((frames * 1000) / delta);
-        updateLabel(fps);
+        counter.textContent = "FPS: " + fps;
 
         frames = 0;
         last = now;
     }
 
-    activeWindow.requestAnimationFrame(loop);
+    targetWindow.requestAnimationFrame(loop);
 }
 
-iframe?.addEventListener?.("load", () => {
-    last = performance.now();
-    frames = 0;
-});
+if (iframe?.addEventListener) {
+    iframe.addEventListener("load", () => {
+        // re-evaluate after load (important for reliability)
+        targetWindow = resolveWindow();
+        last = performance.now();
+        frames = 0;
+    });
+}
 
-requestAnimationFrame(loop);
+targetWindow.requestAnimationFrame(loop);
   
 //battery//
 
@@ -518,50 +523,57 @@ if (currentGame) {
 //fps//
 const iframe = document.getElementById("frame");
 const counter = document.getElementById("fps-counter");
+const iframe = document.getElementById("frame");
+const counter = document.getElementById("fps-counter");
 
 let frames = 0;
 let last = performance.now();
 
-function updateLabel(fps) {
-    counter.textContent = "FPS: " + fps;
-}
+// decide target window ONCE
+let targetWindow = null;
 
-function getTargetWindow() {
+function resolveWindow() {
     try {
-        if (iframe?.contentWindow) return iframe.contentWindow;
+        if (iframe && iframe.contentWindow) {
+            // test access (cross-origin will throw)
+            void iframe.contentWindow.location.href;
+            return iframe.contentWindow;
+        }
     } catch {
         return null;
     }
-    return null;
+
+    return window;
 }
+
+targetWindow = resolveWindow();
 
 function loop(now) {
     frames++;
-
-    const win = getTargetWindow();
-
-    // fallback: if iframe is not usable, measure current page instead
-    const activeWindow = win || window;
 
     const delta = now - last;
 
     if (delta >= 500) {
         const fps = Math.round((frames * 1000) / delta);
-        updateLabel(fps);
+        counter.textContent = "FPS: " + fps;
 
         frames = 0;
         last = now;
     }
 
-    activeWindow.requestAnimationFrame(loop);
+    targetWindow.requestAnimationFrame(loop);
 }
 
-iframe?.addEventListener?.("load", () => {
-    last = performance.now();
-    frames = 0;
-});
+if (iframe?.addEventListener) {
+    iframe.addEventListener("load", () => {
+        // re-evaluate after load (important for reliability)
+        targetWindow = resolveWindow();
+        last = performance.now();
+        frames = 0;
+    });
+}
 
-requestAnimationFrame(loop);
+targetWindow.requestAnimationFrame(loop);
 
 //battery//
 
