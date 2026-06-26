@@ -186,60 +186,39 @@ window.openFullscreen = function () {
 //widgets start//
 
 //fps//
-const FPS = (() => {
-    let iframe = null;
-    let counter = null;
-    let started = false;
+const iframe = document.getElementById("frame");
+const counter = document.getElementById("fps-counter");
 
-    function start() {
-        if (started || !iframe?.contentWindow) return;
-        started = true;
+let last = performance.now();
+let frames = 0;
 
-        const win = iframe.contentWindow;
+function loop(now) {
+    const win = iframe.contentWindow;
 
-        win.eval(`
-            if (!window.__fpsActive) {
-                window.__fpsActive = true;
+    // Only count when iframe is active and accessible
+    if (win && document.hasFocus()) {
+        frames++;
 
-                let frames = 0;
-                let last = performance.now();
+        const delta = now - last;
 
-                function loop(now) {
-                    frames++;
+        if (delta >= 500) {
+            const fps = Math.round((frames * 1000) / delta);
+            counter.textContent = "FPS: " + fps;
 
-                    if (now - last >= 500) {
-                        window.__fpsValue = Math.round(frames * 1000 / (now - last));
-                        frames = 0;
-                        last = now;
-                    }
-
-                    requestAnimationFrame(loop);
-                }
-
-                requestAnimationFrame(loop);
-            }
-        `);
-
-        setInterval(() => {
-            counter.textContent = "FPS: " + (win.__fpsValue ?? "N/A");
-        }, 100);
-    }
-
-    function attach(iframeEl, counterEl) {
-        iframe = iframeEl;
-        counter = counterEl;
-
-        const tryStart = () => start();
-
-        if (iframe.contentDocument?.readyState === "complete") {
-            tryStart();
-        } else {
-            iframe.addEventListener("load", tryStart, { once: true });
+            frames = 0;
+            last = now;
         }
     }
 
-    return { attach };
-})();
+    requestAnimationFrame(loop);
+}
+
+iframe.addEventListener("load", () => {
+    last = performance.now();
+    frames = 0;
+});
+
+requestAnimationFrame(loop);
   
 //battery//
 
@@ -524,60 +503,39 @@ if (currentGame) {
 //widgets start//
 
 //fps//
-const FPS = (() => {
-    let iframe = null;
-    let counter = null;
-    let started = false;
+const iframe = document.getElementById("frame");
+const counter = document.getElementById("fps-counter");
 
-    function start() {
-        if (started || !iframe?.contentWindow) return;
-        started = true;
+let last = performance.now();
+let frames = 0;
 
-        const win = iframe.contentWindow;
+function loop(now) {
+    const win = iframe.contentWindow;
 
-        win.eval(`
-            if (!window.__fpsActive) {
-                window.__fpsActive = true;
+    // Only count when iframe is active and accessible
+    if (win && document.hasFocus()) {
+        frames++;
 
-                let frames = 0;
-                let last = performance.now();
+        const delta = now - last;
 
-                function loop(now) {
-                    frames++;
+        if (delta >= 500) {
+            const fps = Math.round((frames * 1000) / delta);
+            counter.textContent = "FPS: " + fps;
 
-                    if (now - last >= 500) {
-                        window.__fpsValue = Math.round(frames * 1000 / (now - last));
-                        frames = 0;
-                        last = now;
-                    }
-
-                    requestAnimationFrame(loop);
-                }
-
-                requestAnimationFrame(loop);
-            }
-        `);
-
-        setInterval(() => {
-            counter.textContent = "FPS: " + (win.__fpsValue ?? "N/A");
-        }, 100);
-    }
-
-    function attach(iframeEl, counterEl) {
-        iframe = iframeEl;
-        counter = counterEl;
-
-        const tryStart = () => start();
-
-        if (iframe.contentDocument?.readyState === "complete") {
-            tryStart();
-        } else {
-            iframe.addEventListener("load", tryStart, { once: true });
+            frames = 0;
+            last = now;
         }
     }
 
-    return { attach };
-})();
+    requestAnimationFrame(loop);
+}
+
+iframe.addEventListener("load", () => {
+    last = performance.now();
+    frames = 0;
+});
+
+requestAnimationFrame(loop);
 
 //battery//
 
