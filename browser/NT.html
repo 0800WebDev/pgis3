@@ -177,6 +177,11 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
      .date { color: white;}
+
+      #zinc-tag {
+        background: black;
+        color: white;
+      }
   </style>
 </head>
 
@@ -238,7 +243,9 @@
 
   <input type="file" id="bgUpload" accept="image/*" style="display: none;">
 <br>
+  <div id="zinc-tag">
   <small>From <a href="https://zinc-browser.vercel.app/" target="_blank">Zinc</a></small>
+  </div>
   <script>
     const $ = s => document.querySelector(s);
     const bgUpload = $('#bgUpload');
