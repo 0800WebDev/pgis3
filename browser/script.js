@@ -892,6 +892,43 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
 
         await initializeBrowser();
     } catch (err) {
-        console.error("Initialization error:", err);
+    console.error("Initialization error:", err);
+
+    document.body.innerHTML = `
+        <div style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            height:100vh;
+            background:#0a0a0a;
+            color:white;
+            font-family:Inter,sans-serif;
+            text-align:center;
+            padding:20px;
+        ">
+            <div>
+                <h1>Initialization Failed</h1>
+                <p>${err.message}</p>
+                <button
+                    onclick="location.reload()"
+                    style="
+                        margin-top:20px;
+                        padding:10px 20px;
+                        border:none;
+                        border-radius:8px;
+                        cursor:pointer;
+                        font-size:16px;
+                    "
+                >
+                    Refresh
+                </button>
+                <br> <br>
+                <small style="
+                color:white;
+                text-align: left;
+                ">Zinc</small>
+            </div>
+        </div>
+    `;
     }
 });
