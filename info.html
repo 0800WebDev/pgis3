@@ -205,7 +205,20 @@ for (let i = 0; i < localStorage.length; i++) {
 
   </script>
   
+<script>
 
+  function loadUsername() {
+  const username = localStorage.getItem('username');
+
+  const el = document.getElementById('username');
+  if (el && username) {
+    el.textContent = username;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadUsername);
+  
+</script>
 
 </body>
 </html>
