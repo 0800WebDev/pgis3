@@ -720,22 +720,26 @@ window.chat = async function () {
   
 
   
-   window.addEventListener('message', (event) => {
+   function setUsername(name) {
+  const el = document.getElementById('username');
+  if (el && name) {
+    el.textContent = name;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const savedUsername = localStorage.getItem('username');
+  setUsername(savedUsername);
+});
+
+window.addEventListener('message', (event) => {
   if (event.data.type === 'AUTH_SYNC') {
     const { username, profileId } = event.data.payload;
 
     localStorage.setItem('username', username);
     localStorage.setItem('profileId', profileId);
 
-    document.getElementById('username').textContent = username;
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const savedUsername = localStorage.getItem('username');
-
-  if (savedUsername) {
-    document.getElementById('username').textContent = savedUsername;
+    setUsername(username);
   }
 });
 
