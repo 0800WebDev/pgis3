@@ -137,6 +137,8 @@ Local storage:
 </pre>
     
 </details> <br><br>
+    Username: <span id="username">login in chat</span>
+    <br>
     <div style="display:flex; justify-content:flex-start;">
 <script type="text/javascript" src="https://www.stat-counter.org/count/jxat"></script><br>
  <a href='http://xn--besucherzhlerkostenlos-84b.com/'>Counter ohne Registrierung</a> <script type='text/javascript' src='https://whomania.com/ctr?id=2c4c639a9574eb1da0b15a3d52c08c2da0674ad6'></script>
@@ -203,7 +205,15 @@ for (let i = 0; i < localStorage.length; i++) {
 
   </script>
   
- 
+ <script>
+   window.addEventListener('message', (event) => {
+  if (event.data.type === 'AUTH_SYNC') {
+    const { username, profileId } = event.data.payload;
+
+    document.getElementById('username').textContent = username;
+  }
+});
+ </script>
 
 </body>
 </html>
