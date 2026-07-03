@@ -714,39 +714,6 @@ window.chat = async function () {
     document.getElementById("games").innerHTML = `
       <iframe src="/chat/rules.html"></iframe>
       `;
-
-
-
-  
-
-  
-   function setUsername(name) {
-  const el = document.getElementById('username');
-  if (el && name) {
-    el.textContent = name;
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const savedUsername = localStorage.getItem('username');
-  setUsername(savedUsername);
-});
-
-window.addEventListener('message', (event) => {
-  if (event.data.type === 'AUTH_SYNC') {
-    const { username, profileId } = event.data.payload;
-
-    localStorage.setItem('username', username);
-    localStorage.setItem('profileId', profileId);
-
-    setUsername(username);
-  }
-});
-
-
-  
-
-  
 };
 
 
