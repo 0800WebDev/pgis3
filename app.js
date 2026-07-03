@@ -714,6 +714,19 @@ window.chat = async function () {
     document.getElementById("games").innerHTML = `
       <iframe src="/chat/rules.html"></iframe>
       `;
+
+
+  
+   window.addEventListener('message', (event) => {
+  if (event.data.type === 'AUTH_SYNC') {
+    const { username, profileId } = event.data.payload;
+
+    document.getElementById('username').textContent = username;
+  }
+});
+
+
+  
 };
 
 
