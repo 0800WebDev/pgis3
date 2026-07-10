@@ -678,8 +678,10 @@ window.settings = async function () {
     <div class="card">
   <div class="settings">
   <h2>browser</h2>
-  <p style="display: inline-block;">embedd URL (must start with http(s)://)</p>
-  <input placeholder="https://croxyproxy.com" id="browserUrl">
+  <!--<p style="display: inline-block;">embedd URL (must start with http(s)://)</p>
+  <input placeholder="https://croxyproxy.com" id="browserUrl">-->
+  <strong>Setting locked.</strong>
+  <small>were still working on this setting, come back later.</small>
   </div>
   <div class="settings">
   <h2>eruda dev tools</h2>
