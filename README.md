@@ -23,4 +23,4 @@ PGIS 3 is the third version of pgis, this version has a cleaner ui, more/better 
 (pgis version format: V.3.8.B.⁰)
 
 ---
-<img src="/assets/logo-1.png" width="100px" height="100px"> <img src="/assets/logo-2.png" width="100px" height="100px"> 
+<img src="/assets/pgis.png" width="100px" height="100px"> <img src="/assets/logo-2.png" width="100px" height="100px"> 
