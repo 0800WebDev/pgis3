@@ -304,6 +304,30 @@ position:relative;
     bottom: 50px;
     left: 10px;
   }
+
+  #search {
+    width: 250px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: whitesmoke;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+#search::placeholder {
+    color: #aaa;
+}
+
+#search:focus {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    background-color: rgba(0,0,0,0.8);
+}
+
 </style>
 </head>
 
