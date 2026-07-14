@@ -587,6 +587,7 @@ window.loadGames = async function (type = "games") {
   if (!container) return;
 
   container.innerHTML = `
+  <br><br>
   <form id="codeForm"> <input type="text" id="search" placeholder="Search for games" enterkeyhint="go"/> </form><br>
     <div id="cards2">
       ${items.map(item => `
