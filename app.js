@@ -587,6 +587,7 @@ window.loadGames = async function (type = "games") {
   if (!container) return;
 
   container.innerHTML = `
+  <form id="codeForm"> <input type="text" id="search" placeholder="Search for games" enterkeyhint="go"/> </form><br>
     <div id="cards2">
       ${items.map(item => `
         <div class="gamediv">
@@ -599,6 +600,28 @@ window.loadGames = async function (type = "games") {
       `).join("")}
     </div>
   `;
+
+
+const searchInput = document.getElementById('search');
+const gameDivs = document.querySelectorAll('.gamediv');
+
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+
+    gameDivs.forEach(div => {
+        const gameName = div.querySelector('b').textContent.toLowerCase();
+        if (gameName.includes(query) || query === '') {
+            div.style.display = 'flex'; // show matching games
+        } else {
+            div.style.display = 'none'; // hide non-matching games
+        }
+    });
+});
+
+
+
+
+  
 };
 
 
