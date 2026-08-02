@@ -14,15 +14,16 @@ html,body,#hb{
 <body>
 
 <div id="hb"></div>
-
+    
 <script type="module">
 import Hyperbeam from "https://unpkg.com/@hyperbeam/web@latest/dist/index.js";
 
-const { embed_url } = await fetch("/api/computer").then(r => r.json());
+const data = await fetch("/api/computer").then(r => r.json());
+console.log(data);
 
 await Hyperbeam(
   document.getElementById("hb"),
-  embed_url
+  data.embed_url
 );
 </script>
 
