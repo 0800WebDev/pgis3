@@ -6,9 +6,11 @@ export default async function handler(req, res) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      region: "US",
-      timeout: 300
-    })
+  start_url: "https://www.google.com",
+  timeout: {
+    absolute: 300
+  }
+})
   });
 
   const data = await response.json();
