@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hyperbeam</title>
+<style>
+html,body,#hb{
+    width:100%;
+    height:100%;
+    margin:0;
+}
+</style>
+</head>
+<body>
+
+<div id="hb"></div>
+
+<script src="https://unpkg.com/@hyperbeam/web"></script>
+
+<script>
+(async () => {
+    const { embed_url } = await fetch("/api/computer").then(r => r.json());
+
+    Hyperbeam(document.getElementById("hb"), embed_url);
+})();
+</script>
+
+</body>
+</html>
