@@ -600,6 +600,7 @@ window.loadGames = async function (type = "games") {
         </div>
       `).join("")}
     </div>
+    <br><br>
   `;
 
 
@@ -703,7 +704,7 @@ window.settings = async function () {
   <div class="settings">
   <h2>browser</h2>
   <!--<p style="display: inline-block;">embedd URL (must start with http(s)://)</p>
-  <input placeholder="https://croxyproxy.com" id="browserUrl">-->
+  <input placeholder="/browser/index.html" id="browserUrl">-->
   <strong>Setting locked.</strong>
   <small>were still working on this setting, come back later.</small>
   </div>
