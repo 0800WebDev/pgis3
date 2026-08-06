@@ -601,6 +601,7 @@ window.loadGames = async function (type = "games") {
       `).join("")}
     </div>
     <br><br>
+    <br><br>
   `;
 
 
