@@ -589,9 +589,9 @@ window.loadGames = async function (type = "games") {
   container.innerHTML = `
   <br><br>
   <form id="codeForm"> <input type="text" id="search" placeholder="Search" enterkeyhint="go"/> </form><br>
-    <div id="cards2">
+    <div id="cards2" style="z-index: 1;">
       ${items.map(item => `
-        <div class="gamediv">
+        <div class="gamediv" style="z-index: 2;">
           <b>${item}</b>
           <img src="games/${item}.png" width="100" height="100">
           <button onclick="launchGame('${item}')">
