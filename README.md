@@ -20,7 +20,7 @@ PGIS 3 is the third version of pgis, this version has a cleaner ui, more/better 
 
 **pgis 3 BETA**
 
-(pgis version format: V.3.30.B.⁰)
+(See [/info.html](https://pgis3.vercel.app/info.html) for the full version number)
 
 ---
 <img src="/assets/pgis.png" width="100px" height="100px"> <img src="/assets/logo-2.png" width="100px" height="100px"> 
