@@ -1,0 +1,155 @@
+<!-- All games are importanted from PGIS 3, make sure to give proper credits if edited-->
+<!-- Visit PGIS 3 at https://pgis3.vercel.app -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGIS 3 Games single-file</title>
+
+<style>
+body{
+   scroll-behavior: smooth;
+color: white;
+width: 100%;
+height: 100%;
+font-family: Arial, sans-serif;
+    margin: 0;
+background-color: black;
+
+b{
+    text-align:center !important;
+    
+}
+
+#games{
+    
+background-color:rgba(0,0,0,0.1);
+display:flex;
+justify-content:center;
+gap: 40px; /* used to be 20px*/
+flex-wrap:wrap;
+position:relative;
+  padding: 30px; /* remove if bad */
+  height: 100%;
+
+}
+
+.game{
+    
+width:200px;
+height:170px;
+background-color:rgba(0,0,0,0.3);
+background-size:cover;
+background-position:center;
+cursor:auto;
+border:1px solid #444;
+border-radius:5px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+position:relative;
+  padding: 5px; /* remove if bad */
+  
+
+}
+
+img {
+height: 100px;
+width: 100px;
+}
+
+
+button{
+    border-radius: 4px;
+    border:none;
+    background:#444;
+    color:white;
+    cursor:pointer;
+margin: 10px;
+}
+
+#launcher{
+    display:none;
+    width:100%;
+    height:100vh;
+    background:white;
+}
+a{
+    color: whitesmoke;
+}
+#back{
+    position:fixed;
+    
+        }
+</style>
+</head>
+<body>
+
+<div id="browser">
+     <b>Imported from <a href="https://pgis3.vercel.app" target="_blank">pgis 3</a></b>
+       <div id="games"></div>
+</div>
+
+<div id="launcher"></div>
+
+<script>
+const BASE = "https://pgis3.vercel.app";
+
+async function loadGames() {
+    const names = await fetch(`${BASE}/games.json`).then(r => r.json());
+
+    const container = document.getElementById("games");
+
+    for (const name of names) {
+        const card = document.createElement("div");
+        card.className = "game";
+
+        card.innerHTML = `
+            <b>${name}</b>
+            <img src="${BASE}/games/${encodeURIComponent(name)}.png" width="100" height="100">
+            <button>Play</button>
+        `;
+
+        card.querySelector("button").onclick = () => playGame(name);
+
+        container.appendChild(card);
+    }
+}
+
+async function playGame(name) {
+    const html = await fetch(`${BASE}/games/${encodeURIComponent(name)}.html`)
+        .then(r => r.text());
+
+    const blob = new Blob([html], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+
+    document.getElementById("browser").style.display = "none";
+
+    const launcher = document.getElementById("launcher");
+    launcher.style.display = "block";
+    launcher.innerHTML = `
+        <button id="back">← Back</button>
+        <iframe
+            id="game"
+            src="${url}"
+            style="width:100%;height:calc(100vh - 50px);border:none;"
+        ></iframe>
+    `;
+
+    document.getElementById("back").onclick = () => {
+        URL.revokeObjectURL(url);
+
+        launcher.style.display = "none";
+        launcher.innerHTML = "";
+
+        document.getElementById("browser").style.display = "block";
+    };
+    }
+
+loadGames();
+</script>
+
+</body>
+  </html>
