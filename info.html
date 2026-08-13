@@ -111,16 +111,27 @@ div[style*="text-align:center"] {
   <div class="container">
 <div id="main">
   <h1>PGIS 3 Beta</h1>
-  <h2>V.3.4.A.⁰</h2>
+  <h2>V.3.<span class="games"></span>.A.⁰</h2>
 <hr>
   <h3>Version Info</h3>
   <p class="left">
     
 VERSION: 3 <br>
-GAMES: 4 <br>
+GAMES: <span class="games">N/A</span><br>
 UPDATE: Beta <br>
 SUB-UPDATE: 0
   </p>
+
+<script>
+fetch("/games.json")
+  .then(res => res.json())
+  .then(games => {
+    document.querySelectorAll(".games").forEach(el => {
+      el.textContent = games.length;
+    });
+  });
+</script>
+  
   <hr>
 
     <h3>Site Info</h3>
