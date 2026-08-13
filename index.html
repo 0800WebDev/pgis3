@@ -136,12 +136,18 @@ iframe {
   }
 
 #menu::before {
-  content: "";
+    content: "";
   position: absolute;
-  inset: -15px;
-filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.35));
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  filter: blur(25px);
+  opacity: 0.35;
   z-index: -1;
-  border-radius: inherit;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
   
   
