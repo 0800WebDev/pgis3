@@ -24,3 +24,7 @@ PGIS 3 is the third version of pgis, this version has a cleaner ui, more/better 
 
 ---
 <img src="/assets/pgis.png" width="100px" height="100px"> <img src="/assets/logo-2.png" width="100px" height="100px"> 
+
+---
+
+if you'd like to use games from PGIS 3 in your own projects please check out [games_singlefile](https://github.com/0800WebDev/pgis3/games_singlefile).
