@@ -27,4 +27,4 @@ PGIS 3 is the third version of pgis, this version has a cleaner ui, more/better 
 
 ---
 
-if you'd like to use games from PGIS 3 in your own projects please check out [games_singlefile](https://github.com/0800WebDev/pgis3/games_singlefile).
+if you'd like to use games from PGIS 3 in your own projects please check out [games_singlefile.html](https://github.com/0800WebDev/pgis3/games_singlefile.html).
