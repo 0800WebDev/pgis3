@@ -1244,3 +1244,18 @@ if (!document.head.contains(favicon)) {
 window.toolboxRedirect = function () {
 window.location.href = "https://google.com";
 }
+
+window.toolboxAboutBlank = function () {
+  const url = location.href;
+
+location.replace("about:blank");
+
+setTimeout(() => {
+  document.body.innerHTML = `
+    <iframe
+      src="${url}"
+      style="position:fixed;inset:0;width:100%;height:100%;border:none"
+    ></iframe>
+  `;
+}, 0);
+}
