@@ -1248,14 +1248,21 @@ window.location.href = "https://google.com";
 window.toolboxAboutBlank = function () {
   const url = location.href;
 
-location.replace("about:blank");
+  const win = window.open("about:blank");
 
-setTimeout(() => {
-  document.body.innerHTML = `
-    <iframe
-      src="${url}"
-      style="position:fixed;inset:0;width:100%;height:100%;border:none"
-    ></iframe>
-  `;
-}, 0);
-}
+  if (!win) return;
+
+  win.document.write(`
+    <!doctype html>
+    <html>
+      <body style="margin:0;overflow:hidden;">
+        <iframe
+          src="${url}"
+          style="position:fixed;inset:0;width:100%;height:100%;border:none;"
+        ></iframe>
+      </body>
+    </html>
+  `);
+
+  win.document.close();
+};
