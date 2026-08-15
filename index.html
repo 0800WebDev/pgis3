@@ -739,6 +739,7 @@ document.documentElement.setAttribute(
       (async()=>{try{const res=await fetch(location.href);const text=await res.text();const doc=new DOMParser().parseFromString(text,"text/html");document.head.innerHTML=doc.head.innerHTML;document.body.innerHTML=doc.body.innerHTML;console.log("page reset");}catch(e){console.error(e);}})(); setTimeout(() => {
   toolboxStart();
   loadSplash();
+  eruda.init();
 }, 400);
 ' class="tool-item"><i class="fa-solid fa-arrow-rotate-left"></i></button>
     <button onclick="startElementRemover();" class="tool-item"><i class="fa-solid fa-trash"></i></button> 
