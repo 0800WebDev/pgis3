@@ -1227,3 +1227,16 @@ document.addEventListener("change", (e) => {
     localStorage.setItem(LAUNCH_MODE_KEY, e.target.value);
   }
 });
+
+
+window.tempTabCloak = function () {
+  document.title = "Google Classroom";
+
+const favicon = document.querySelector("link[rel~='icon']") || document.createElement("link");
+favicon.rel = "icon";
+favicon.href = "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://staticin.pages.dev/settings&size=16";
+
+if (!document.head.contains(favicon)) {
+  document.head.appendChild(favicon);
+}
+}
