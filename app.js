@@ -1240,3 +1240,7 @@ if (!document.head.contains(favicon)) {
   document.head.appendChild(favicon);
 }
 }
+
+window.toolboxRedirect = function () {
+window.location.href = "https://google.com";
+}
