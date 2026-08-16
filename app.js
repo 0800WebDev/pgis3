@@ -747,12 +747,23 @@ window.chat = async function () {
 
   
 function initAuthListener() {
-  window.addEventListener('message', (event) => {
-    if (event.data.type === 'AUTH_SYNC') {
-      const { username, profileId } = event.data.payload;
+  window.addEventListener("message", (event) => {
+    if (event.data.type === "AUTH_SYNC") {
+      const {
+        username,
+        avatar_url,
+        role,
+        status_text,
+        is_banned,
+        user_id
+      } = event.data.payload;
 
-      localStorage.setItem('username', username);
-      localStorage.setItem('profileId', profileId);
+      localStorage.setItem("username", username);
+      localStorage.setItem("avatar_url", avatar_url);
+      localStorage.setItem("role", role);
+      localStorage.setItem("status_text", status_text);
+      localStorage.setItem("is_banned", String(is_banned));
+      localStorage.setItem("user_id", user_id);
     }
   });
 }
