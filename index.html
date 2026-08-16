@@ -930,6 +930,7 @@ toolboxStart()
 
 <script>
   function removeBlocklist() {
+    //remove id
  const blocklist = [
   "tpScreenLockCover"
 ];
@@ -941,7 +942,19 @@ blocklist.forEach(id => {
     element.remove();
   }
 }); 
+    //remove images
+const imageSrcBlocklist = [
+  "https://storage.googleapis.com/blocksi_files/iframe-denied.png"
+];
+
+document.querySelectorAll("img").forEach(img => {
+  if (imageSrcBlocklist.includes(img.getAttribute("src"))) {
+    img.remove();
   }
+});
+    
+  }
+  
 </script>
 
 
