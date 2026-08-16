@@ -146,14 +146,19 @@ if (mode === "same") {
     border-radius: 4px;
     border: none;
   }
-  
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #555;
+  color: #aaa;
+}
 </style>
 <div id="toolbox">
   <div id="toolbox-content" hidden>
 <b>toolbox</b> <br>
   <button title="about:blank" onclick="toolboxAboutBlank()" class="tool-item"><i class="fa-solid fa-school-circle-xmark"></i></button> <button title="tab cloak" onclick="tempTabCloak()" class="tool-item"><i class="fa-solid fa-computer"></i></button> <button title="panic button" onclick="toolboxRedirect()" class="tool-item"><i class="fa-solid fa-circle-exclamation"></i></button>
     <hr>
-    <button title="phantom refresh" onclick='
+    <button disabled title="phantom refresh" onclick='
       
       (async()=>{try{const res=await fetch(location.href);const text=await res.text();const doc=new DOMParser().parseFromString(text,"text/html");document.head.innerHTML=doc.head.innerHTML;document.body.innerHTML=doc.body.innerHTML;console.log("page reset");}catch(e){console.error(e);}})(); setTimeout(() => {
   toolboxStart();
@@ -751,14 +756,19 @@ if (currentGame) {
     border-radius: 4px;
     border: none;
   }
-  
+  button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #555;
+  color: #aaa;
+}
 </style>
 <div id="toolbox">
   <div id="toolbox-content" hidden>
 <b>toolbox</b> <br>
   <button title="about:blank" onclick="toolboxAboutBlank()" class="tool-item"><i class="fa-solid fa-school-circle-xmark"></i></button> <button title="tab cloak" onclick="tempTabCloak()" class="tool-item"><i class="fa-solid fa-computer"></i></button> <button title="panic button" onclick="toolboxRedirect()" class="tool-item"><i class="fa-solid fa-circle-exclamation"></i></button>
     <hr>
-    <button title="phantom refresh" onclick='
+    <button disabled title="phantom refresh" onclick='
       
       (async()=>{try{const res=await fetch(location.href);const text=await res.text();const doc=new DOMParser().parseFromString(text,"text/html");document.head.innerHTML=doc.head.innerHTML;document.body.innerHTML=doc.body.innerHTML;console.log("page reset");}catch(e){console.error(e);}})(); setTimeout(() => {
   toolboxStart();
