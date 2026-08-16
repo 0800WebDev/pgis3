@@ -783,8 +783,6 @@ function toolboxStart() {
   toolbox.style.flexDirection = "row-reverse";
 
   toolbox.addEventListener("pointerdown", e => {
-    if (e.target.closest("#toolbox-btn")) return;
-
     dragging = true;
     moved = false;
 
@@ -827,7 +825,7 @@ function toolboxStart() {
       toolboxOnLeft = false;
     }
 
-    updateToolboxIcon();
+    updateIcon();
   });
 
   toolbox.addEventListener("pointerup", e => {
@@ -845,7 +843,19 @@ function toolboxStart() {
     toolbox.style.cursor = "grab";
   });
 
-  function updateToolboxIcon() {
+  toolboxButton.addEventListener("click", e => {
+    if (moved) {
+      moved = false;
+      return;
+    }
+
+    toolboxIsOpen = !toolboxIsOpen;
+    toolboxContent.hidden = !toolboxIsOpen;
+
+    updateIcon();
+  });
+
+  function updateIcon() {
     if (toolboxOnLeft) {
       toolboxIcon.className = toolboxIsOpen
         ? "fa-solid fa-caret-left"
@@ -856,20 +866,6 @@ function toolboxStart() {
         : "fa-solid fa-caret-left";
     }
   }
-
-  toolboxButton.addEventListener("click", e => {
-    e.stopPropagation();
-
-    if (moved) {
-      moved = false;
-      return;
-    }
-
-    toolboxIsOpen = !toolboxIsOpen;
-    toolboxContent.hidden = !toolboxIsOpen;
-
-    updateToolboxIcon();
-  });
 }
 
 toolboxStart();
