@@ -758,130 +758,113 @@ document.documentElement.setAttribute(
 
 
 <script>
-let dragging = false;
-let moved = false;
-let offsetY = 0;
-let startX = 0;
-let startY = 0;
-
-  
 function toolboxStart() {
-const toolbox = document.getElementById("toolbox");
-const toolboxIcon = toolbox.querySelector("#toolbox-icon");
+    const toolbox = document.getElementById("toolbox");
+    const toolboxIcon = toolbox.querySelector("#toolbox-icon");
 
-let dragging = false;
-let offsetY = 0;
-let toolboxIsOpen = false;
-let toolboxOnLeft = false;
+    let dragging = false;
+    let moved = false;
+    let offsetY = 0;
+    let startX = 0;
+    let startY = 0;
+    let toolboxIsOpen = false;
+    let toolboxOnLeft = false;
 
-const toolboxContent = document.getElementById("toolbox-content");
-const toolboxButton = document.getElementById("toolbox-btn");
+    const toolboxContent = document.getElementById("toolbox-content");
+    const toolboxButton = document.getElementById("toolbox-btn");
 
-toolbox.style.position = "fixed";
-toolbox.style.right = "0";
-toolbox.style.top = "50%";
-toolbox.style.transform = "translateY(-50%)";
-toolbox.style.cursor = "grab";
-toolbox.style.touchAction = "none";
-toolbox.style.display = "flex";
-toolbox.style.alignItems = "center";
-toolbox.style.flexDirection = "row-reverse";
-
-toolbox.addEventListener("pointerdown", e => {
-    dragging = true;
-
-    const rect = toolbox.getBoundingClientRect();
-    offsetY = e.clientY - rect.top;
-
-    toolbox.setPointerCapture(e.pointerId);
-    toolbox.style.cursor = "grabbing";
-    toolbox.style.transform = "none";
-});
-
-toolbox.addEventListener("pointerdown", e => {
-    dragging = true;
-    moved = false;
-
-    startX = e.clientX;
-    startY = e.clientY;
-
-    const rect = toolbox.getBoundingClientRect();
-    offsetY = e.clientY - rect.top;
-
-    toolbox.setPointerCapture(e.pointerId);
-    toolbox.style.cursor = "grabbing";
-});
-
-toolbox.addEventListener("pointermove", e => {
-    if (!dragging) return;
-
-    if (
-        Math.abs(e.clientX - startX) > 5 ||
-        Math.abs(e.clientY - startY) > 5
-    ) {
-        moved = true;
-    }
-
-    const maxY = window.innerHeight - toolbox.offsetHeight;
-    const y = Math.max(0, Math.min(e.clientY - offsetY, maxY));
-
-    toolbox.style.top = `${y}px`;
-    toolbox.style.transform = "none";
-
-    if (e.clientX < window.innerWidth / 2) {
-        toolbox.style.left = "0";
-        toolbox.style.right = "auto";
-        toolbox.style.flexDirection = "row";
-        toolboxOnLeft = true;
-    } else {
-        toolbox.style.left = "auto";
-        toolbox.style.right = "0";
-        toolbox.style.flexDirection = "row-reverse";
-        toolboxOnLeft = false;
-    }
-
-    if (toolboxIsOpen) {
-        toolboxIcon.className = toolboxOnLeft
-            ? "fa-solid fa-caret-left"
-            : "fa-solid fa-caret-right";
-    } else {
-        toolboxIcon.className = toolboxOnLeft
-            ? "fa-solid fa-caret-right"
-            : "fa-solid fa-caret-left";
-    }
-});
-
-toolbox.addEventListener("pointerup", e => {
-    dragging = false;
-    toolbox.releasePointerCapture(e.pointerId);
+    toolbox.style.position = "fixed";
+    toolbox.style.right = "0";
+    toolbox.style.top = "50%";
+    toolbox.style.transform = "translateY(-50%)";
     toolbox.style.cursor = "grab";
-});
+    toolbox.style.touchAction = "none";
+    toolbox.style.display = "flex";
+    toolbox.style.alignItems = "center";
+    toolbox.style.flexDirection = "row-reverse";
 
-toolbox.addEventListener("pointercancel", () => {
-    dragging = false;
-});
-
-toolboxButton.onclick = () => {
-    if (moved) {
+    toolbox.addEventListener("pointerdown", e => {
+        dragging = true;
         moved = false;
-        return;
-    }
 
-    toolboxIsOpen = !toolboxIsOpen;
+        startX = e.clientX;
+        startY = e.clientY;
 
-    toolboxContent.hidden = !toolboxIsOpen;
+        const rect = toolbox.getBoundingClientRect();
+        offsetY = e.clientY - rect.top;
 
-    if (toolboxOnLeft) {
-        toolboxIcon.className = toolboxIsOpen
-            ? "fa-solid fa-caret-left"
-            : "fa-solid fa-caret-right";
-    } else {
-        toolboxIcon.className = toolboxIsOpen
-            ? "fa-solid fa-caret-right"
-            : "fa-solid fa-caret-left";
-    }
-};
+        toolbox.setPointerCapture(e.pointerId);
+        toolbox.style.cursor = "grabbing";
+    });
 
+    toolbox.addEventListener("pointermove", e => {
+        if (!dragging) return;
+
+        if (
+            Math.abs(e.clientX - startX) > 5 ||
+            Math.abs(e.clientY - startY) > 5
+        ) {
+            moved = true;
+        }
+
+        const maxY = window.innerHeight - toolbox.offsetHeight;
+        const y = Math.max(0, Math.min(e.clientY - offsetY, maxY));
+
+        toolbox.style.top = `${y}px`;
+        toolbox.style.transform = "none";
+
+        if (e.clientX < window.innerWidth / 2) {
+            toolbox.style.left = "0";
+            toolbox.style.right = "auto";
+            toolbox.style.flexDirection = "row";
+            toolboxOnLeft = true;
+        } else {
+            toolbox.style.left = "auto";
+            toolbox.style.right = "0";
+            toolbox.style.flexDirection = "row-reverse";
+            toolboxOnLeft = false;
+        }
+
+        if (toolboxIsOpen) {
+            toolboxIcon.className = toolboxOnLeft
+                ? "fa-solid fa-caret-left"
+                : "fa-solid fa-caret-right";
+        } else {
+            toolboxIcon.className = toolboxOnLeft
+                ? "fa-solid fa-caret-right"
+                : "fa-solid fa-caret-left";
+        }
+    });
+
+    toolbox.addEventListener("pointerup", e => {
+        dragging = false;
+        toolbox.releasePointerCapture(e.pointerId);
+        toolbox.style.cursor = "grab";
+    });
+
+    toolbox.addEventListener("pointercancel", () => {
+        dragging = false;
+    });
+
+    toolboxButton.onclick = () => {
+        if (moved) {
+            moved = false;
+            return;
+        }
+
+        toolboxIsOpen = !toolboxIsOpen;
+        toolboxContent.hidden = !toolboxIsOpen;
+
+        if (toolboxOnLeft) {
+            toolboxIcon.className = toolboxIsOpen
+                ? "fa-solid fa-caret-left"
+                : "fa-solid fa-caret-right";
+        } else {
+            toolboxIcon.className = toolboxIsOpen
+                ? "fa-solid fa-caret-right"
+                : "fa-solid fa-caret-left";
+        }
+    };
 }
 toolboxStart()
 
