@@ -951,8 +951,9 @@ const imageSrcBlocklist = [
 ];
 
 document.querySelectorAll("img").forEach(img => {
-  if (imageSrcBlocklist.includes(img.getAttribute("src"))) {
-    img.remove();
+  if (imageSrcBlocklist.some(src => img.src.endsWith(src))) {
+  img.remove();
+  }
   }
 });
     
