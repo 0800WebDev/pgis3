@@ -105,8 +105,297 @@ if (mode === "same") {
       style="position: fixed; top: 20px; left: 548px; z-index: 99999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
       Cloak tab
     </button>
-  `;
 
+
+    
+
+
+
+
+
+
+<style>
+  
+  #toolbox-btn {
+    height: 100px;
+    width: auto;
+    border: none;
+    border-radius: 0px;
+    color: white;
+    background-color: black;
+    
+
+  }
+  #toolbox-content {
+    padding: 10px;
+    text-align: center;
+  }
+  #toolbox {
+    background: black;
+    display: flex;
+  align-items: center;
+    border-radius: 2px;
+    box-shadow: 0 0 15px white;
+    z-index: 999999999999999999999999999999999999999999999999999999;
+  }
+  .tool-item {
+    height: 30px;
+    width: 30px;
+    color: black;
+    background: white;
+    border-radius: 4px;
+    border: none;
+  }
+  
+</style>
+<div id="toolbox">
+  <div id="toolbox-content" hidden>
+<b>toolbox</b> <br>
+  <button title="about:blank" onclick="toolboxAboutBlank()" class="tool-item"><i class="fa-solid fa-school-circle-xmark"></i></button> <button title="tab cloak" onclick="tempTabCloak()" class="tool-item"><i class="fa-solid fa-computer"></i></button> <button title="panic button" onclick="toolboxRedirect()" class="tool-item"><i class="fa-solid fa-circle-exclamation"></i></button>
+    <hr>
+    <button title="phantom refresh" onclick='
+      
+      (async()=>{try{const res=await fetch(location.href);const text=await res.text();const doc=new DOMParser().parseFromString(text,"text/html");document.head.innerHTML=doc.head.innerHTML;document.body.innerHTML=doc.body.innerHTML;console.log("page reset");}catch(e){console.error(e);}})(); setTimeout(() => {
+  toolboxStart();
+  loadSplash();
+  initBattery();
+  fps();
+  particlesStart();
+  
+}, 400);
+' class="tool-item"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+    <button title="remove element" onclick="startElementRemover();" class="tool-item"><i class="fa-solid fa-trash"></i></button> 
+    <button title="remove from blacklist" onclick="removeBlocklist()" class="tool-item"><i class="fa-solid fa-list-check"></i></button>
+  </div>
+  <button id="toolbox-btn"><i id="toolbox-icon" class="fa-solid fa-caret-left"></i></button>
+
+
+</div>
+
+
+<script>
+function toolboxStart() {
+  const toolbox = document.getElementById("toolbox");
+  const toolboxIcon = document.getElementById("toolbox-icon");
+  const toolboxContent = document.getElementById("toolbox-content");
+  const toolboxButton = document.getElementById("toolbox-btn");
+
+  let dragging = false;
+  let moved = false;
+  let startX = 0;
+  let startY = 0;
+  let offsetY = 0;
+  let toolboxIsOpen = !toolboxContent.hidden;
+  let toolboxOnLeft = false;
+
+  toolbox.style.position = "fixed";
+  toolbox.style.right = "0";
+  toolbox.style.top = "50%";
+  toolbox.style.transform = "translateY(-50%)";
+  toolbox.style.cursor = "grab";
+  toolbox.style.touchAction = "none";
+  toolbox.style.display = "flex";
+  toolbox.style.alignItems = "center";
+  toolbox.style.flexDirection = "row-reverse";
+
+  function updateToolboxIcon() {
+    if (toolboxOnLeft) {
+      toolboxIcon.className = toolboxIsOpen
+        ? "fa-solid fa-caret-left"
+        : "fa-solid fa-caret-right";
+    } else {
+      toolboxIcon.className = toolboxIsOpen
+        ? "fa-solid fa-caret-right"
+        : "fa-solid fa-caret-left";
+    }
+  }
+
+  toolbox.addEventListener("pointerdown", e => {
+    dragging = true;
+    moved = false;
+
+    startX = e.clientX;
+    startY = e.clientY;
+
+    const rect = toolbox.getBoundingClientRect();
+    offsetY = e.clientY - rect.top;
+
+    toolbox.style.cursor = "grabbing";
+    toolbox.style.transform = "none";
+
+    e.preventDefault();
+  });
+
+  document.addEventListener("pointermove", e => {
+    if (!dragging) return;
+
+    if (
+      Math.abs(e.clientX - startX) > 5 ||
+      Math.abs(e.clientY - startY) > 5
+    ) {
+      moved = true;
+    }
+
+    const maxY = window.innerHeight - toolbox.offsetHeight;
+    const y = Math.max(
+      0,
+      Math.min(e.clientY - offsetY, maxY)
+    );
+
+    toolbox.style.top = `${y}px`;
+
+    if (e.clientX < window.innerWidth / 2) {
+      toolbox.style.left = "0";
+      toolbox.style.right = "auto";
+      toolbox.style.flexDirection = "row";
+      toolboxOnLeft = true;
+    } else {
+      toolbox.style.left = "auto";
+      toolbox.style.right = "0";
+      toolbox.style.flexDirection = "row-reverse";
+      toolboxOnLeft = false;
+    }
+
+    updateToolboxIcon();
+  });
+
+  document.addEventListener("pointerup", () => {
+    if (!dragging) return;
+
+    dragging = false;
+    toolbox.style.cursor = "grab";
+  });
+
+  document.addEventListener("pointercancel", () => {
+    dragging = false;
+    toolbox.style.cursor = "grab";
+  });
+
+  toolboxButton.addEventListener("click", e => {
+    if (moved) {
+      moved = false;
+      return;
+    }
+
+    toolboxIsOpen = !toolboxIsOpen;
+    toolboxContent.hidden = !toolboxIsOpen;
+
+    updateToolboxIcon();
+  });
+
+  updateToolboxIcon();
+}
+
+toolboxStart();
+</script>
+  
+<script>
+  function startElementRemover() {
+  let active = true;
+  let highlighted = null;
+
+  function highlight(element) {
+    if (!active) return;
+    if (element === document.body || element === document.documentElement) return;
+
+    if (highlighted && highlighted !== element) {
+      highlighted.style.outline = highlighted.dataset.originalOutline || "";
+    }
+
+    if (highlighted !== element) {
+      highlighted = element;
+      highlighted.dataset.originalOutline = element.style.outline || "";
+      element.style.outline = "2px solid red";
+    }
+  }
+
+  function mouseMove(event) {
+    if (!active) return;
+
+    const element = document.elementFromPoint(
+      event.clientX,
+      event.clientY
+    );
+
+    highlight(element);
+  }
+
+  function click(event) {
+    if (!active) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    const element = document.elementFromPoint(
+      event.clientX,
+      event.clientY
+    );
+
+    if (
+      !element ||
+      element === document.body ||
+      element === document.documentElement
+    ) {
+      return;
+    }
+
+    element.remove();
+
+    active = false;
+
+    document.removeEventListener("mousemove", mouseMove, true);
+    document.removeEventListener("click", click, true);
+
+    if (highlighted) {
+      highlighted.style.outline = highlighted.dataset.originalOutline || "";
+      delete highlighted.dataset.originalOutline;
+    }
+
+    highlighted = null;
+  }
+
+  document.addEventListener("mousemove", mouseMove, true);
+  document.addEventListener("click", click, true);
+}
+
+
+</script>
+
+<script>
+  function removeBlocklist() {
+    //remove elements by id
+ const blocklist = [
+  "tpScreenLockCover"
+];
+
+blocklist.forEach(id => {
+  const element = document.getElementById(id);
+
+  if (element) {
+    element.remove();
+  }
+}); 
+    //remove images
+
+  const imageSrcBlocklist = [
+  "images/icons/blocked_content/youtube-denied.png",
+  "images/icons/blocked_content/iframe-denied.png",
+  "https://storage.googleapis.com/custom_extension_pages_files/",
+  "https://storage.googleapis.com/blocksi_files/gamingdisabled.png",
+  "iframe-denied.png"
+];
+
+document.querySelectorAll("img").forEach(img => {
+  if (imageSrcBlocklist.some(src => img.src.includes(src))) {
+    img.remove();
+  }
+});
+    
+  }
+</script>
+  `;
+toolboxStart();
 window.openFullscreen = function () {
       const iframe = document.getElementById("frame");
 
@@ -419,9 +708,299 @@ if (currentGame) {
       style="position: fixed; top: 20px; left: 548px; z-index: 99999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
       Cloak tab
     </button>
+
+
+
+    
+
+
+
+
+
+
+<style>
+  
+  #toolbox-btn {
+    height: 100px;
+    width: auto;
+    border: none;
+    border-radius: 0px;
+    color: white;
+    background-color: black;
+    
+
+  }
+  #toolbox-content {
+    padding: 10px;
+    text-align: center;
+  }
+  #toolbox {
+    background: black;
+    display: flex;
+  align-items: center;
+    border-radius: 2px;
+    box-shadow: 0 0 15px white;
+    z-index: 999999999999999999999999999999999999999999999999999999;
+  }
+  .tool-item {
+    height: 30px;
+    width: 30px;
+    color: black;
+    background: white;
+    border-radius: 4px;
+    border: none;
+  }
+  
+</style>
+<div id="toolbox">
+  <div id="toolbox-content" hidden>
+<b>toolbox</b> <br>
+  <button title="about:blank" onclick="toolboxAboutBlank()" class="tool-item"><i class="fa-solid fa-school-circle-xmark"></i></button> <button title="tab cloak" onclick="tempTabCloak()" class="tool-item"><i class="fa-solid fa-computer"></i></button> <button title="panic button" onclick="toolboxRedirect()" class="tool-item"><i class="fa-solid fa-circle-exclamation"></i></button>
+    <hr>
+    <button title="phantom refresh" onclick='
+      
+      (async()=>{try{const res=await fetch(location.href);const text=await res.text();const doc=new DOMParser().parseFromString(text,"text/html");document.head.innerHTML=doc.head.innerHTML;document.body.innerHTML=doc.body.innerHTML;console.log("page reset");}catch(e){console.error(e);}})(); setTimeout(() => {
+  toolboxStart();
+  loadSplash();
+  initBattery();
+  fps();
+  particlesStart();
+  
+}, 400);
+' class="tool-item"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+    <button title="remove element" onclick="startElementRemover();" class="tool-item"><i class="fa-solid fa-trash"></i></button> 
+    <button title="remove from blacklist" onclick="removeBlocklist()" class="tool-item"><i class="fa-solid fa-list-check"></i></button>
+  </div>
+  <button id="toolbox-btn"><i id="toolbox-icon" class="fa-solid fa-caret-left"></i></button>
+
+
+</div>
+
+
+<script>
+function toolboxStart() {
+  const toolbox = document.getElementById("toolbox");
+  const toolboxIcon = document.getElementById("toolbox-icon");
+  const toolboxContent = document.getElementById("toolbox-content");
+  const toolboxButton = document.getElementById("toolbox-btn");
+
+  let dragging = false;
+  let moved = false;
+  let startX = 0;
+  let startY = 0;
+  let offsetY = 0;
+  let toolboxIsOpen = !toolboxContent.hidden;
+  let toolboxOnLeft = false;
+
+  toolbox.style.position = "fixed";
+  toolbox.style.right = "0";
+  toolbox.style.top = "50%";
+  toolbox.style.transform = "translateY(-50%)";
+  toolbox.style.cursor = "grab";
+  toolbox.style.touchAction = "none";
+  toolbox.style.display = "flex";
+  toolbox.style.alignItems = "center";
+  toolbox.style.flexDirection = "row-reverse";
+
+  function updateToolboxIcon() {
+    if (toolboxOnLeft) {
+      toolboxIcon.className = toolboxIsOpen
+        ? "fa-solid fa-caret-left"
+        : "fa-solid fa-caret-right";
+    } else {
+      toolboxIcon.className = toolboxIsOpen
+        ? "fa-solid fa-caret-right"
+        : "fa-solid fa-caret-left";
+    }
+  }
+
+  toolbox.addEventListener("pointerdown", e => {
+    dragging = true;
+    moved = false;
+
+    startX = e.clientX;
+    startY = e.clientY;
+
+    const rect = toolbox.getBoundingClientRect();
+    offsetY = e.clientY - rect.top;
+
+    toolbox.style.cursor = "grabbing";
+    toolbox.style.transform = "none";
+
+    e.preventDefault();
+  });
+
+  document.addEventListener("pointermove", e => {
+    if (!dragging) return;
+
+    if (
+      Math.abs(e.clientX - startX) > 5 ||
+      Math.abs(e.clientY - startY) > 5
+    ) {
+      moved = true;
+    }
+
+    const maxY = window.innerHeight - toolbox.offsetHeight;
+    const y = Math.max(
+      0,
+      Math.min(e.clientY - offsetY, maxY)
+    );
+
+    toolbox.style.top = `${y}px`;
+
+    if (e.clientX < window.innerWidth / 2) {
+      toolbox.style.left = "0";
+      toolbox.style.right = "auto";
+      toolbox.style.flexDirection = "row";
+      toolboxOnLeft = true;
+    } else {
+      toolbox.style.left = "auto";
+      toolbox.style.right = "0";
+      toolbox.style.flexDirection = "row-reverse";
+      toolboxOnLeft = false;
+    }
+
+    updateToolboxIcon();
+  });
+
+  document.addEventListener("pointerup", () => {
+    if (!dragging) return;
+
+    dragging = false;
+    toolbox.style.cursor = "grab";
+  });
+
+  document.addEventListener("pointercancel", () => {
+    dragging = false;
+    toolbox.style.cursor = "grab";
+  });
+
+  toolboxButton.addEventListener("click", e => {
+    if (moved) {
+      moved = false;
+      return;
+    }
+
+    toolboxIsOpen = !toolboxIsOpen;
+    toolboxContent.hidden = !toolboxIsOpen;
+
+    updateToolboxIcon();
+  });
+
+  updateToolboxIcon();
+}
+
+toolboxStart();
+</script>
+  
+<script>
+  function startElementRemover() {
+  let active = true;
+  let highlighted = null;
+
+  function highlight(element) {
+    if (!active) return;
+    if (element === document.body || element === document.documentElement) return;
+
+    if (highlighted && highlighted !== element) {
+      highlighted.style.outline = highlighted.dataset.originalOutline || "";
+    }
+
+    if (highlighted !== element) {
+      highlighted = element;
+      highlighted.dataset.originalOutline = element.style.outline || "";
+      element.style.outline = "2px solid red";
+    }
+  }
+
+  function mouseMove(event) {
+    if (!active) return;
+
+    const element = document.elementFromPoint(
+      event.clientX,
+      event.clientY
+    );
+
+    highlight(element);
+  }
+
+  function click(event) {
+    if (!active) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    const element = document.elementFromPoint(
+      event.clientX,
+      event.clientY
+    );
+
+    if (
+      !element ||
+      element === document.body ||
+      element === document.documentElement
+    ) {
+      return;
+    }
+
+    element.remove();
+
+    active = false;
+
+    document.removeEventListener("mousemove", mouseMove, true);
+    document.removeEventListener("click", click, true);
+
+    if (highlighted) {
+      highlighted.style.outline = highlighted.dataset.originalOutline || "";
+      delete highlighted.dataset.originalOutline;
+    }
+
+    highlighted = null;
+  }
+
+  document.addEventListener("mousemove", mouseMove, true);
+  document.addEventListener("click", click, true);
+}
+
+
+</script>
+
+<script>
+  function removeBlocklist() {
+    //remove elements by id
+ const blocklist = [
+  "tpScreenLockCover"
+];
+
+blocklist.forEach(id => {
+  const element = document.getElementById(id);
+
+  if (element) {
+    element.remove();
+  }
+}); 
+    //remove images
+
+  const imageSrcBlocklist = [
+  "images/icons/blocked_content/youtube-denied.png",
+  "images/icons/blocked_content/iframe-denied.png",
+  "https://storage.googleapis.com/custom_extension_pages_files/",
+  "https://storage.googleapis.com/blocksi_files/gamingdisabled.png",
+  "iframe-denied.png"
+];
+
+document.querySelectorAll("img").forEach(img => {
+  if (imageSrcBlocklist.some(src => img.src.includes(src))) {
+    img.remove();
+  }
+});
+    
+  }
+</script>
     `;
 
-
+toolboxStart();
 
     
     window.openFullscreen = function () {
