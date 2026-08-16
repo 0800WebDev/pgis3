@@ -758,6 +758,13 @@ document.documentElement.setAttribute(
 
 
 <script>
+let dragging = false;
+let moved = false;
+let offsetY = 0;
+let startX = 0;
+let startY = 0;
+
+  
 function toolboxStart() {
 const toolbox = document.getElementById("toolbox");
 const toolboxIcon = toolbox.querySelector("#toolbox-icon");
