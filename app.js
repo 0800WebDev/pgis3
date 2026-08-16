@@ -173,7 +173,13 @@ if (mode === "same") {
 </div>
 
 
+
+
 <script>
+  
+</script>
+  `;
+
 function toolboxStart() {
   const toolbox = document.getElementById("toolbox");
   const toolboxIcon = document.getElementById("toolbox-icon");
@@ -287,9 +293,8 @@ function toolboxStart() {
 }
 
 toolboxStart();
-</script>
   
-<script>
+
   function startElementRemover() {
   let active = true;
   let highlighted = null;
@@ -360,10 +365,7 @@ toolboxStart();
 }
 
 
-</script>
-
-<script>
-  function removeBlocklist() {
+function removeBlocklist() {
     //remove elements by id
  const blocklist = [
   "tpScreenLockCover"
@@ -392,10 +394,9 @@ document.querySelectorAll("img").forEach(img => {
   }
 });
     
-  }
-</script>
-  `;
-toolboxStart();
+}
+
+  
 window.openFullscreen = function () {
       const iframe = document.getElementById("frame");
 
@@ -777,7 +778,8 @@ if (currentGame) {
 </div>
 
 
-<script>
+    `;
+
 function toolboxStart() {
   const toolbox = document.getElementById("toolbox");
   const toolboxIcon = document.getElementById("toolbox-icon");
@@ -891,9 +893,9 @@ function toolboxStart() {
 }
 
 toolboxStart();
-</script>
+
   
-<script>
+
   function startElementRemover() {
   let active = true;
   let highlighted = null;
@@ -964,10 +966,7 @@ toolboxStart();
 }
 
 
-</script>
-
-<script>
-  function removeBlocklist() {
+function removeBlocklist() {
     //remove elements by id
  const blocklist = [
   "tpScreenLockCover"
@@ -996,11 +995,7 @@ document.querySelectorAll("img").forEach(img => {
   }
 });
     
-  }
-</script>
-    `;
-
-toolboxStart();
+}
 
     
     window.openFullscreen = function () {
