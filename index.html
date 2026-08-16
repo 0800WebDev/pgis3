@@ -766,10 +766,9 @@ function toolboxStart() {
 
   let dragging = false;
   let moved = false;
-  let offsetY = 0;
-  let startX = 0;
   let startY = 0;
-  let toolboxIsOpen = false;
+  let offsetY = 0;
+  let toolboxIsOpen = !toolboxContent.hidden;
   let toolboxOnLeft = false;
 
   toolbox.style.position = "fixed";
@@ -782,36 +781,31 @@ function toolboxStart() {
   toolbox.style.alignItems = "center";
   toolbox.style.flexDirection = "row-reverse";
 
-  toolbox.addEventListener("pointerdown", e => {
+  toolbox.onpointerdown = function(e) {
     dragging = true;
     moved = false;
-
-    startX = e.clientX;
     startY = e.clientY;
 
     const rect = toolbox.getBoundingClientRect();
     offsetY = e.clientY - rect.top;
 
-    toolbox.setPointerCapture(e.pointerId);
     toolbox.style.cursor = "grabbing";
     toolbox.style.transform = "none";
-  });
 
-  toolbox.addEventListener("pointermove", e => {
+    e.preventDefault();
+  };
+
+  toolbox.onpointermove = function(e) {
     if (!dragging) return;
 
-    if (
-      Math.abs(e.clientX - startX) > 5 ||
-      Math.abs(e.clientY - startY) > 5
-    ) {
+    if (Math.abs(e.clientY - startY) > 5) {
       moved = true;
     }
 
     const maxY = window.innerHeight - toolbox.offsetHeight;
     const y = Math.max(0, Math.min(e.clientY - offsetY, maxY));
 
-    toolbox.style.top = `${y}px`;
-    toolbox.style.transform = "none";
+    toolbox.style.top = y + "px";
 
     if (e.clientX < window.innerWidth / 2) {
       toolbox.style.left = "0";
@@ -825,25 +819,20 @@ function toolboxStart() {
       toolboxOnLeft = false;
     }
 
-    updateIcon();
-  });
+    updateToolboxIcon();
+  };
 
-  toolbox.addEventListener("pointerup", e => {
-    dragging = false;
-
-    if (toolbox.hasPointerCapture(e.pointerId)) {
-      toolbox.releasePointerCapture(e.pointerId);
-    }
-
-    toolbox.style.cursor = "grab";
-  });
-
-  toolbox.addEventListener("pointercancel", () => {
+  toolbox.onpointerup = function() {
     dragging = false;
     toolbox.style.cursor = "grab";
-  });
+  };
 
-  toolboxButton.addEventListener("click", e => {
+  toolbox.onpointercancel = function() {
+    dragging = false;
+    toolbox.style.cursor = "grab";
+  };
+
+  toolboxButton.onclick = function(e) {
     if (moved) {
       moved = false;
       return;
@@ -852,10 +841,10 @@ function toolboxStart() {
     toolboxIsOpen = !toolboxIsOpen;
     toolboxContent.hidden = !toolboxIsOpen;
 
-    updateIcon();
-  });
+    updateToolboxIcon();
+  };
 
-  function updateIcon() {
+  function updateToolboxIcon() {
     if (toolboxOnLeft) {
       toolboxIcon.className = toolboxIsOpen
         ? "fa-solid fa-caret-left"
@@ -866,6 +855,8 @@ function toolboxStart() {
         : "fa-solid fa-caret-left";
     }
   }
+
+  updateToolboxIcon();
 }
 
 toolboxStart();
