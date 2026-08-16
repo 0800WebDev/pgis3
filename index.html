@@ -751,7 +751,7 @@ document.documentElement.setAttribute(
     <button title="remove element" onclick="startElementRemover();" class="tool-item"><i class="fa-solid fa-trash"></i></button> 
     <button title="remove from blacklist" onclick="removeBlocklist()" class="tool-item"><i class="fa-solid fa-list-check"></i></button>
   </div>
-  <button id="toolbox-btn"><i class="fa-solid fa-caret-left icon"></i></button>
+  <button id="toolbox-btn"><i id="toolbox-icon" class="fa-solid fa-caret-left"></i></button>
 
 
 </div>
@@ -760,7 +760,7 @@ document.documentElement.setAttribute(
 <script>
 function toolboxStart() {
 const toolbox = document.getElementById("toolbox");
-const toolboxIcon = toolbox.querySelector(".icon");
+const toolboxIcon = toolbox.querySelector("#toolbox-icon");
 
 let dragging = false;
 let offsetY = 0;
