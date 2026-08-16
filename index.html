@@ -979,7 +979,22 @@ document.querySelectorAll("img").forEach(img => {
 </script>
 
 
+<script>
+  const element = document.querySelector("#toolbox");
 
+const observer = new MutationObserver(() => {
+  if (!document.contains(element)) {
+    console.log("Toolbox was removed");
+    toolboxStart();
+    observer.disconnect();
+  }
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+</script>
 
 
 
