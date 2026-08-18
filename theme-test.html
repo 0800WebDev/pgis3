@@ -1,0 +1,1004 @@
+<!doctype html>
+<html data-theme="dark">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta charset="UTF-8">
+<title>PGIS 3</title>
+<!--<link rel="icon" type="image/x-icon" href="https://i.postimg.cc/1XJnjRTF/0937a70d8c13420e9c4d8b0dc92bddaa-free-1.png">
+-->
+  <link rel="icon" type="image/x-icon" href="/assets/logo-2.png">
+
+  <meta name="robots" content="noindex, nofollow">
+  
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+  :root {
+  --bg: white;
+  --text: black;
+}
+
+[data-theme="dark"] {
+  --bg: black;
+  --text: white;
+}
+
+
+
+  
+html, body {
+  
+scroll-behavior: smooth;
+text-align:center;
+color: #00FF00;
+width: 100%;
+height: 100%;
+font-family: Arial, sans-serif;
+    margin: 0;
+}
+  html {
+    background: blue;
+
+  }
+body {
+    background: transparent;
+}
+#cards2{
+background-color:rgba(0,0,0,0.1);
+display:flex;
+justify-content:center;
+gap: 40px; /* used to be 20px*/
+flex-wrap:wrap;
+position:relative;
+  padding: 30px; /* remove if bad */
+  height: 100%;
+}
+
+.gamediv{
+width:200px;
+height:170px;
+background-color:rgba(0,0,0,0.3);
+background-size:cover;
+background-position:center;
+cursor:auto;
+border:1px solid #444;
+border-radius:5px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+position:relative;
+  padding: 5px; /* remove if bad */
+  
+}
+
+  .gamediv:hover {
+        
+        box-shadow: 0 0 15px white;
+  transition: box-shadow 0.3s;
+  }
+  
+button{
+opacity:1!important;
+z-index:2;
+cursor:pointer;
+background-color:#444;
+color:whitesmoke;
+border:none;
+border-radius:4px;
+margin: 10px;
+}
+
+button:hover{
+background-color: black;
+color: white;
+border-radius:6px;
+}
+
+a{
+  color: white;
+ }
+
+#particles-js{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index: -1 !important;
+pointer-events:none;
+background:transparent;
+}
+.particles-js-canvas-el {
+  z-index: -1 !important;
+
+}
+
+iframe {
+      width: 100vw;
+      height: calc(100vh - clamp(60px, 2vw, 140px));
+      border: none;
+      display: block;
+    }
+  #menu {
+    backdrop-filter: blur(10px);
+    background: rgba(0, 225, 0, 0.4);
+    width: 80%;
+    text-align: center;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 7px;
+    z-index: 2147483647;
+    isolation: isolate;
+    
+  }
+
+#menu::before {
+    content: "";
+  position: absolute;
+  width: 70%;
+  height: 60px;
+  background: #00FF00;
+  border-radius: 50%;
+  filter: blur(25px);
+  opacity: 0.8;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+  
+  
+  .icon {
+height: clamp(30px, 0.5vw, 100px);  
+  
+  }
+
+
+  
+  #home {
+    text-align: left;
+    
+  }
+
+  #main-text {
+      position: relative;
+    top: 30vh;
+    font-size: 50px;
+    font-family: 'Sora', sans-serif;
+    text-shadow:
+    0 0 10px rgba(255,255,255,0.3),
+    0 0 30px rgba(255,255,255,0.15);
+    animation: float 4s ease-in-out infinite;
+
+     background:
+  linear-gradient(
+  115deg,
+  #0f3d20 0%,
+  #39ff14 10%,
+  #2e7d32 18%,
+  #7cff5b 25%,
+  #388e3c 32%,
+  #39ff14 40%,
+  #1b5e20 50%,
+  #39ff14 60%,
+  #43a047 68%,
+  #6fff4f 76%,
+  #2e7d32 85%,
+  #39ff14 100%
+);
+  background-size: 300% auto;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  background-size: 200% 200%;
+animation: chrome 20s ease-in-out infinite alternate;
+
+    filter: contrast(1.15) brightness(1.1);
+  }
+
+@keyframes chrome {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+  
+  @keyframes float {
+  0%,100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+  }
+
+    b {
+      font-weight: 3000;
+    }
+
+
+
+
+
+ .card {
+display:flex;
+justify-content:center;
+gap: 20px;
+flex-wrap:wrap; 
+position:relative;
+z-index:1;
+ height: 100%;
+}
+
+
+
+
+
+  
+   .settings {
+    width: fit-content;
+height: auto;
+background: rgba(255, 255, 255, 0.06);
+   background-size:cover;
+background-position:center;
+cursor:auto;
+border:1px solid #444;
+border-radius:5px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+position:relative;
+  padding: 30px; /* remove if bad */
+    backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+    margin: 20px;
+    
+  }
+
+
+
+
+
+
+.game-item {
+  opacity: 0;
+}
+
+.game-item.show {
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+
+
+
+#splash {
+  position: relative;
+  top: 29vh;
+  cursor: pointer;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.mainBtn {
+  width: 100px;
+  height: 50px;
+  position: relative;
+  top: 30vh;
+  margin:5px;
+  background:#444;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:16px;
+
+}
+
+.menu-btn.active {
+  box-shadow: 0 0 15px white;
+  transition: box-shadow 0.3s;
+}
+
+    .menu-btn:hover {
+        
+        box-shadow: 0 0 15px white;
+  transition: box-shadow 0.3s;
+    }
+
+  #user-info {
+    position: fixed;
+    bottom: 50px;
+    left: 10px;
+  }
+
+  #search {
+    width: 70vw;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: whitesmoke;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+#search::placeholder {
+    color: #aaa;
+    text-align: center;
+}
+
+#search:focus {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    background-color: rgba(0,0,0,0.8);
+}
+
+#games {
+  z-index: 10 !important;
+}
+  
+</style>
+</head>
+
+<body>
+
+ <!--widgets-->
+  
+<div id="batteryWidget">
+  <svg viewBox="0 0 24 24" class="battery-icon">
+    <rect x="2" y="7" width="18" height="10" rx="2" ry="2"
+      fill="none" stroke="currentColor" stroke-width="2"/>
+    <rect id="batteryLevel" x="2.5" y="7" width="0" height="10"
+      fill="currentColor"/>
+    <rect x="20" y="10" width="2" height="4"
+      fill="currentColor"/>
+  </svg>
+
+  <span id="batteryText">--%</span>
+</div>
+
+<style>
+
+
+#batteryWidget {
+  position: fixed;
+  top: 10px; /*10px*/
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #39FF14;
+  font-family: sans-serif;
+  font-size: 14px;
+  z-index: 9999;
+  
+  
+  
+}
+
+.battery-icon {
+  width: 24px;
+  height: 24px;
+}
+
+</style>
+
+<script>
+async function initBattery() {
+  if (!navigator.getBattery) {
+    document.getElementById("batteryText").textContent = "N/A";
+    return;
+  }
+
+  const battery = await navigator.getBattery();
+
+  function update() {
+    const level = Math.round(battery.level * 100);
+
+    document.getElementById("batteryText").textContent = level + "%";
+
+    const fill = document.getElementById("batteryLevel");
+    fill.setAttribute("width", (level / 100) * 16.57);
+  }
+
+  update();
+
+  battery.addEventListener("levelchange", update);
+  battery.addEventListener("chargingchange", update);
+}
+
+initBattery();
+</script>
+  
+<div id="fps-counter">FPS: N/A</div>
+
+<style>
+#fps-counter{
+    position: fixed;
+  top: 35px; /*35*/
+  right: 15px; /*15*/
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #39FF14;
+  font-family: sans-serif;
+  font-size: 14px;
+  z-index: 9999;
+  
+  
+  
+}
+</style>
+
+<script>
+  function fps() {
+(() => {
+    const fpsCounter = document.getElementById("fps-counter");
+
+    let frames = 0;
+    let lastTime = performance.now();
+
+    function loop(now) {
+        frames++;
+
+        if (now >= lastTime + 1000) {
+            const fps = Math.round((frames * 1000) / (now - lastTime));
+            fpsCounter.textContent = `FPS: ${fps}`;
+            frames = 0;
+            lastTime = now;
+        }
+
+        requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+})();
+  }
+  fps();
+</script>
+
+
+  
+<!--main content-->
+  <div id="particles-js"></div>
+
+<div style="position:relative;z-index:1;">
+</div>
+
+<div id="games">
+<h1 Id="main-text">PGIS <b>3</b></h1>
+<p id="splash" onclick="loadSplash()">Loading splash...</p>
+ <div id="buttons">
+<!--  <button class="mainBtn" onclick="document.querySelector('.menu-btn.active')?.classList.remove('active'); document.getElementById('play').classList.add('active'); loadGames('games')">Play</button> <button class="mainBtn" onclick="document.querySelector('.menu-btn.active')?.classList.remove('active'); document.getElementById('browse').classList.add('active'); proxy()">Browse</button>
+-->  </div> 
+</div>
+
+<script>
+async function loadSplash() {
+    const splashEl = document.getElementById("splash");
+    const time = new Date().getHours();
+
+    const randomSentences = await fetch("splash.json")
+        .then(r => r.json());
+
+    let splash = "";
+
+    if (Math.random() < 0.5) {
+        const randomIndex = Math.floor(Math.random() * randomSentences.length);
+        splash = randomSentences[randomIndex];
+    } else {
+        if (time < 6) splash = "A bit late?";
+        else if (time < 12) splash = "Good morning!";
+        else if (time < 18) splash = "Ready to play?";
+        else splash = "Still playing?";
+    }
+
+    splashEl.innerHTML = splash;
+}
+
+loadSplash();
+</script>
+
+
+<!--<div id="user-info">
+ <p>Username: <span id="username"><button onclick="chat()">log in</button></span></p>
+</div> -->
+  
+<div id="menu"><button class="menu-btn active" onclick="Home()" id="home"><img src="/assets/home.png" class="icon"></button> <button class="menu-btn" onclick="loadGames('games')" id="play"><img src="/assets/games.png" class="icon"></button> <button class="menu-btn" onclick="proxy()" id="browse"><img src="/assets/proxy.png" class="icon"></button> <button class="menu-btn" onclick="chat()"><img src="/assets/chat.png" class="icon"></button> <button class="menu-btn" onclick="loadGames('apps')"><img src="/assets/apps.png" class="icon"></button> <button class="menu-btn" onclick="movies()" ><img src="/assets/movies.png" class="icon"></button> <button class="menu-btn" onclick="settings()"><img src="/assets/settings.png" class="icon"></button> <button class="menu-btn" onclick="info()"><img src="/assets/info.png" class="icon"></button></div>
+<div id="bottom"></div>
+
+
+<script>
+function loadUsername() {
+  const username = localStorage.getItem('username');
+
+  const el = document.getElementById('username');
+  if (el && username) {
+    el.textContent = username;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadUsername);
+</script>
+
+  
+<script>
+const buttons = document.querySelectorAll(".menu-btn");
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelector(".menu-btn.active")?.classList.remove("active");
+        button.classList.add("active");
+    });
+});
+</script>
+
+<script>
+
+document.querySelectorAll("button").forEach(btn=>{
+if(btn.textContent.trim()==="open"||btn.textContent.trim()==="try 8os" ||btn.textContent.trim()==="try coreus" ||btn.textContent.trim()==="try UBGdir"){
+btn.style.width="120px"
+}
+})
+
+</script>
+
+<script>
+
+const placeholder="https://pgis.x10.mx/placeholder.png"
+
+document.querySelectorAll("img").forEach(img=>{
+
+img.addEventListener("error",function(){
+if(this.src!==placeholder){
+this.src=placeholder
+}
+})
+
+if(!img.getAttribute("src")){
+img.src=placeholder
+}
+
+})
+
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+<script>
+  
+const games = document.getElementById("games");
+
+const observer = new MutationObserver((mutations) => {
+  for (const mutation of mutations) {
+    for (const node of mutation.addedNodes) {
+      if (node.nodeType !== 1) continue;
+
+      const targets = node.querySelectorAll
+        ? [node, ...node.querySelectorAll(".gamediv")]
+        : [node];
+
+      for (const el of targets) {
+        if (!el.classList || !el.classList.contains("gamediv")) continue;
+
+        el.classList.add("game-item");
+
+        requestAnimationFrame(() => {
+          el.classList.add("show");
+        });
+      }
+    }
+  }
+});
+
+observer.observe(document.getElementById("games"), {
+  childList: true,
+  subtree: true
+});
+  
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script type="module" src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<script>
+function particlesStart() {
+particlesJS('particles-js',{
+"particles":{
+"number":{"value":100,"density":{"enable":true,"value_area":800}},
+"color":{"value":"#00FF00"},
+"shape":{"type":"circle"},
+"opacity":{"value":0.08,"random":true},
+"size":{"value":3,"random":true},
+"line_linked":{"enable":true,"distance":150,"color":"#00FF00","opacity":1,"width":1},
+"move":{"enable":true,"speed":1.5,"direction":"none","straight":false,"out_mode":"out"}
+},
+"interactivity":{
+"detect_on":"window",
+"events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":false}},
+"modes":{"repulse":{"distance":120,"duration":0.5}}
+},
+"retina_detect":true
+})
+}
+  particlesStart();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>
+eruda.init();
+</script>
+
+
+  <script>
+// if (localStorage.getItem("password_correct") !== "true") {
+// location.href = "pass.html";
+// }
+  </script>
+
+  <script>
+const direct = document.referrer === "";
+
+window.vercelFlags = {
+  direct_visit: direct
+};
+
+document.documentElement.setAttribute(
+  "data-flag-direct_visit",
+  direct ? "true" : "false"
+);
+  </script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+
+
+
+
+
+
+
+<style>
+  
+  #toolbox-btn {
+    height: 100px;
+    width: auto;
+    border: none;
+    border-radius: 0px;
+    color: #00FF00;
+    background-color: blue;
+    
+
+  }
+  #toolbox-content {
+    padding: 10px;
+    text-align: center;
+  }
+  #toolbox {
+    background: blue;
+    display: flex;
+  align-items: center;
+    border-radius: 2px;
+    box-shadow: 0 0 20px #39FF14;
+    z-index: 999999999999999999999999999999999999999999999999999999;
+  }
+  .tool-item {
+    height: 30px;
+    width: 30px;
+    color: blue;
+    background: #00FF00;
+    border-radius: 4px;
+    border: none;
+  }
+  
+</style>
+<div id="toolbox">
+  <div id="toolbox-content" hidden>
+<b>toolbox</b> <br>
+  <button title="about:blank" onclick="toolboxAboutBlank()" class="tool-item"><i class="fa-solid fa-school-circle-xmark"></i></button> <button title="tab cloak" onclick="tempTabCloak()" class="tool-item"><i class="fa-solid fa-computer"></i></button> <button title="panic button" onclick="toolboxRedirect()" class="tool-item"><i class="fa-solid fa-circle-exclamation"></i></button>
+    <hr>
+    <button title="phantom refresh" onclick='
+      
+      (async()=>{try{const res=await fetch(location.href);const text=await res.text();const doc=new DOMParser().parseFromString(text,"text/html");document.head.innerHTML=doc.head.innerHTML;document.body.innerHTML=doc.body.innerHTML;console.log("page reset");}catch(e){console.error(e);}})(); setTimeout(() => {
+  toolboxStart();
+  loadSplash();
+  initBattery();
+  fps();
+  particlesStart();
+  
+}, 400);
+' class="tool-item"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+    <button title="remove element" onclick="startElementRemover();" class="tool-item"><i class="fa-solid fa-trash"></i></button> 
+    <button title="remove from blacklist" onclick="removeBlocklist()" class="tool-item"><i class="fa-solid fa-list-check"></i></button>
+  </div>
+  <button id="toolbox-btn"><i id="toolbox-icon" class="fa-solid fa-caret-left"></i></button>
+
+
+</div>
+
+
+<script>
+function toolboxStart() {
+  const toolbox = document.getElementById("toolbox");
+  const toolboxIcon = document.getElementById("toolbox-icon");
+  const toolboxContent = document.getElementById("toolbox-content");
+  const toolboxButton = document.getElementById("toolbox-btn");
+
+  let dragging = false;
+  let moved = false;
+  let startX = 0;
+  let startY = 0;
+  let offsetY = 0;
+  let toolboxIsOpen = !toolboxContent.hidden;
+  let toolboxOnLeft = false;
+
+  toolbox.style.position = "fixed";
+  toolbox.style.right = "0";
+  toolbox.style.top = "50%";
+  toolbox.style.transform = "translateY(-50%)";
+  toolbox.style.cursor = "grab";
+  toolbox.style.touchAction = "none";
+  toolbox.style.display = "flex";
+  toolbox.style.alignItems = "center";
+  toolbox.style.flexDirection = "row-reverse";
+
+  function updateToolboxIcon() {
+    if (toolboxOnLeft) {
+      toolboxIcon.className = toolboxIsOpen
+        ? "fa-solid fa-caret-left"
+        : "fa-solid fa-caret-right";
+    } else {
+      toolboxIcon.className = toolboxIsOpen
+        ? "fa-solid fa-caret-right"
+        : "fa-solid fa-caret-left";
+    }
+  }
+
+  toolbox.addEventListener("pointerdown", e => {
+    dragging = true;
+    moved = false;
+
+    startX = e.clientX;
+    startY = e.clientY;
+
+    const rect = toolbox.getBoundingClientRect();
+    offsetY = e.clientY - rect.top;
+
+    toolbox.style.cursor = "grabbing";
+    toolbox.style.transform = "none";
+
+    e.preventDefault();
+  });
+
+  document.addEventListener("pointermove", e => {
+    if (!dragging) return;
+
+    if (
+      Math.abs(e.clientX - startX) > 5 ||
+      Math.abs(e.clientY - startY) > 5
+    ) {
+      moved = true;
+    }
+
+    const maxY = window.innerHeight - toolbox.offsetHeight;
+    const y = Math.max(
+      0,
+      Math.min(e.clientY - offsetY, maxY)
+    );
+
+    toolbox.style.top = `${y}px`;
+
+    if (e.clientX < window.innerWidth / 2) {
+      toolbox.style.left = "0";
+      toolbox.style.right = "auto";
+      toolbox.style.flexDirection = "row";
+      toolboxOnLeft = true;
+    } else {
+      toolbox.style.left = "auto";
+      toolbox.style.right = "0";
+      toolbox.style.flexDirection = "row-reverse";
+      toolboxOnLeft = false;
+    }
+
+    updateToolboxIcon();
+  });
+
+  document.addEventListener("pointerup", () => {
+    if (!dragging) return;
+
+    dragging = false;
+    toolbox.style.cursor = "grab";
+  });
+
+  document.addEventListener("pointercancel", () => {
+    dragging = false;
+    toolbox.style.cursor = "grab";
+  });
+
+  toolboxButton.addEventListener("click", e => {
+    if (moved) {
+      moved = false;
+      return;
+    }
+
+    toolboxIsOpen = !toolboxIsOpen;
+    toolboxContent.hidden = !toolboxIsOpen;
+
+    updateToolboxIcon();
+  });
+
+  updateToolboxIcon();
+}
+
+toolboxStart();
+</script>
+  
+<script>
+  function startElementRemover() {
+  let active = true;
+  let highlighted = null;
+
+  function highlight(element) {
+    if (!active) return;
+    if (element === document.body || element === document.documentElement) return;
+
+    if (highlighted && highlighted !== element) {
+      highlighted.style.outline = highlighted.dataset.originalOutline || "";
+    }
+
+    if (highlighted !== element) {
+      highlighted = element;
+      highlighted.dataset.originalOutline = element.style.outline || "";
+      element.style.outline = "2px solid red";
+    }
+  }
+
+  function mouseMove(event) {
+    if (!active) return;
+
+    const element = document.elementFromPoint(
+      event.clientX,
+      event.clientY
+    );
+
+    highlight(element);
+  }
+
+  function click(event) {
+    if (!active) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    const element = document.elementFromPoint(
+      event.clientX,
+      event.clientY
+    );
+
+    if (
+      !element ||
+      element === document.body ||
+      element === document.documentElement
+    ) {
+      return;
+    }
+
+    element.remove();
+
+    active = false;
+
+    document.removeEventListener("mousemove", mouseMove, true);
+    document.removeEventListener("click", click, true);
+
+    if (highlighted) {
+      highlighted.style.outline = highlighted.dataset.originalOutline || "";
+      delete highlighted.dataset.originalOutline;
+    }
+
+    highlighted = null;
+  }
+
+  document.addEventListener("mousemove", mouseMove, true);
+  document.addEventListener("click", click, true);
+}
+
+
+</script>
+
+<script>
+  function removeBlocklist() {
+    //remove elements by id
+ const blocklist = [
+  "tpScreenLockCover"
+];
+
+blocklist.forEach(id => {
+  const element = document.getElementById(id);
+
+  if (element) {
+    element.remove();
+  }
+}); 
+    //remove images
+
+  const imageSrcBlocklist = [
+  "images/icons/blocked_content/youtube-denied.png",
+  "images/icons/blocked_content/iframe-denied.png",
+  "https://storage.googleapis.com/custom_extension_pages_files/",
+  "https://storage.googleapis.com/blocksi_files/gamingdisabled.png",
+  "iframe-denied.png"
+];
+
+document.querySelectorAll("img").forEach(img => {
+  if (imageSrcBlocklist.some(src => img.src.includes(src))) {
+    img.remove();
+  }
+});
+    
+  }
+</script>
+
+
+<script>
+  const element = document.querySelector("#toolbox");
+
+const TBobserver = new MutationObserver(() => {
+  if (!document.contains(element)) {
+    toolboxStart();
+    TBobserver.disconnect();
+  }
+});
+
+TBobserver.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+</script>
+
+
+
+
+
+
+
+</body>
+</html>     
