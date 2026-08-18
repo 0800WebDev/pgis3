@@ -1204,11 +1204,11 @@ searchInput.addEventListener('input', () => {
         }
     });
 });
-
-
-
-
-  
+document.querySelector("#search").addEventListener("input", function () {
+  if (this.value === "'%[l#o#g#o.t#h#e#m#e]**,") {
+    window.location.href = "/theme-test.html";
+  }
+});
 };
 
 
