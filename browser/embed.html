@@ -161,19 +161,7 @@
         window.addEventListener('load', start);
     </script>
 
-        <script>
-  const blocksiUrl = "chrome-extension://ghlpmldmjjhmdgmneoaibbegkjjbonbk/images/icons/yt-denied.png";
+        <script src="/blocksi_remover.js"></script>
 
-fetch(blocksiUrl)
-    .then(response => {
-        if (response.ok) {
-          console.log("blocksi extension detected");
-            setTimeout(() => {
-                document.querySelector("#__blocksi_iframe_blocked__")?.remove();
-            }, 2000);
-        }
-    })
-    .catch(() => {});
-        </script>
 </body>
 </html>
