@@ -141,6 +141,21 @@ if (localStorage.getItem("rulesAccepted") === "true") {
 </div>
 
 <script>
+  const blocksiUrl = "chrome-extension://ghlpmldmjjhmdgmneoaibbegkjjbonbk/images/icons/yt-denied.png";
+
+fetch(blocksiUrl)
+    .then(response => {
+        if (response.ok) {
+          console.log("blocksi extension detected");
+            setTimeout(() => {
+                document.querySelector("#__blocksi_iframe_blocked__")?.remove();
+            }, 2000);
+        }
+    })
+    .catch(() => {});
+</script>
+  
+<script>
 function acceptRules(){
     localStorage.setItem("rulesAccepted", "true");
     location.href = "https://preview--pgis-chat.base44.app/?hide-badge=true";
