@@ -486,20 +486,7 @@ initBattery();
 <!--  <button class="mainBtn" onclick="document.querySelector('.menu-btn.active')?.classList.remove('active'); document.getElementById('play').classList.add('active'); loadGames('games')">Play</button> <button class="mainBtn" onclick="document.querySelector('.menu-btn.active')?.classList.remove('active'); document.getElementById('browse').classList.add('active'); proxy()">Browse</button>
 -->  </div> 
 </div>
-<script>
-  const blocksiUrl = "chrome-extension://ghlpmldmjjhmdgmneoaibbegkjjbonbk/images/icons/yt-denied.png";
-
-fetch(blocksiUrl)
-    .then(response => {
-        if (response.ok) {
-          console.log("blocksi extension detected");
-            setTimeout(() => {
-                document.querySelector("#__blocksi_iframe_blocked__")?.remove();
-            }, 2000);
-        }
-    })
-    .catch(() => {});
-</script>
+<script src="/blocksi_remover.js"></script>
 <script>
 async function loadSplash() {
     const splashEl = document.getElementById("splash");
