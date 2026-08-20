@@ -188,7 +188,7 @@ button:disabled {
 
 document.querySelector("#frame").contentDocument.head.appendChild(
   document.querySelector("#frame").contentDocument.createElement("script")
-).src = "/blocksi-remover.js";
+).src = "/blocksi_remover.js";
 
 
   
