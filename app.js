@@ -185,6 +185,13 @@ button:disabled {
 </script>
   `;
 
+
+document.querySelector("#frame").contentDocument.head.appendChild(
+  document.querySelector("#frame").contentDocument.createElement("script")
+).src = "/blocksi-remover.js";
+
+
+  
 function toolboxStart() {
   const toolbox = document.getElementById("toolbox");
   const toolboxIcon = document.getElementById("toolbox-icon");
