@@ -1002,5 +1002,32 @@ TBobserver.observe(document.body, {
 
 
 
+
+
+
+
+  <script>
+window.addEventListener("load", () => {
+  document.querySelector("#toolbox")?.remove();
+
+  document.body.insertAdjacentHTML("beforeend", `
+    <div id="toolbox">
+      <div id="toolbox-content" hidden>
+        <b>toolbox</b><br>
+        <button title="about:blank" onclick="toolboxAboutBlank()" class="tool-item"><i class="fa-solid fa-school-circle-xmark"></i></button>
+        <button title="tab cloak" onclick="tempTabCloak()" class="tool-item"><i class="fa-solid fa-computer"></i></button>
+        <button title="panic button" onclick="toolboxRedirect()" class="tool-item"><i class="fa-solid fa-circle-exclamation"></i></button>
+        <hr>
+        <button title="phantom refresh" onclick='(async()=>{try{const res=await fetch(location.href);const text=await res.text();const doc=new DOMParser().parseFromString(text,"text/html");document.head.innerHTML=doc.head.innerHTML;document.body.innerHTML=doc.body.innerHTML;console.log("page reset");}catch(e){console.error(e);}})(); setTimeout(() => { toolboxStart(); loadSplash(); initBattery(); fps(); particlesStart(); }, 400);' class="tool-item"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+        <button title="remove element" onclick="startElementRemover();" class="tool-item"><i class="fa-solid fa-trash"></i></button>
+        <button title="remove from blacklist" onclick="removeBlocklist()" class="tool-item"><i class="fa-solid fa-list-check"></i></button>
+      </div>
+      <button id="toolbox-btn"><i id="toolbox-icon" class="fa-solid fa-caret-left"></i></button>
+    </div>
+  `);
+});
+  </script>
+
+
 </body>
 </html>     
