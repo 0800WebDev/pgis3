@@ -1393,13 +1393,13 @@ initAuthListener();
 
 window.info = async function () {
     document.getElementById("games").innerHTML = `
-      <iframe src="/info.html"></iframe>
+      <iframe src="/pages/info.html"></iframe>
       `;
 };
 
 window.movies = async function () {
     document.getElementById("games").innerHTML = `
-      <iframe src="/movies.html"></iframe>
+      <iframe src="/pages/movies.html"></iframe>
       `;
 };
 
