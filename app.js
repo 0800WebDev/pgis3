@@ -1326,6 +1326,7 @@ const toggle = document.getElementById("closeProtectionToggle");
 function updateCloseProtection() {
     const enabled = localStorage.closeProtection === "true";
     toggle.textContent = `${enabled ? "ON" : "OFF"}`;
+closeProtectionInit()
 }
 
 toggle.addEventListener("click", () => {
@@ -1890,7 +1891,7 @@ window.toolboxAboutBlank = function () {
   win.document.close();
 };
 
-
+function closeProtectionInit() {
 
 if (localStorage.closeProtection === "true") {
     if ("navigation" in window) {
@@ -1906,3 +1907,10 @@ if (localStorage.closeProtection === "true") {
         e.returnValue = "";
     });
 }
+
+  }
+
+closeProtectionInit()
+
+
+
