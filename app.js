@@ -1287,7 +1287,10 @@ window.settings = async function () {
     <option value="aboutblank">About:blank</option>
   </select>
 </div>
-    
+      <div class="settings">
+  <h2>Close protection</h2>
+    <button id="closeProtectionToggle">OFF</button>
+      </div>
     </div>
 <br><br>
 <details>
@@ -1317,6 +1320,24 @@ window.settings = async function () {
 
     </div>
           `;
+
+const toggle = document.getElementById("closeProtectionToggle");
+
+function updateCloseProtection() {
+    const enabled = localStorage.closeProtection === "true";
+    toggle.textContent = `${enabled ? "ON" : "OFF"}`;
+}
+
+toggle.addEventListener("click", () => {
+    localStorage.closeProtection =
+        localStorage.closeProtection === "true" ? "false" : "true";
+
+    updateCloseProtection();
+});
+
+updateCloseProtection();
+
+  
   
   updateToggleButton();
 
@@ -1868,3 +1889,20 @@ window.toolboxAboutBlank = function () {
 
   win.document.close();
 };
+
+
+
+if (localStorage.closeProtection === "true") {
+    if ("navigation" in window) {
+        navigation.addEventListener("navigate", e => {
+            if (e.canIntercept) {
+                e.preventDefault();
+            }
+        });
+    }
+
+    window.addEventListener("beforeunload", e => {
+        e.preventDefault();
+        e.returnValue = "";
+    });
+}
