@@ -1354,7 +1354,7 @@ if (launchMode) {
 
 window.chat = async function () {
     document.getElementById("games").innerHTML = `
-      <iframe src="/chat/rules.html"></iframe>
+      <iframe src="/pages/chat.html"></iframe>
       `;
 
 
