@@ -10,8 +10,6 @@ PGIS 3 is the third version of pgis, this version has a cleaner ui, more/better 
 
 [https://homework555.netlify.app/](https://homework555.netlify.app/)
 
-[http://math.monedita.cl/](http://math.monedita.cl/)
-
 [http://math.bumon.ar](http://math.bumon.ar)
 
 
