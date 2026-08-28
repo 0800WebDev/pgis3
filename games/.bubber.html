@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>.bubber Canvas Viewer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0f172a;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    
+    /* Upload Screen */
+    #uploadContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #f8fafc;
+      gap: 16px;
+    }
+    .file-dropzone {
+      border: 2px dashed #8b5cf6;
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      background: #1e293b;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .file-dropzone:hover {
+      background: #2d3748;
+    }
+    input[type="file"] {
+      display: none;
+    }
+    .btn {
+      background: #8b5cf6;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    /* Fullscreen Canvas Frame */
+    #canvasFrame {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="uploadContainer">
+    <label for="bubberFileInput" class="file-dropzone">
+      <h2>Select or Drop `.bubber` File</h2>
+      <p style="color: #94a3b8; margin-top: 8px;">Upload to view on full-screen canvas</p>
+      <span class="btn">Browse File</span>
+    </label>
+    <input type="file" id="bubberFileInput" accept=".bubber" onchange="renderBubberCanvas(event)">
+  </div>
+
+  <iframe id="canvasFrame" sandbox="allow-scripts allow-same-origin"></iframe>
+
+  <script>
+    function decodeBubberPayload(bubberJsonString) {
+      try {
+        const parsed = JSON.parse(bubberJsonString);
+        if (parsed.format !== "BUBBER_V1") throw new Error("Invalid format");
+
+        // Reverse decoding steps
+        let base64 = parsed.payload.split('').reverse().join('');
+        let hexString = decodeURIComponent(atob(base64));
+        return decodeURIComponent(hexString);
+      } catch (err) {
+        alert("Invalid .bubber file payload.");
+        return null;
+      }
+    }
+
+    function renderBubberCanvas(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const decodedHtml = decodeBubberPayload(e.target.result);
+        
+        if (decodedHtml) {
+          const iframe = document.getElementById('canvasFrame');
+          const uploadContainer = document.getElementById('uploadContainer');
+          
+          // Inject raw content into iframe
+          iframe.srcdoc = decodedHtml;
+
+          // Switch view to full canvas
+          uploadContainer.style.display = 'none';
+          iframe.style.display = 'block';
+        }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
