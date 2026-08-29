@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+<title>Essay Extender</title>
+<style>
+body {
+  text-align: center;
+  background: black;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+  textarea {
+    width: 100%;
+    resize: vertical;
+    height: 130px;
+    border: none;
+    text-align: center;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+<h1>Essay Extender</h1>
+<p>Extends your essay and makes it more professional. </p>
+
+<textarea id="textInput" placeholder="Paste in your essay here"></textarea>
+<div>Words: <span id="wordCount">0</span></div>
+
+<script>
+const textarea = document.getElementById("textInput");
+const wordCount = document.getElementById("wordCount");
+
+const replacements = {
+    "ain't": "am not",
+    "aren't": "are not",
+    "can't": "cannot",
+    "could've": "could have",
+    "couldn't": "could not",
+    "didn't": "did not",
+    "doesn't": "does not",
+    "don't": "do not",
+    "hadn't": "had not",
+    "hasn't": "has not",
+    "haven't": "have not",
+    "he'd": "he would",
+    "he'll": "he will",
+    "he's": "he is",
+    "how'd": "how did",
+    "how'll": "how will",
+    "how's": "how is",
+    "i'd": "I would",
+    "i'll": "I will",
+    "i'm": "I am",
+    "i've": "I have",
+    "isn't": "is not",
+    "it'd": "it would",
+    "it'll": "it will",
+    "it's": "it is",
+    "let's": "let us",
+    "might've": "might have",
+    "mightn't": "might not",
+    "must've": "must have",
+    "mustn't": "must not",
+    "needn't": "need not",
+    "shan't": "shall not",
+    "she'd": "she would",
+    "she'll": "she will",
+    "she's": "she is",
+    "should've": "should have",
+    "shouldn't": "should not",
+    "that'd": "that would",
+    "that'll": "that will",
+    "that's": "that is",
+    "there'd": "there would",
+    "there'll": "there will",
+    "there's": "there is",
+    "they'd": "they would",
+    "they'll": "they will",
+    "they're": "they are",
+    "they've": "they have",
+    "wasn't": "was not",
+    "we'd": "we would",
+    "we'll": "we will",
+    "we're": "we are",
+    "we've": "we have",
+    "weren't": "were not",
+    "what'd": "what did",
+    "what'll": "what will",
+    "what're": "what are",
+    "what's": "what is",
+    "what've": "what have",
+    "when'd": "when did",
+    "when'll": "when will",
+    "when's": "when is",
+    "where'd": "where did",
+    "where'll": "where will",
+    "where's": "where is",
+    "who'd": "who would",
+    "who'll": "who will",
+    "who're": "who are",
+    "who's": "who is",
+    "who've": "who have",
+    "why'd": "why did",
+    "why'll": "why will",
+    "why's": "why is",
+    "won't": "will not",
+    "would've": "would have",
+    "wouldn't": "would not",
+    "you'd": "you would",
+    "you'll": "you will",
+    "you're": "you are",
+    "you've": "you have",
+
+    "couldn't've": "could not have",
+    "shouldn't've": "should not have",
+    "wouldn't've": "would not have",
+    "mightn't've": "might not have",
+
+    "gonna": "going to",
+    "wanna": "want to",
+    "gotta": "got to",
+    "hafta": "have to",
+    "lemme": "let me",
+    "gimme": "give me",
+    "kinda": "kind of",
+    "sorta": "sort of",
+    "outta": "out of",
+    "lotta": "lot of",
+    "coulda": "could have",
+    "woulda": "would have",
+    "shoulda": "should have",
+    "musta": "must have",
+    "dunno": "do not know",
+    "c'mon": "come on",
+    "y'all": "you all",
+    "imma": "I am going to",
+    "i'ma": "I am going to",
+    "tryna": "trying to",
+    "finna": "going to",
+    "boutta": "about to",
+    "betcha": "bet you",
+    "gotcha": "got you",
+    "whatcha": "what you",
+
+    "bc": "because",
+    "b/c": "because",
+    "cuz": "because",
+    "coz": "because",
+    "tho": "though",
+    "thru": "through",
+    "pls": "please",
+    "plz": "please",
+    "w/": "with",
+    "w/o": "without",
+    "tmrw": "tomorrow",
+    "tonite": "tonight",
+    "nite": "night",
+    "abt": "about",
+    "b4": "before",
+    "l8r": "later",
+    "gr8": "great",
+    "2day": "today",
+    "2moro": "tomorrow",
+    "2nite": "tonight"
+};
+  
+const sortedReplacements = Object.keys(replacements)
+    .sort((a, b) => b.length - a.length);
+
+const replacementRegex = new RegExp(
+    "(?<![\\w'])(" +
+    sortedReplacements
+        .map(word => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+        .join("|") +
+    ")(?![\\w'])",
+    "gi"
+);
+
+function expandText(text) {
+    return text.replace(replacementRegex, match => {
+        const replacement = replacements[match.toLowerCase()];
+
+        if (!replacement) return match;
+
+        if (match === match.toUpperCase()) {
+            return replacement.toUpperCase();
+        }
+
+        if (match[0] === match[0].toUpperCase()) {
+            return replacement[0].toUpperCase() + replacement.slice(1);
+        }
+
+        return replacement;
+    });
+}
+
+function countWords(text) {
+    const trimmed = text.trim();
+
+    if (!trimmed) return 0;
+
+    return trimmed.split(/\s+/).length;
+}
+
+let updating = false;
+
+textarea.addEventListener("input", () => {
+    if (updating) return;
+
+    const oldValue = textarea.value;
+    const newValue = expandText(oldValue);
+
+    if (oldValue !== newValue) {
+        updating = true;
+
+        const cursorPosition = textarea.selectionStart;
+        const difference = newValue.length - oldValue.length;
+
+        textarea.value = newValue;
+
+        textarea.selectionStart = cursorPosition + difference;
+        textarea.selectionEnd = cursorPosition + difference;
+
+        updating = false;
+    }
+
+    wordCount.textContent = countWords(textarea.value);
+});
+
+wordCount.textContent = "0";
+</script>
+</body>
+</html>
