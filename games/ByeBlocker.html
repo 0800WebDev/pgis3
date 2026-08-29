@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>ByeBlocker</title>
 
   <style>
@@ -13,9 +12,10 @@
 
     html,
     body {
-      margin: 0;
       width: 100%;
       height: 100%;
+      margin: 0;
+      padding: 0;
       overflow: hidden;
       font-family: Arial, sans-serif;
       background: #000;
@@ -24,12 +24,10 @@
     #background {
       position: fixed;
       inset: 0;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
-      background: radial-gradient(
-        circle,
-        rgb(0, 0, 0),
-        rgb(1, 44, 42)
-      );
+      background: radial-gradient(circle, rgb(0, 0, 0), rgb(1, 44, 42));
     }
 
     .star {
@@ -74,26 +72,15 @@
     .image {
       width: 250px;
       height: 250px;
-      border: 2px solid #daf3f1;
       margin: 40px;
       padding: 10px;
+      border: 2px solid #daf3f1;
       transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
     .image:hover {
       transform: scale(1.1);
       border-color: #9900ff;
-    }
-
-    .bottom-left {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      z-index: 10;
-      padding: 10px;
-      color: rgba(255, 255, 255, 0.2);
-      font-size: 16px;
-      pointer-events: none;
     }
 
     #byeBlockerMenu {
@@ -110,7 +97,6 @@
 
     #byeBlockerMenuContent {
       padding: 10px;
-      cursor: move;
     }
 
     #byeBlockerClose {
@@ -122,20 +108,31 @@
     }
 
     #byeBlockerButton {
-      display: block;
       margin-top: 10px;
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
-      background: #333;
-      color: #fff;
       font-family: Arial, sans-serif;
       font-size: 16px;
+      color: #fff;
+      background-color: #333;
       cursor: pointer;
     }
 
     #byeBlockerButton:hover {
-      background: #444;
+      background-color: #444;
+    }
+
+    .bottom-left {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.2);
+      pointer-events: none;
     }
   </style>
 </head>
@@ -187,31 +184,61 @@
       menu.remove();
     });
 
-    launchButton.addEventListener("click", () => {
-      const link = prompt("Url?");
+    launchButton.addEventListener("click", async () => {
+      let link = prompt("Url?");
 
       if (!link) {
         return;
       }
 
-      const proxy = "https://api.codetabs.com/v1/proxy?quest=";
+      link = link.trim();
 
-      fetch(proxy + link)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-          }
+      if (!/^https?:\/\//i.test(link)) {
+        link = "https://" + link;
+      }
 
-          return response.text();
-        })
-        .then(text => {
-          document.open();
-          document.write(text);
-          document.close();
-        })
-        .catch(error => {
-          console.error("ByeBlocker error:", error);
-        });
+      try {
+        new URL(link);
+      } catch {
+        alert("Invalid URL.");
+        return;
+      }
+
+      const proxy =
+        "https://api.codetabs.com/v1/proxy?quest=" +
+        link;
+
+      launchButton.disabled = true;
+      launchButton.textContent = "Loading...";
+
+      try {
+        const response = await fetch(proxy);
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const text = await response.text();
+
+        if (!text) {
+          throw new Error("The proxy returned an empty response.");
+        }
+
+        document.open();
+        document.write(text);
+        document.close();
+
+      } catch (error) {
+        console.error("ByeBlocker:", error);
+
+        alert(
+          "Failed to load the URL.\n\n" +
+          error.message
+        );
+
+        launchButton.disabled = false;
+        launchButton.textContent = "Launch ByeBlocker";
+      }
     });
 
     let isDragging = false;
@@ -219,7 +246,10 @@
     let offsetY = 0;
 
     menuContent.addEventListener("mousedown", event => {
-      if (event.target === closeButton || event.target === launchButton) {
+      if (
+        event.target === closeButton ||
+        event.target === launchButton
+      ) {
         return;
       }
 
