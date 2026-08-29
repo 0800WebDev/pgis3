@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Radio</title>
+	<style>
+	body {
+		font-family: Arial;
+		text-align: center;
+		padding: 20px;
+    background: black;
+    color: white;
+	}
+	
+	select,
+	button {
+		margin: 5px;
+		padding: 5px 10px;
+		font-size: 14px;
+    border: none;
+    border-radius: 8px;
+	}
+	
+	#stations {
+		max-height: 400px;
+		overflow-y: auto;
+		border: 1px solid #ccc;
+		padding: 10px;
+		margin-top: 10px;
+	}
+	
+	#stations button {
+		display: block;
+		width: 90%;
+		margin: 3px auto;
+	}
+	</style>
+</head>
+
+<body>
+	<h1>Radio</h1>
+	<audio id="radio" controls autoplay style="width:80%;margin-top:20px;"></audio>
+	<div style="margin-top:20px;">
+		<label>Genre: </label>
+		<select id="genre">
+			<option value="">All</option>
+			<option value="pop">Pop</option>
+			<option value="rock">Rock</option>
+			<option value="electronic">Electronic</option>
+			<option value="jazz">Jazz</option>
+			<option value="chill">Chill</option>
+		</select>
+		<button onclick="loadStations()">Load Stations</button>
+	</div>
+	<div id="stations">Click "Load Stations" to get stations.</div>
+	<script>
+	const radio = document.getElementById('radio');
+	const stationsDiv = document.getElementById('stations');
+	const genreSelect = document.getElementById('genre');
+	let allStations = [];
+	async function loadStations() {
+		stationsDiv.innerHTML = 'Loading...';
+		try {
+			if(!allStations.length) {
+				const res = await fetch('https://de1.api.radio-browser.info/json/stations/topclick/100');
+				allStations = await res.json();
+			}
+			let filtered = allStations;
+			const genre = genreSelect.value;
+			if(genre) {
+				filtered = allStations.filter(s => s.tags.toLowerCase().includes(genre.toLowerCase()));
+			}
+			stationsDiv.innerHTML = '';
+			if(!filtered.length) {
+				stationsDiv.textContent = 'No stations found.';
+				return;
+			}
+			filtered.forEach(station => {
+				const btn = document.createElement('button');
+				btn.textContent = station.name;
+				btn.onclick = () => {
+					radio.src = station.url_resolved;
+					radio.play().catch(err => console.log('Error playing stream:', err));
+				};
+				stationsDiv.appendChild(btn);
+			});
+		} catch(err) {
+			stationsDiv.textContent = 'Failed to load stations.';
+			console.error(err);
+		}
+	}
+	</script>
+</body>
+
+</html>
