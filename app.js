@@ -76,7 +76,7 @@ if (mode === "same") {
 
 
 <div style="text-align: left; margin: 0; padding: 20px; background: black; color: whitesmoke; font-family: Arial;">
-      <a onclick="location.reload();" style="color: white; text-decoration: underline;">← Back to Homepage</a>
+      <a onclick="location.reload()" style="color: white; text-decoration: underline; cursor: pointer;">← Back to Homepage</a>
       <a href="games/${game}.html" download style="margin-left: 12px;">Download game</a>
      <button
       id="fullscreenBtn"
