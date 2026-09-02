@@ -78,6 +78,24 @@ if (mode === "same") {
 <div style="text-align: left; margin: 0; padding: 20px; background: black; color: whitesmoke; font-family: Arial;">
       <a href="/" style="color: white;">← Back to Homepage</a>
       <a href="games/${game}.html" download style="margin-left: 12px;">Download game</a>
+     <button
+      id="fullscreenBtn"
+      style="position: relative; z-index: 999999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
+      Fullscreen
+    </button>
+
+    <button
+      id="aboutBlankBtn"
+      style="position: relative; z-index: 999999; background: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px; border: medium; cursor: pointer;">
+      Open in about:blank
+    </button>
+
+    <button
+      id="cloakBtn"
+      style="position: relative; z-index: 99999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
+      Cloak tab
+    </button>
+
       <h3 style="text-align: center;">PGIS</h3>
     </div>
   
@@ -88,24 +106,7 @@ if (mode === "same") {
       title="game">
     </iframe>
 
-     <button
-      id="fullscreenBtn"
-      style="position: relative; top: 20px; left: 330px; z-index: 999999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
-      Fullscreen
-    </button>
-
-    <button
-      id="aboutBlankBtn"
-      style="position: relative; top: 20px; left: 410px; z-index: 999999; background: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px; border: medium; cursor: pointer;">
-      Open in about:blank
-    </button>
-
-    <button
-      id="cloakBtn"
-      style="position: relative; top: 20px; left: 548px; z-index: 99999; border: medium; cursor: pointer; background-color: rgb(68, 68, 68); color: whitesmoke; border-radius: 5px;">
-      Cloak tab
-    </button>
-
+     
 
     
 
