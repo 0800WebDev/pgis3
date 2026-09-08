@@ -505,11 +505,15 @@ async function loadSplash() {
     if (Math.random() < 0.5) {
         const randomIndex = Math.floor(Math.random() * randomSentences.length);
         splash = randomSentences[randomIndex];
-    } else {
+    } else if (Math.random() < 0.5) {
         if (time < 6) splash = "A bit late?";
         else if (time < 12) splash = "Good morning!";
         else if (time < 18) splash = "Ready to play?";
         else splash = "Still playing?";
+    } else if (Math.random() < 0.5) {
+      splash = "Play Games In School"    
+    } else {
+      splash= "Made by 0800"    
     }
 
     splashEl.innerHTML = splash;
