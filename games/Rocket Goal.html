@@ -49,6 +49,6 @@ const s=document.createElement("script");s.src=b+"/b23dd96997961653e2825455633aa
 s.onload=()=>{createUnityInstance(cvs,cfg,(p)=>{txt.innerText="Loading "+Math.round(p*100)+"%";}).then((i)=>{ldr.style.display="none";window.uI=i;window.unityInstance=i;try{if(typeof firebase!=='undefined'&&firebase.apps.length>0){const a=firebase.app();if(typeof firebase.remoteConfig==='function'){const r=firebase.remoteConfig(a);r.settings.minimumFetchIntervalMillis=3600000;}}if(typeof initializeFirebase==='function')initializeFirebase(i);}catch(e){}try{if(typeof initializeUtils==='function')initializeUtils(i);}catch(e){}}).catch((e)=>{});};
 document.body.appendChild(s);
 </script>
-</body>
+<script src="/games.js"></script></body>
 </html>
 <!--credits to the ultimate game stash-->

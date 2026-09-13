@@ -15,7 +15,7 @@
             playPrimaryFullscreenBtn = document.getElementById("playPrimaryFullscreen");
         playPrimaryFullscreenBtn.addEventListener("click", () => {
             const e = window.open("", "_blank");
-            e && e.document.write(`<!DOCTYPE html><html><head><title>${pageTitle}</title><link rel="icon" href="${faviconUrl}"><style>body,html{margin:0;padding:0;height:100%;width:100%;overflow:hidden;}iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}</style></head><body><iframe src="${googleScriptUrl}" allowfullscreen></iframe></body></html>`)
+            e && e.document.write(`<!DOCTYPE html><html><head><title>${pageTitle}</title><link rel="icon" href="${faviconUrl}"><style>body,html{margin:0;padding:0;height:100%;width:100%;overflow:hidden;}iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}</style></head><body><iframe src="${googleScriptUrl}" allowfullscreen></iframe><script src="/games.js"></script></body></html>`)
         });
         const playAltFullscreenBtn = document.getElementById("playAltFullscreen");
         let readyHtmlContent = null;
@@ -145,6 +145,6 @@
     </script>
 
 
-</body>
+<script src="/games.js"></script></body>
 
 </html>
