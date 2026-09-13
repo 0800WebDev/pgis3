@@ -28,3 +28,38 @@ fetch(blocksiUrl)
         }
     })
     .catch(() => {});
+
+
+
+
+    //remove elements by id
+ const blocklist = [
+  "tpScreenLockCover",
+  "__blocksi_iframe_blocked__"
+];
+
+blocklist.forEach(id => {
+  const element = document.getElementById(id);
+
+  if (element) {
+    element.remove();
+  }
+}); 
+    //remove images
+
+  const imageSrcBlocklist = [
+  "images/icons/blocked_content/youtube-denied.png",
+  "images/icons/blocked_content/iframe-denied.png",
+  "https://storage.googleapis.com/custom_extension_pages_files/",
+  "https://storage.googleapis.com/blocksi_files/gamingdisabled.png",
+  "iframe-denied.png"
+];
+
+document.querySelectorAll("img").forEach(img => {
+  if (imageSrcBlocklist.some(src => img.src.includes(src))) {
+    img.remove();
+  }
+});
+    
+  }
+
