@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "games/*.html"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -19,7 +20,12 @@ jobs:
         run: |
           for file in games/*.html; do
             grep -q '<script src="/games.js"></script>' "$file" && continue
-            sed -i 's|</body>|<script src="/games.js"></script></body>|' "$file"
+
+            if grep -qi '</body>' "$file"; then
+              sed -i 's|</body>|<script src="/games.js"></script></body>|I' "$file"
+            else
+              printf '\n<script src="/games.js"></script>\n' >> "$file"
+            fi
           done
 
       - name: Commit changes
