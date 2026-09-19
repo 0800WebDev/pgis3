@@ -1,0 +1,18 @@
+<h1>test</h1>
+<script>
+    async function replacePageWithHTML(url) {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        throw new Error(`Failed to load ${url}: ${response.status}`);
+    }
+
+    const html = await response.text();
+
+    document.open();
+    document.write(html);
+    document.close();
+}
+
+replacePageWithHTML("/index.html");
+</script>
