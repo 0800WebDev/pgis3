@@ -379,7 +379,7 @@ li {
         </div>
                                 </main>
 <script>
-    async function replacePageWithHTML(url) {
+    async function replacePage(url) {
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -387,13 +387,19 @@ li {
     }
 
     const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+
+    const base = doc.createElement("base");
+    base.href = new URL(url, location.href).href;
+
+    doc.head.prepend(base);
 
     document.open();
-    document.write(html);
+    document.write("<!DOCTYPE html>" + doc.documentElement.outerHTML);
     document.close();
 }
 
-replacePageWithHTML("/content.html");
+replacePage("/content.html");
 </script>
 </body>
 </html>
