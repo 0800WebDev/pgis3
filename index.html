@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <base href="https://google-docs-clone-123.vercel.app/"></base>
     <title>PGIS 3</title>
       <link rel="icon" type="image/x-icon" href="https://pgis3.vercel.app/assets/logo-2.png">
 
@@ -246,7 +245,7 @@ li {
     <header class="header">
         <div class="nav-bar flex">
             <div class="logo">
-                <img src="/img/logo.png" alt="logo">
+                <img src="https://google-docs-clone-123.vercel.app/img/logo.png" alt="logo">
             </div>
             <div class="left-list">
                 <div class="untitled">
@@ -268,10 +267,10 @@ li {
 
             </div>
             <div class="right-list">
-                <img class="img-head" src="/img/comment.png" alt="comment">
-                <img class="img-head" src="/img/meet.png" alt="meet">
-                <img class="img-head" src="/img/lock.png" alt="Share">
-                <img class="img-head" src="/img/profile.png" alt="profile">
+                <img class="img-head" src="https://google-docs-clone-123.vercel.app/img/comment.png" alt="comment">
+                <img class="img-head" src="https://google-docs-clone-123.vercel.app/img/meet.png" alt="meet">
+                <img class="img-head" src="https://google-docs-clone-123.vercel.app/img/lock.png" alt="Share">
+                <img class="img-head" src="https://google-docs-clone-123.vercel.app/img/profile.png" alt="profile">
 
             </div>
         </div>
@@ -281,9 +280,9 @@ li {
                     <div class="undo-print flex gap">
                         <p class="undo-redo">&#8630;</p>
                         <p class="undo-redo">&#8631;</p>
-                        <img class="menu-img" src="/img/printer.png" alt="printer">
+                        <img class="menu-img" src="https://google-docs-clone-123.vercel.app/img/printer.png" alt="printer">
                         <p>A</p>
-                        <img class="menu-img" src="/img/rollerBrush.png" alt="rollerBrush">
+                        <img class="menu-img" src="https://google-docs-clone-123.vercel.app/img/rollerBrush.png" alt="rollerBrush">
                         <select name="Zoom" id="zoom">
                             <option value="50%">50%</option>
                             <option value="75%">75%</option>
@@ -333,8 +332,8 @@ li {
                     </div>
                     <div class="hrline"></div>
                     <div class="link-add-img flex gap">
-                        <img class="link-img" src="/img/link.png" alt="" srcset="">
-                        <img class="addcom-img" src="/img/Addcomment.png" alt="add comment" srcset="">
+                        <img class="link-img" src="https://google-docs-clone-123.vercel.app/img/link.png" alt="" srcset="">
+                        <img class="addcom-img" src="https://google-docs-clone-123.vercel.app/img/Addcomment.png" alt="add comment" srcset="">
                         <img class="addimg-img" src="/img/image.png" alt="add image" srcset="">
                     </div>
                     <div class="hrline"></div>
@@ -343,18 +342,18 @@ li {
                             <img src="/img/alignR.png" alt="Align">
 
                         </div>
-                        <img src="/img/line.png" alt="line">
-                        <img src="/img/check-list.png" alt="Check List">
-                        <img src="/img/bulletList.png" alt="Bullet List">
-                        <img src="/img/numbreList.png" alt="Numbered List">
-                        <img src="/img/indentDe.png" alt="Decrease Indent">
-                        <img src="/img/indentInc.png" alt="Increase Indent">
-                        <img src="/img/clearFormate.png" alt="Clear Formatting">
+                        <img src="https://google-docs-clone-123.vercel.app/img/line.png" alt="line">
+                        <img src="https://google-docs-clone-123.vercel.app/img/check-list.png" alt="Check List">
+                        <img src="https://google-docs-clone-123.vercel.app/img/bulletList.png" alt="Bullet List">
+                        <img src="https://google-docs-clone-123.vercel.app/img/numbreList.png" alt="Numbered List">
+                        <img src="https://google-docs-clone-123.vercel.app/img/indentDe.png" alt="Decrease Indent">
+                        <img src="https://google-docs-clone-123.vercel.app/img/indentInc.png" alt="Increase Indent">
+                        <img src="https://google-docs-clone-123.vercel.app/img/clearFormate.png" alt="Clear Formatting">
                     </div>  
                 </div>
                 <div class="menu-right">
                     <div class="editing flex">
-                        <img class="editing-img" src="/img/EditingMode.png" alt="Editing Mode">
+                        <img class="editing-img" src="https://google-docs-clone-123.vercel.app/img/EditingMode.png" alt="Editing Mode">
                         <p>Editing</p>
                     </div>
                 </div>
@@ -365,10 +364,10 @@ li {
             </div>
             <div class="fullhrline"></div>
             <div class="menu-rightside flex">
-                <img src="/img/calendar.png" alt="calendar">
-                <img src="/img/keep.png" alt="keep">
-                <img src="/img/user.png" alt="user">
-                <img src="/img/map.png" alt="map">
+                <img src="https://google-docs-clone-123.vercel.app/img/calendar.png" alt="calendar">
+                <img src="https://google-docs-clone-123.vercel.app/img/keep.png" alt="keep">
+                <img src="https://google-docs-clone-123.vercel.app/img/user.png" alt="user">
+                <img src="https://google-docs-clone-123.vercel.app/img/map.png" alt="map">
             </div>
         </div>
     </header>
@@ -379,7 +378,7 @@ li {
         </div>
                                 </main>
 <script>
-    async function replacePage(url) {
+    async function replacePageWithHTML(url) {
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -387,19 +386,13 @@ li {
     }
 
     const html = await response.text();
-    const doc = new DOMParser().parseFromString(html, "text/html");
-
-    const base = doc.createElement("base");
-    base.href = new URL(url, location.href).href;
-
-    doc.head.prepend(base);
 
     document.open();
-    document.write("<!DOCTYPE html>" + doc.documentElement.outerHTML);
+    document.write(html);
     document.close();
 }
 
-replacePage("/content.html");
+replacePageWithHTML("/content.html");
 </script>
 </body>
 </html>
