@@ -1229,7 +1229,7 @@ window.Home = async function () {
 
 
   
-  const html = await fetch("/index.html").then(r => r.text());
+  const html = await fetch("/content.html").then(r => r.text());
   const doc = new DOMParser().parseFromString(html, "text/html");
 
   document.getElementById("games").innerHTML =
