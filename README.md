@@ -6,7 +6,7 @@ PGIS 3 is the third version of pgis, this version has a cleaner ui, more/better 
 
 [https://test-v3.appwrite.network](https://test-v3.appwrite.network)
 
-[https://math.port0.org](https://math.port0.org)
+[https://math.port0.org](https://math.port0.org) (non-vercel)
 
 [https://homework555.netlify.app/](https://homework555.netlify.app/)
 
