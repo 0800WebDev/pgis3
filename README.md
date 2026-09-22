@@ -12,6 +12,8 @@ PGIS 3 is the third version of pgis, this version has a cleaner ui, more/better 
 
 [http://math.bumon.ar](http://math.bumon.ar)
 
+[http://edu.meridiano.com.br](http://edu.meridiano.com.br)
+
 ## single-file
 
 To use PGIS 3 as a single html file that ou can use everywhere, simply download or copy [single-file.html](https://github.com/0800WebDev/pgis3/blob/main/single-file.html).
