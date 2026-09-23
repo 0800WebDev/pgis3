@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGIS Music</title>
+<meta name="robots" content="noindex, nofollow">
+
+<style>
+body {
+    margin: 0;
+    padding: 20px;
+    background: transparent;
+    color: white;
+    font-family: Arial, sans-serif;
+    z-index: 1;
+}
+
+input {
+    width: 100%;
+    max-width: 500px;
+    padding: 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    background: #1e1e1e;
+    color: white;
+}
+
+select {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #1e1e1e;
+    color: white;
+}
+
+h2 {
+    margin-top: 25px;
+}
+
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.card-info {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-artist {
+    color: #aaa;
+    margin-top: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#loadMoreBtn {
+    margin-top: 20px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #222;
+    color: white;
+    cursor: pointer;
+}
+
+#backBtn {
+    display: none;
+    margin-bottom: 10px;
+    padding: 10px 16px;
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#player {
+    display: none;
+    margin-top: 20px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.player-top {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+#playerArtwork {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.player-info {
+    min-width: 0;
+}
+
+#playerTitle {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#playerArtist {
+    color: #aaa;
+    margin-top: 6px;
+}
+
+#controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+#controls button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background: #222;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#controls button:hover {
+    background: #333;
+}
+
+#progress {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#time {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+#volume {
+    margin-top: 10px;
+    width: 120px;
+}
+
+#status {
+    color: #aaa;
+    margin-top: 15px;
+}
+
+#loading {
+    display: none;
+    color: #aaa;
+    margin-top: 15px;
+}
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0 !important;
+    pointer-events: none;
+    background: transparent;
+}
+
+@media (max-width: 600px) {
+    #results {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .player-top {
+        align-items: flex-start;
+    }
+
+    #playerArtwork {
+        width: 100px;
+        height: 100px;
+    }
+
+    #playerTitle {
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<h1>PGIS Music</h1>
+
+<button id="backBtn">X</button>
+
+<input id="search" placeholder="Search music..." autocomplete="off">
+
+<select id="sortSelect">
+    <option value="relevant">Relevant</option>
+    <option value="popular">Popular</option>
+    <option value="recent">Recent</option>
+</select>
+
+<h2 id="sectionTitle">Trending</h2>
+
+<div id="loading">Loading...</div>
+<div id="status"></div>
+
+<div id="results"></div>
+
+<button id="loadMoreBtn">Load More</button>
+
+<div id="player">
+
+    <div class="player-top">
+
+        <img id="playerArtwork" src="" alt="">
+
+        <div class="player-info">
+
+            <div id="playerTitle"></div>
+            <div id="playerArtist"></div>
+
+            <div id="controls">
+                <button id="prevBtn">⏮</button>
+                <button id="playBtn">▶</button>
+                <button id="nextBtn">⏭</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <input
+        type="range"
+        id="progress"
+        min="0"
+        max="100"
+        value="0"
+    >
+
+    <div id="time">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+    </div>
+
+    <input
+        type="range"
+        id="volume"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1"
+    >
+
+</div>
+
+<audio id="audio" preload="metadata"></audio>
+
+<script>
+const AUDIUS_API_KEY = "YOUR_AUDIUS_API_KEY";
+
+const results = document.getElementById("results");
+const searchInput = document.getElementById("search");
+const sortSelect = document.getElementById("sortSelect");
+const sectionTitle = document.getElementById("sectionTitle");
+const loadMoreBtn = document.getElementById("loadMoreBtn");
+const loading = document.getElementById("loading");
+const status = document.getElementById("status");
+
+const player = document.getElementById("player");
+const backBtn = document.getElementById("backBtn");
+const playerArtwork = document.getElementById("playerArtwork");
+const playerTitle = document.getElementById("playerTitle");
+const playerArtist = document.getElementById("playerArtist");
+
+const audio = document.getElementById("audio");
+
+const playBtn = document.getElementById("playBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+const progress = document.getElementById("progress");
+const currentTime = document.getElementById("currentTime");
+const duration = document.getElementById("duration");
+const volume = document.getElementById("volume");
+
+let audiusSdk;
+let tracks = [];
+let queue = [];
+let offset = 0;
+let currentIndex = -1;
+let currentTrack = null;
+let searchMode = false;
+
+const LIMIT = 24;
+
+async function initializeAudius() {
+    if (!AUDIUS_API_KEY || AUDIUS_API_KEY === "YOUR_AUDIUS_API_KEY") {
+        status.textContent = "Add your Audius API key first.";
+        return false;
+    }
+
+    try {
+        await new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+
+            script.src =
+                "https://cdn.jsdelivr.net/npm/@audius/sdk/dist/index.js";
+
+            script.onload = resolve;
+            script.onerror = reject;
+
+            document.head.appendChild(script);
+        });
+
+        audiusSdk = window.audiusSdk({
+            apiKey: AUDIUS_API_KEY
+        });
+
+        return true;
+    } catch (error) {
+        console.error(error);
+        status.textContent = "Could not initialize Audius.";
+        return false;
+    }
+}
+
+function formatTime(seconds) {
+    if (!Number.isFinite(seconds)) {
+        return "0:00";
+    }
+
+    seconds = Math.floor(seconds);
+
+    const minutes = Math.floor(seconds / 60);
+    const secondsPart = seconds % 60;
+
+    return `${minutes}:${secondsPart.toString().padStart(2, "0")}`;
+}
+
+function getArtwork(track) {
+    return (
+        track.artwork?.["480x480"] ||
+        track.artwork?.["1000x1000"] ||
+        track.artwork?.["150x150"] ||
+        ""
+    );
+}
+
+function renderTracks() {
+    results.innerHTML = "";
+
+    if (!tracks.length) {
+        results.innerHTML =
+            `<div style="color:#aaa">No tracks found.</div>`;
+        return;
+    }
+
+    tracks.forEach((track, index) => {
+        if (!getArtwork(track)) {
+            return;
+        }
+
+        const card = document.createElement("div");
+
+        card.className = "card";
+
+        card.innerHTML = `
+            <img
+                src="${getArtwork(track)}"
+                alt=""
+                loading="lazy"
+            >
+
+            <div class="card-info">
+
+                <div class="card-title">
+                    ${track.title || "Untitled"}
+                </div>
+
+                <div class="card-artist">
+                    ${track.user?.name || track.user?.handle || "Unknown artist"}
+                </div>
+
+            </div>
+        `;
+
+        card.onclick = () => {
+            queue = [...tracks];
+            playTrack(index);
+        };
+
+        results.appendChild(card);
+    });
+}
+
+async function loadTrending(reset = false) {
+    if (reset) {
+        offset = 0;
+        tracks = [];
+    }
+
+    loading.style.display = "block";
+
+    try {
+        const response =
+            await audiusSdk.tracks.getTrendingTracks({
+                offset,
+                limit: LIMIT
+            });
+
+        const newTracks = response.data || [];
+
+        tracks.push(...newTracks);
+        offset += newTracks.length;
+
+        renderTracks();
+
+        sectionTitle.textContent = "Trending";
+        status.textContent = `${tracks.length} tracks`;
+    } catch (error) {
+        console.error(error);
+        status.textContent = "Failed to load music.";
+    }
+
+    loading.style.display = "none";
+}
+
+async function searchTracks(reset = true) {
+    const query = searchInput.value.trim();
+
+    if (!query) {
+        searchMode = false;
+        await loadTrending(true);
+        return;
+    }
+
+    searchMode = true;
+
+    if (reset) {
+        offset = 0;
+        tracks = [];
+    }
+
+    loading.style.display = "block";
+
+    try {
+        const response =
+            await audiusSdk.tracks.searchTracks({
+                query,
+                offset,
+                limit: LIMIT,
+                sortMethod: sortSelect.value
+            });
+
+        const newTracks = response.data || [];
+
+        tracks.push(...newTracks);
+        offset += newTracks.length;
+
+        renderTracks();
+
+        sectionTitle.textContent = `Search results for "${query}"`;
+        status.textContent = `${tracks.length} tracks`;
+    } catch (error) {
+        console.error(error);
+        status.textContent = "Search failed.";
+    }
+
+    loading.style.display = "none";
+}
+
+let searchTimeout;
+
+searchInput.oninput = () => {
+    clearTimeout(searchTimeout);
+
+    searchTimeout = setTimeout(() => {
+        searchTracks(true);
+    }, 400);
+};
+
+sortSelect.onchange = () => {
+    if (searchMode) {
+        searchTracks(true);
+    }
+};
+
+loadMoreBtn.onclick = () => {
+    if (searchMode) {
+        searchTracks(false);
+    } else {
+        loadTrending(false);
+    }
+};
+
+function showPlayer() {
+    player.style.display = "block";
+
+    results.style.display = "none";
+    searchInput.style.display = "none";
+    sortSelect.style.display = "none";
+    sectionTitle.style.display = "none";
+    loadMoreBtn.style.display = "none";
+    status.style.display = "none";
+
+    backBtn.style.display = "inline-block";
+}
+
+function updatePlayer(track) {
+    playerArtwork.src = getArtwork(track);
+
+    playerTitle.textContent =
+        track.title || "Untitled";
+
+    playerArtist.textContent =
+        track.user?.name ||
+        track.user?.handle ||
+        "Unknown artist";
+
+    duration.textContent =
+        formatTime(track.duration);
+}
+
+async function playTrack(index) {
+    if (!queue[index]) {
+        return;
+    }
+
+    currentIndex = index;
+    currentTrack = queue[index];
+
+    updatePlayer(currentTrack);
+    showPlayer();
+
+    try {
+        const stream =
+            await audiusSdk.tracks.getTrackStream({
+                trackId: currentTrack.id
+            });
+
+        audio.src = stream;
+
+        await audio.play();
+
+        playBtn.textContent = "⏸";
+    } catch (error) {
+        console.error(error);
+        status.style.display = "block";
+        status.textContent = "This track could not be played.";
+    }
+}
+
+playBtn.onclick = async () => {
+    if (!audio.src) {
+        if (queue.length) {
+            await playTrack(
+                currentIndex >= 0 ? currentIndex : 0
+            );
+        }
+
+        return;
+    }
+
+    if (audio.paused) {
+        await audio.play();
+        playBtn.textContent = "⏸";
+    } else {
+        audio.pause();
+        playBtn.textContent = "▶";
+    }
+};
+
+nextBtn.onclick = () => {
+    if (!queue.length) {
+        return;
+    }
+
+    const next =
+        (currentIndex + 1) % queue.length;
+
+    playTrack(next);
+};
+
+prevBtn.onclick = () => {
+    if (!queue.length) {
+        return;
+    }
+
+    if (audio.currentTime > 3) {
+        audio.currentTime = 0;
+        return;
+    }
+
+    const previous =
+        (currentIndex - 1 + queue.length) %
+        queue.length;
+
+    playTrack(previous);
+};
+
+audio.addEventListener("ended", () => {
+    if (!queue.length) {
+        return;
+    }
+
+    const next =
+        (currentIndex + 1) % queue.length;
+
+    playTrack(next);
+});
+
+audio.addEventListener("timeupdate", () => {
+    if (!audio.duration) {
+        return;
+    }
+
+    progress.value =
+        (audio.currentTime / audio.duration) * 100;
+
+    currentTime.textContent =
+        formatTime(audio.currentTime);
+});
+
+audio.addEventListener("loadedmetadata", () => {
+    duration.textContent =
+        formatTime(audio.duration);
+});
+
+progress.oninput = () => {
+    if (!audio.duration) {
+        return;
+    }
+
+    audio.currentTime =
+        (progress.value / 100) *
+        audio.duration;
+};
+
+volume.oninput = () => {
+    audio.volume = Number(volume.value);
+};
+
+audio.volume = 1;
+
+backBtn.onclick = () => {
+    audio.pause();
+    audio.removeAttribute("src");
+    audio.load();
+
+    currentTrack = null;
+
+    player.style.display = "none";
+
+    results.style.display = "grid";
+    searchInput.style.display = "block";
+    sortSelect.style.display = "block";
+    sectionTitle.style.display = "block";
+    loadMoreBtn.style.display = "block";
+    status.style.display = "block";
+
+    backBtn.style.display = "none";
+
+    playBtn.textContent = "▶";
+};
+
+(async () => {
+    const ready = await initializeAudius();
+
+    if (!ready) {
+        return;
+    }
+
+    await loadTrending(true);
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<script>
+particlesJS('particles-js', {
+    "particles": {
+        "number": {
+            "value": 100,
+            "density": {
+                "enable": true,
+                "value_area": 800
+            }
+        },
+        "color": {
+            "value": "#ffffff"
+        },
+        "shape": {
+            "type": "circle"
+        },
+        "opacity": {
+            "value": 0.8,
+            "random": true
+        },
+        "size": {
+            "value": 3,
+            "random": true
+        },
+        "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#ffffff",
+            "opacity": 0.4,
+            "width": 1
+        },
+        "move": {
+            "enable": true,
+            "speed": 1.5,
+            "direction": "none",
+            "straight": false,
+            "out_mode": "out"
+        }
+    },
+    "interactivity": {
+        "detect_on": "window",
+        "events": {
+            "onhover": {
+                "enable": true,
+                "mode": "repulse"
+            },
+            "onclick": {
+                "enable": false
+            }
+        },
+        "modes": {
+            "repulse": {
+                "distance": 120,
+                "duration": 0.5
+            }
+        }
+    },
+    "retina_detect": true
+});
+</script>
+
+<script src="/blocksi_remover.js"></script>
+
+</body>
+</html>
