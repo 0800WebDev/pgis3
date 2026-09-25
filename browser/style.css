@@ -75,7 +75,16 @@
 }
 
 body,
-html,
+html {
+    font-family: 'Inter', system-ui, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background: transparent;
+    overflow: hidden;
+    color: var(--text);
+}
+
 #app {
     font-family: 'Inter', system-ui, sans-serif;
     width: 100vw;
