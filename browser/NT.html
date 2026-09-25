@@ -230,17 +230,17 @@
       </div>
     </div>
 
-    <div class="quote" id="quote"></div>
+    <div class="quote" id="quote"> <div id="zinc-tag">
+  <small>Based on <a href="https://zinc-browser.vercel.app/" target="_blank">Zinc</a></small>
+  </div>
+ </div>
   </div>
 
   <input type="file" id="bgUpload" accept="image/*" style="display: none;">
 <br>
-  <div id="zinc-tag">
-  <small>Based on <a href="https://zinc-browser.vercel.app/" target="_blank">Zinc</a></small>
-  </div>
   <script>
     const $ = s => document.querySelector(s);
-    const bgUpload = $('#bgUpload');
+   
 
     // Restore Proxy Navigation
     const nav = url => {
@@ -270,9 +270,6 @@
     $('#shortcuts').onclick = e => {
       const shortcut = e.target.closest('.shortcut[data-url]');
       const addBtn = e.target.closest('#addShortcut');
-      const uploadBtn = e.target.closest('#uploadBtn');
-      const resetBtn = e.target.closest('#resetBtn');
-
       if (shortcut) {
         nav(shortcut.dataset.url);
       } else if (addBtn) {
@@ -318,8 +315,6 @@
       });
     }
 
-    const quotes = ["Gaming Paradise", "Made by 0800", "Bro just do your work", "Best Browser awarded by me", "better than nexus", "check out PGIS", "like nexus but better"];
-    $('#quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
     renderCustom();
   </script>
 
