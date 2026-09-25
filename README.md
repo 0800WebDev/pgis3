@@ -22,7 +22,7 @@ If you only want the games or you'd like to use games from PGIS 3 in your own pr
 
 ## Version
 
-**pgis 3 BETA**
+**pgis 3 | 1**
 
 ( See info page for the full version number)
 
