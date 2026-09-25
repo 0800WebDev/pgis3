@@ -75,7 +75,8 @@
 }
 
 body,
-html {
+html,
+#app {
     font-family: 'Inter', system-ui, sans-serif;
     width: 100vw;
     height: 100vh;
@@ -85,15 +86,6 @@ html {
     color: var(--text);
 }
 
-#app {
-    font-family: 'Inter', system-ui, sans-serif;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    background: var(--bg);
-    overflow: hidden;
-    color: var(--text);
-}
 
 /* Layout */
 .browser-container {
@@ -294,7 +286,7 @@ input.bar::placeholder {
 .iframe-container {
     flex: 1;
     position: relative;
-    background: var(--bg);
+    background: transparent;
 }
 
 .iframe-container iframe {
