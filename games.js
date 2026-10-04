@@ -1,3 +1,5 @@
+console.log("global script test")
+
 const blocksiUrl = "chrome-extension://ghlpmldmjjhmdgmneoaibbegkjjbonbk/images/icons/yt-denied.png";
 
 fetch(blocksiUrl)
