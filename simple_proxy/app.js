@@ -13,12 +13,12 @@
       }
     });
     await scramjet.init();
-    const connection = new BareMux.BareMuxConnection(base + "/browser/bareworker.js");
+    const connection = new BareMux.BareMuxConnection(base + "bareworker.js");
     await connection.setTransport(
       "https://cdn.jsdelivr.net/npm/@mercuryworkshop/epoxy-transport@2.1.28/dist/index.mjs",
       [{ wisp }]
     );
-    const registration = await navigator.serviceWorker.register(base + "/browser/sw.js", { scope: base });
+    const registration = await navigator.serviceWorker.register(base + "sw.js", { scope: base });
     await navigator.serviceWorker.ready;
     registration.active?.postMessage({ type: "config", wispurl: wisp, servers: [{ name: "Default", group: "Default", url: wisp }], autoswitch: false });
     const frame = scramjet.createFrame();
