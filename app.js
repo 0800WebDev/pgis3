@@ -1615,7 +1615,84 @@ document.addEventListener("click", (e) => {
 const KEY = "theme";
 
 function apply(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
+  const ID = 'invert-style';
+  const FILTER = 'invert(100%)';
+  const MEDIA = 'img, picture, video, canvas, svg, [style*="background-image"]';
+  const FRAME_SEL = '#games iframe, iframe[src*="/browser"]';
+
+  const scoped = MEDIA.split(',').map(s => '#games ' + s.trim()).join(', ');
+  const mediaRule = `${MEDIA} { filter: ${FILTER} !important; }`;
+
+  function isBrowserFrame(iframe) {
+    const attr = iframe.getAttribute('src') || '';
+    let resolved = '';
+    try { resolved = iframe.src || ''; } catch (e) {}
+    return attr.includes('/browser') || resolved.includes('/browser');
+  }
+
+  function setStyle(doc, css, on) {
+    const root = doc.head || doc.documentElement;
+    if (!root) return;
+    let s = doc.getElementById(ID);
+    if (!on) {
+      s?.remove();
+      return;
+    }
+    if (!s) {
+      s = doc.createElement('style');
+      s.id = ID;
+      root.appendChild(s);
+    }
+    s.textContent = css;
+  }
+
+  function handleFrame(iframe, on) {
+    const run = () => {
+      if (isBrowserFrame(iframe)) {
+        iframe.style.filter = on ? FILTER : '';
+        return;
+      }
+
+      let doc = null;
+      try { doc = iframe.contentDocument; } catch (e) {}
+
+      if (doc && doc.documentElement) {
+        iframe.style.filter = '';
+        setStyle(doc, mediaRule, on);
+        doc.querySelectorAll('iframe').forEach(f => handleFrame(f, on));
+      } else {
+        iframe.style.filter = on ? FILTER : '';
+      }
+    };
+
+    run();
+    if (iframe.__invertLoad) iframe.removeEventListener('load', iframe.__invertLoad);
+    if (on) {
+      iframe.addEventListener('load', run);
+      iframe.__invertLoad = run;
+    } else {
+      delete iframe.__invertLoad;
+    }
+  }
+
+  const turnOn = theme === "light";
+
+  setStyle(document, `
+    html { filter: ${FILTER}; }
+    ${scoped} { filter: ${FILTER} !important; }
+  `, turnOn);
+
+  document.querySelectorAll(FRAME_SEL).forEach(f => handleFrame(f, turnOn));
+
+  window.__invertObserver?.disconnect();
+  if (turnOn) {
+    window.__invertObserver = new MutationObserver(() => {
+      document.querySelectorAll(FRAME_SEL).forEach(f => {
+        if (!f.__invertLoad) handleFrame(f, true);
+      });
+    });
+    window.__invertObserver.observe(document.documentElement, { childList: true, subtree: true });
+  }
 
   const btn = document.getElementById("themeToggle");
   if (btn) {
