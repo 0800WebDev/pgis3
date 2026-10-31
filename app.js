@@ -1623,12 +1623,12 @@ function apply(theme) {
   const scoped = MEDIA.split(',').map(s => '#games ' + s.trim()).join(', ');
   const mediaRule = `${MEDIA} { filter: ${FILTER} !important; }`;
 
-  function isBrowserFrame(iframe) {
-    const attr = iframe.getAttribute('src') || '';
-    let resolved = '';
-    try { resolved = iframe.src || ''; } catch (e) {}
-    return attr.includes('/browser') || resolved.includes('/browser');
-  }
+function skipFrame(iframe) {
+  const attr = iframe.getAttribute('src') || '';
+  let resolved = '';
+  try { resolved = iframe.src || ''; } catch (e) {}
+  return ['/browser', '/games'].some(path => attr.includes(path) || resolved.includes(path));
+}
 
   function setStyle(doc, css, on) {
     const root = doc.head || doc.documentElement;
@@ -1648,7 +1648,7 @@ function apply(theme) {
 
   function handleFrame(iframe, on) {
     const run = () => {
-      if (isBrowserFrame(iframe)) {
+      if (skipFrame(iframe)) {
         iframe.style.filter = on ? FILTER : '';
         return;
       }
