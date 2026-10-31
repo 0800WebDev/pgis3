@@ -1618,16 +1618,18 @@ function apply(theme) {
   const ID = 'invert-style';
   const FILTER = 'invert(100%)';
   const MEDIA = 'img, picture, video, canvas, svg, [style*="background-image"]';
-  const FRAME_SEL = '#games iframe, iframe[src*="/browser"]';
+  const FRAME_SEL = 'iframe';
 
   const scoped = MEDIA.split(',').map(s => '#games ' + s.trim()).join(', ');
   const mediaRule = `${MEDIA} { filter: ${FILTER} !important; }`;
 
 function skipFrame(iframe) {
-  const attr = iframe.getAttribute('src') || '';
-  let resolved = '';
-  try { resolved = iframe.src || ''; } catch (e) {}
-  return ['/browser', '/games'].some(path => attr.includes(path) || resolved.includes(path));
+  let url = '';
+  try {
+    url = new URL(iframe.getAttribute('src') || iframe.src, document.baseURI).pathname;
+  } catch (e) {}
+
+  return /(^|\/)(browser|games)(\/|$)/i.test(url);
 }
 
   function setStyle(doc, css, on) {
